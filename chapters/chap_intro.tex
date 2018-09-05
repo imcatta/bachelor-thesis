@@ -1,18 +1,65 @@
 \chapter{Introduzione}
-\label{chap:Introduzione}
 
-
-La Blockchain è uno degli argomenti più caldi nell'industria dell'IT. In questo 
+La Blockchain è uno degli argomenti più caldi nell'industria dell'IT. In questo
 capitolo cercheremo di fare chiarezza, partendo dalle origini di questa tecnologia
 sino ad arrivare allo stato dell'arte odierno.
 
 \section{DLT}
-Per capire cosa è una \textbf{Distribuited Ledger Technology} è necessario 
+Per capire cosa è una  è necessario
 innanzitutto chiarire il concetto di Ledger.
 
-Un \textit{Ledger}, parola che in italiano traduciamo come \textit{Libro Mastro}, 
-è il registro principale in cui sono riunite tutte le transazioni economiche 
-che compongono un dato sistema contabile. Si tratta in sostanza di un documento
+Un \textit{Ledger}, parola che in italiano traduciamo come \textit{Libro Mastro},
+è il registro principale in cui sono riunite tutte le transazioni economiche
+che compongono un dato sistema contabile. In sostanza si tratta di un documento
 nel quale vengono registrate tutte le transazioni economiche, dove viene
-indicata la data della transazione, la cifra scambiata e i soggetti coinvolti 
-nella transazione (chi dà e chi riceve).
+indicata la data della transazione, la cifra scambiata e i soggetti coinvolti
+nella transazione (chi dà e chi riceve). Le modifiche apportate possono essere solo
+di tipo incrementale: non si possono apportare modifiche o cancellare record,
+ma solo aggiungere nuove righe al ledger.
+
+Poiché di fatto contiene tutta la storia del sistema contabile, il legder è anche
+lo strumento da consultare quando si vuole stabilire quanto denaro possiede un certo
+individuo, e se quindi può effettuare un pagamento oppure no per insufficienza
+di fondi.
+
+Il Ledger è uno strumento che da secoli viene usato dall'uomo. Le implementazioni 
+classiche si basano su un soggetto fidato, come ad esempio una banca, che è 
+l'unico ad essere autorizzato ad apportare modifiche. In questo modo è 
+
+Una \textbf{Distribuited Ledger Technology}
+
+\section{Blockchain}
+La \textbf{Blockchain} non è altro che una tipologia di DLT. Spesso nell'linguaggio
+comune queste due parole vengono usate come sinonimi, ma in questa tesi ci impegneremo
+nel mantenere questa distinzione.
+
+Una Blockchain è una catena di transazioni in continua crescita. I transazioni sono
+raggruppati in blocchi, e questi blocchi sono collegati tra di loro con tecniche
+crittografiche.
+
+Ogni blocco è composto da:
+\begin{itemize}
+	\item L'hash crittografico del blocco precedente
+	\item Un timestamp, ossia la data e l'ora dell'aggiunta del blocco alla catena
+	\item Un insieme di transazioni
+\end{itemize}
+La Blockchain è stata inventata da Satoshi Nagamoto nel 2008 per essere utilizzata 
+come ledger pubblico per la gestione della criptovaluta Bitcoin. Con la blockchain,
+per la prima volta si è potuto risolvere il problema del \textit{double-spending} 
+senza ricorrere ad una autorità fidata.
+
+\section{Smart Contracts}
+Uno \textbf{Smart Contract} è un protocollo computerizzato che ha lo scopo di
+facilitare, verificare o obbligare la negoziazione o l'esecuzione di un contratto.
+L'aspetto sicuramente più interessante è che permettono di garantire l'esecuzione 
+di determinate azioni, come un pagamento, senza l'intervento di un soggetto terzo. 
+Gli Smart Contracts furono pensati per la prima volta da Nick Szabo nel 1994, per poi
+essere formalizzati dal lui stesso nel 1997 (aggiungere riferimento al paper). 
+
+\section{Stellar}
+
+Stellar è un protocollo decentralizzato ed
+open source nato con lo scopo di poter
+trasferire denaro attraverso diversi
+paesi con costi di transazione irrisori.
+Stellar è supportato dalla Stellar Foundation
