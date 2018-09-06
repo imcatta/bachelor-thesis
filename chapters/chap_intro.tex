@@ -22,9 +22,9 @@ lo strumento da consultare quando si vuole stabilire quanto denaro possiede un c
 individuo, e se quindi può effettuare un pagamento oppure no per insufficienza
 di fondi.
 
-Il Ledger è uno strumento che da secoli viene usato dall'uomo. Le implementazioni 
-classiche si basano su un soggetto fidato, come ad esempio una banca, che è 
-l'unico ad essere autorizzato ad apportare modifiche. In questo modo è 
+Il Ledger è uno strumento che da secoli viene usato dall'uomo. Le implementazioni
+classiche si basano su un soggetto fidato, come ad esempio una banca, che è
+l'unico ad essere autorizzato ad apportare modifiche. In questo modo è
 
 Una \textbf{Distribuited Ledger Technology}
 
@@ -43,23 +43,84 @@ Ogni blocco è composto da:
 	\item Un timestamp, ossia la data e l'ora dell'aggiunta del blocco alla catena
 	\item Un insieme di transazioni
 \end{itemize}
-La Blockchain è stata inventata da Satoshi Nagamoto nel 2008 per essere utilizzata 
+La Blockchain è stata inventata da Satoshi Nagamoto nel 2008 per essere utilizzata
 come ledger pubblico per la gestione della criptovaluta Bitcoin. Con la blockchain,
-per la prima volta si è potuto risolvere il problema del \textit{double-spending} 
+per la prima volta si è potuto risolvere il problema del \textit{double-spending}
 senza ricorrere ad una autorità fidata.
 
 \section{Smart Contracts}
 Uno \textbf{Smart Contract} è un protocollo computerizzato che ha lo scopo di
 facilitare, verificare o obbligare la negoziazione o l'esecuzione di un contratto.
-L'aspetto sicuramente più interessante è che permettono di garantire l'esecuzione 
-di determinate azioni, come un pagamento, senza l'intervento di un soggetto terzo. 
+L'aspetto sicuramente più interessante è che permettono di garantire l'esecuzione
+di determinate azioni, come un pagamento, senza l'intervento di un soggetto terzo.
 Gli Smart Contracts furono pensati per la prima volta da Nick Szabo nel 1994, per poi
-essere formalizzati dal lui stesso nel 1997 (aggiungere riferimento al paper). 
+essere formalizzati dal lui stesso nel 1997 (aggiungere riferimento al paper).
 
 \section{Stellar}
 
-Stellar è un protocollo decentralizzato ed
+\textbf{Stellar} è un protocollo decentralizzato ed
 open source nato con lo scopo di poter
 trasferire denaro attraverso diversi
-paesi con costi di transazione irrisori.
-Stellar è supportato dalla Stellar Foundation
+paesi con costi di transazione irrisori. Il nome della criptovaluta scambiata
+è Lumen (\textbf{XLM}).
+
+È stato creato nel 2014 da \textbf{Jed McCaleb} e \textbf{Joyce Kim}. 
+Si tratta di un progetto fortemente ispirato da \textit{Ripple} (di cui Jed McCaleb 
+è co-fondatore). A differenza di quest'ultimo, Stellar si pone come obietivo
+il facilitare lo scambio di denaro tra privati invece che tra banche.
+
+Ad oggi l'invio di denaro ad una persona che vive in una regione geografica 
+diversa deve passare attraverso un elevato numero di intermediari. Ciò comporta
+una lentezza e un elevato costo di transazione.
+...
+
+
+\subsection{Gli Smart Contracts in Stellar}
+In Stellar gli Smart Contracts di Szabo sono implementati
+attraverso gli Stellar Smart Contracts.
+
+Uno \textbf{Stellar Smart Contract} (SSC) è espresso come la composizione
+di transazioni connesse fra loro ed eseguite secondo certi vincoli.
+I vincoli che si possono utilizzare nella realizzazione di SSCs sono:
+
+\begin{itemize}
+	\item \textit{Multisignature (multifirma)} - Quali chiavi sono necessarie
+	      per autorizzare
+	      una certa transazione? Quali soggetti devono concordare in una certa
+	      circorstanza affinche si possano eseguire i passi?
+\end{itemize}
+La Multisignature è il concetto di richiedere firme di soggetti diversi per
+effettuare transazioni provenienti da un certo account.
+Attraverso pesi e soglie di firma,
+viene creata la rappresentazione del potere nelle firme.
+
+\begin{itemize}
+	\item \textit{Batching/Atomicity (batching/atomicità)} -
+	      Quali operazioni devono avvenire
+	      o tutte insieme o fallire?
+	      Cosa deve accadere per forzare il successo o il fallimento?
+\end{itemize}
+Il Batching è il concetto dell'includere più operazioni in un'unica transazione.
+L'atomicità è la garanzia che, data una serie di operazioni raggruppate in
+un'unica transazione,
+al momento dell'invio sul network se anche una sola operazione fallisce,
+tutte le operazioni nella transazione falliscono.
+
+\begin{itemize}
+	\item \textit{Sequence (sequenza)} -
+	      In che ordine deve essere elaborata una serie di transazioni?
+	      Quali sono le limitazioni e le dipendenze?
+\end{itemize}
+Il concetto di sequenza è rappresentato sullo Stellar network attraverso
+il numero di sequenza. Utilizzando i numeri di sequenza
+nella manipolazione delle transazioni è possibile garantire che
+transazioni specifiche non possano essere eseguite
+se viene inoltrata una transazione alternativa.
+
+\begin{itemize}
+	\item \textit{Time Bounds (limiti temporali)} -
+	      Quando è possibile elaborare una transazione?
+\end{itemize}
+I limiti di tempo sono vincoli sul periodo di tempo durante il quale
+una transazione è valida. L'utilizzo dei limiti di tempo
+consente di rappresentare i periodi di tempo in un SSC.
