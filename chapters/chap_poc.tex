@@ -1,16 +1,102 @@
 \chapter{Proof of Concept}
 
-In questo capitolo proponiamo una Proof of Concept di quanto visto prima sullo Stellar Network. 
+In questo capitolo costruiremo una soluzione sullo Stellar Network
+compatibile con il protocollo proposto al capitolo \ref{chap:protocollo}.
+Seguirà una Proof of Concept di quanto descritto.
+
+Avremmo potuto proporre una
+implementazione anche su altri DLT, come ad esempio Ethereum. Abbiamo scelto
+Stellar perché ci da modo di dimostrare che non è necessario un ambiente che
+offre degli smart contract "potenti" come nel caso della la Ethereum Virtual Machine,
+ma è sufficiente un supporto
+"debole" agli smart contract (\ref{subsec:stellar smart contracts}).
 
 
-Abbiamo discusso prima delle caratteristiche degli Smart Contracts in Stellar 
-[\ref{subsec:stellar smart contracts}]
+\section{Un'implementazione sullo Stellar Network}
+Sia $ U_0 $ l'utente che richiede il servizio di Time-Lock Encryption,
+siano $ U_1, ...\, , U_N $ gli utenti che offrono il servizio di conservazione e
+siano rispettivamente $ S_1, ...\, , S_N $ i segreti assegnati agli utenti
+(share o messaggi).
 
-Di seguito uno script scritto in Python che dimostra quanto detto sopra.
+Per prima cosa $ U_0 $ crea gli account $ A_1, ...\, , A_N $ e
+versa su questi account una cifra pari alla somma tra
+il \textit{prize}, il \textit{pawn} e il costo che dovrà sostenere per le commissioni
+delle transazioni che dovrà effettuare.
+TODO SPIEGARE COME CALCOLARE IL COSTO DELLE COMMISSIONI.
+
+A questo punto per ogni account $ A_i $ crea $ N $ transazioni
+ognuna delle quali rivolta ad uno degli utenti $ U_1,\ ...\ , U_N $, per un totale
+di $ N \times N $ transazioni. Indichiamo con $ T_{{A_i}{U_j}} $ la transazione
+proveniente dall'account $ A_i $ e diretta all'utente $ U_j $.
+Per semplicità di notazione poniamo $ T_{{A_i}{U_j}} = T_{ij} $.
+
+Le transazioni sono così fatte:
+\begin{itemize}
+	\item $T_{ii} $ \textbf{Transazione Prize}
+	      \begin{itemize}
+		      \item SEQUENCE\textunderscore NUMBER = nextSequenceNumber($ A_i $) + 1
+		      \item MIN\textunderscore TIME = $ \tau $
+		      \item MAX\textunderscore TIME = $ \tau + \delta $
+		      \item OPERATIONS
+		            \begin{enumerate}
+			            \item SEND \textit{prize} TO $ U_i $
+			            \item SEND \textit{pawn} TO $ U_0 $
+		            \end{enumerate}
+	      \end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item $T_{ij} $, con $ i \neq j $ \textbf{Transazione Counterprize}
+	      \begin{itemize}
+		      \item SEQUENCE\textunderscore NUMBER = nextSequenceNumber($ A_i $) + 1
+		      \item MIN\textunderscore TIME = \textit{None}
+		      \item MAX\textunderscore TIME = $ \tau $
+		      \item OPERATIONS
+		            \begin{enumerate}
+			            \item SEND \textit{counterprize} TO $ U_j $
+		            \end{enumerate}
+	      \end{itemize}
+\end{itemize}
+
+Facciamo notare che tutte queste transazioni hanno lo stesso sequence number.
+Ciò significa che al più una di queste potrà essere eseguita.
+\\
+\\
+Ora $ U_0 $ crea ulteriori $ N $ transazioni, una per ogni account,
+con queste caratteristiche:
+\begin{itemize}
+	\item $T_{i0} $ \textbf{Transazione d'inizializzazione}
+	      \begin{itemize}
+		      \item SEQUENCE\textunderscore NUMBER = nextSequenceNumber($ A_i $)
+		      \item OPERATIONS
+		            \begin{enumerate}
+			            \item SET \textit{master weight} = 255
+			            \item SEND \textit{med threshold} = 2
+			            \item SEND \textit{high threshold} = 254
+			            \item APPEND PRE\textunderscore AUTH\textunderscore TX
+			                  \textit{hash($ T_{ij} $)} WITH WEIGHT 1
+			                  \\(per ogni $ T_{ij} $, con $ 1 \leq j \leq N $)
+			            \item APPEND HASHX\textunderscore SIGNER
+			                  \textit{hash($ S_{i} $)} WITH WEIGHT 1
+			            \item SET \textit{master weight} = 255
+
+		            \end{enumerate}
+	      \end{itemize}
+\end{itemize}
+
+Infine $ U_0 $ fa il submit sul network delle transazioni
+d'inizializzazione $ T_{i0} $ e comunica agli utenti il segreto che
+devono conservare.
+
+
+
+
+
+\section{Lo script}
+Di seguito uno script scritto in Python che applica quanto detto sopra.
 Si fa uso del \textit{Python SDK per Stellar} e di
 \textit{secretsharing di Blockstack}, un'implementazione open-source dello
 Shamir Secret Sharing.
-
 \lstinputlisting[caption={}]{code/poc/main.py}
 Github:
 \url{https://github.com/imcatta/stellar-time-lock-encryption-poc}
