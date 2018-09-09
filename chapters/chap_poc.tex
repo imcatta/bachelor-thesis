@@ -6,16 +6,18 @@ Seguirà una Proof of Concept di quanto descritto.
 
 Avremmo potuto proporre una
 implementazione anche su altri DLT, come ad esempio Ethereum. Abbiamo scelto
-Stellar perché ci da modo di dimostrare che non è necessario un ambiente che
-offre degli smart contract "potenti" come nel caso della la Ethereum Virtual Machine,
+Stellar perché ci da modo di dimostrare che per un'implementazione (almeno parziale)
+del protocollo proposto non è necessario un ambiente che
+offre degli smart contract "potenti" ad esempio
+della la Ethereum Virtual Machine,
 ma è sufficiente un supporto
 "debole" agli smart contract (\ref{subsec:stellar smart contracts}).
 
 
 \section{Un'implementazione sullo Stellar Network}
-Sia $ U_0 $ l'utente che richiede il servizio di Time-Lock Encryption,
-siano $ U_1, ...\, , U_N $ gli utenti che offrono il servizio di conservazione e
-siano rispettivamente $ S_1, ...\, , S_N $ i segreti assegnati agli utenti
+Sia $ U_0 $ il \textit{client};
+siano $ U_1, ...\, , U_N $ i \textit{providers} e
+siano rispettivamente $ S_1, ...\, , S_N $ i segreti assegnati ai providers
 (share o messaggi).
 
 Per prima cosa $ U_0 $ crea gli account $ A_1, ...\, , A_N $ e
@@ -122,11 +124,17 @@ il med threshold.
 
 \section{Limitazioni della soluzione proposta}
 
-\subsection{}
+\subsection{Numero massimo di firme per transazione}
 Una limitazione imposta dallo Stellar Network è che con
-una singola transazione è possibile aggiungere al massimo di 20 firme.
+una singola transazione è possibile aggiungere al massimo 20 firme ad un account.
 Ciò comporta che se $ N >= 20 $ è necessario creare più di una transazione
 d'inizializzazione per ogni account.
+In generale, il numero delle transazioni d'inizializzazione necessarie è
+\begin{center}
+	$ \# T_{i0} = \left\lfloor\dfrac{ N + 1 }{ 20 }\right\rfloor $
+\end{center}
+
+\subsection{Versione base}
 
 
 
@@ -142,5 +150,4 @@ affida ad Alice e Bob.
 Simuliamo inoltre che Alice venga in possesso dello share di Bob, e quindi riesca ad
 ottenere il \textit{counterprize} associato.
 \lstinputlisting[caption={}]{code/poc/main.py}
-Github:
 \url{https://github.com/imcatta/stellar-time-lock-encryption-poc}

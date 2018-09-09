@@ -8,30 +8,29 @@ invece passeremo ad analizzare gli aspetti più formali, come le caratteristiche
 dello Smart Contract che
 serve implementare e i requisiti del DLT sui cui operare.
 
-\section{L'idea}
-\subsection{Versione base}
-\label{subsec:versione-base}
+\section{Versione base}
+\label{sec:versione-base}
 Immaginiamo che Carol abbia bisogno di Time-Lock Encryption su un certo messaggio $ x $.
 Per farlo decide farsi aiutare da Alice. Quest'ultima
 impegna a conservare il messaggio e ha renderlo pubblico solo dopo un
 certo istante di tempo $ \tau $.
-Alice però vuole essere retribuita per la conservazione di $ x $. Viene quindi fissata
-una ricompensa \textit{prize}.
+Diremo che Carol è il \textit{client} e che Alice è il \textit{provider}.
 
-Alice vuole essere sicura di
+Alice però vuole essere retribuita per la conservazione di $ x $. Viene quindi fissata
+una ricompensa \textit{prize}. Inoltre Alice vuole essere sicura di
 ottenere la ricompensa se rispetta il suo impegno. Allo stesso tempo Carol
 vuole avere la certezza che Alice possa riscattare il premio solo se si comporta
 in maniera corretta.
 Carol inoltre non vuole che soggetti terzi partecipino all'accordo, perché desidera
 che sia $ x $ sia l'accordo stesso rimangano segreti.
-Per farlo decidono di usare uno smart contract.
+Per ottenere ciò decidono di usare uno smart contract.
 
 \paragraph{Inizializzazione}
-Nella fase iniziale Carol invia ad Alice il messaggio $ x $. Allo stesso tempo invia
+Nella fase iniziale Carol cominuca il messaggio $ x $ ad Alice. Allo stesso tempo invia
 allo smart contract una certa cifra in criptomoneta
-che corrispone alla somma tra il premio \textit{prize} da corrispondere ad Alice e un
-\textit{pawn} che le verrà ritornato al termine delle operazioni, un hash
-crittografico del segreto $ x $, l'istante di tempo $ \tau $ e una tolleranza $ \delta $.
+che corrispone alla somma tra il \textit{prize} da corrispondere ad Alice e un
+\textit{pawn} che le verrà restituito al termine delle operazioni, un hash
+crittografico del messaggio $ x $, l'istante di tempo $ \tau $ e una tolleranza $ \delta $.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.3\linewidth]{images/chap_protocollo/base-creazione.pdf}
@@ -40,18 +39,18 @@ crittografico del segreto $ x $, l'istante di tempo $ \tau $ e una tolleranza $ 
 
 
 \paragraph{Pubblicazione}
-Alice si impegna quindi a conservare il segreto, e lo rende noto al tempo $ t^{*} $
+Alice conserva quindi $ x $ e lo rende noto al tempo $ t^{*} $
 (con $ \tau \leq t^{*} \leq \tau + \delta $).\footnote{Il $ \delta $ serve a far si che
 	Alice pubblichi puntualmente il messaggio. Se non ci fosse questo vincolo temporale
 	potrebbe rilasciare il messaggio anche con molto ritardo rispetto a
 	$ \tau $ ed ottenere comunque
 	la ricompensa.}
-Per farlo invia allo smart contract $ x $, ed in cambio ottiene il suo premio
-\textit{price}.
+Per farlo invia allo smart contract il messaggio $ x $,
+ed in cambio ottiene il suo \textit{prize}.
 Allo stesso tempo, Alice riottiene il \textit{pawn} che aveva versato in precedenza.
 \footnote{Ad una prima analisi può sembrare che il \textit{pawn} sia inutile,
 	ma in realtà è necessario per proteggersi da alcuni tipi di attacchi.
-	Le ragioni dettagliate verranno discusse nei capitoli successivi.}
+	Le ragioni dettagliate verranno discusse nel capitolo \ref{chap:analisi-attacchi}.}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.3\linewidth]{images/chap_protocollo/base-pubblicazione.pdf}
@@ -64,7 +63,7 @@ il messaggio diventa pubblico e
 chiunque può leggerlo.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.3\linewidth]{images/chap_protocollo/base-leggi.pdf}
+	\includegraphics[width=0.27\linewidth]{images/chap_protocollo/base-leggi.pdf}
 	\caption{Step leggi}
 \end{figure}
 
@@ -82,30 +81,60 @@ E se Alice cede (volontariamente o a causa di un furto)
 il segreto ad Eve prima del tempo $ \tau $?
 In questo caso Eve può usare $ x $ per ottenere una ricompensa
 \textit{counterprize} \footnote{dove \textit{counterprize} $ \ll $ \textit{prize}.
-	Le ragioni di questo vincolo sono spiegate al capitolo [...]}
+	Le ragioni di questo vincolo sono spiegate al capitolo \ref{chap:analisi-attacchi}.}
 Il riscatto del \textit{counterprize} impedisce ad Alice di ottenere il suo premio.
 È evidente che l'interesse di Alice è quello di mantenere $ x $ segreto.
 \begin{figure}[H]
-	\begin{minipage}{0.5\textwidth}
+	\begin{minipage}{0.4\textwidth}
 		\centering
 		\includegraphics[width=.7\linewidth]{images/chap_protocollo/base-leak-1.pdf}
 		\caption{Leak 1}
 	\end{minipage}\hfill
-	\begin{minipage}{0.5\textwidth}
+	\begin{minipage}{0.4\textwidth}
 		\centering
 		\includegraphics[width=.7\linewidth]{images/chap_protocollo/base-leak-2.pdf}
 		\caption{Leak 2}
 	\end{minipage}
 \end{figure}
 
+Una criticità di quanto abbiamo visto fino ad ora è che se Alice, per 
+un qualsiasi motivo,
+non riuscisse a pubblicare $ x $ nella finestra temporale compresa tra $ \tau $ e 
+$ \tau + \delta $ il messaggio non verrebbe reso pubblico.
+\footnote{O meglio, difficilmente verrebbe reso pubblico. Alice, se non ha smarrito
+il messaggio, potenzialmente potrebbe
+comunque renderlo noto anche dopo $ \tau + \delta $, ma non avrebbe alcun 
+incentivo economico per farlo.}
+Per contrastare questo
+problema Carol può affidare lo stesso messaggio anche ad un altro provider, nel nostro
+caso Bob.
+In questo modo è sufficiente che almeno uno dei provider riesca a pubblicare $ x $ 
+affinché il messaggio diventi noto.
+\begin{figure}[H]
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{images/chap_protocollo/base-ridondanza-1.pdf}
+		\caption{}
+	\end{minipage}\hfill
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{images/chap_protocollo/base-ridondanza-2.pdf}
+		\caption{}
+	\end{minipage}
+\end{figure}
+Per una analisi approfondita su come sfruttare la ridondanza per 
+garantire un buon grado di robustezza vi rimandiamo al capitolo
+\ref{chap:dimensionamento}.
 
-\subsection{Versione avanzata}
-Facciamo notare che nella versione base (\ref{subsec:versione-base})
+
+
+\section{Versione avanzata}
+Facciamo notare che nella versione base (\ref{sec:versione-base})
 Alice conosce sin
 dall'inizio il messaggio
 $ x $, perché le è stato affidato nella prima fase del processo.
 Ma se Carol volesse che il messaggio rimanga segreto anche ad Alice?
-Per soddisfare questa condizione Alice ha bisogno di (almeno) un altro collaboratore,
+Per soddisfare questa condizione Alice ha bisogno di (almeno) un altro \textit{provider},
 Bob, e di un
 algoritmo di \textbf{secret sharing}. \footnote{Un algoritmo di secret sharing
 	è un algoritmo che permette di
@@ -114,9 +143,10 @@ algoritmo di \textbf{secret sharing}. \footnote{Un algoritmo di secret sharing
 	numero di share.}
 
 \paragraph{Inizializzazione}
-Alice, utilizzando un algoritmo di secret sharing, ottiene due \textit{share}
-$ x_A $ e $ x_B $. Invia questi share rispettivamente ad Alice e a Bob, ed inizializza
-lo smart contract versando due prize e due pawn, inviando gli hash crittografici
+Alice, utilizzando un algoritmo di secret sharing, ottiene due share
+$ x_A $ e $ x_B $. Invia questi share rispettivamente ad Alice e a Bob ed inizializza
+lo smart contract versando due \textit{prize} e due \textit{pawn},
+inviando gli hash crittografici
 degli share, il tempo $ \tau $ e la tolleranza $ \delta $.
 \begin{figure}[H]
 	\centering
@@ -129,9 +159,9 @@ degli share, il tempo $ \tau $ e la tolleranza $ \delta $.
 \paragraph{Pubblicazione}
 Alice e Bob pubblicano i loro share rispettivamente al tempo $ t^*_A $ e $ t^*_B $
 (con $ \tau \leq t^*_A \leq \tau + \delta $, $ \tau \leq t^*_B \leq \tau + \delta $).
-In cambio ottengono il loro
-\textit{price},
-ed allo stesso tempo Alice riottiene i rispettivi \textit{pawn} che aveva versato
+In cambio ottengono i loro
+\textit{prize}.
+Allo stesso tempo Alice riottiene i rispettivi \textit{pawn} che aveva versato
 in precedenza.
 \begin{figure}[H]
 	\begin{minipage}{0.5\textwidth}
@@ -159,8 +189,8 @@ ricostruire il messaggio $ x $.
 
 \paragraph{Leak}
 Cosa succede se Bob cede il suo share ad Eve prima del tempo $ \tau $?
-In questo caso Eve può usare $ x_B $ per ottenere una ricompensa
-\textit{counterprize}
+Anche in questo caso Eve può usare $ x_B $ per ottenere una ricompensa
+\textit{counterprize}.
 Il riscatto del \textit{counterprize} impedirebbe a Bob di ottenere il suo premio.
 Da notare che se Alice si comporta in maniera corretta, ossia se tiene segreto il
 suo share, è in grado di ottenere la sua ricompensa indipendentemente dal comportamento
@@ -184,6 +214,7 @@ di Bob.
 	\end{minipage}
 \end{figure}
 
-Abbiamo visto un esempio con la partecipazione di tre soggetti, ma il protocollo
+Abbiamo visto un esempio con la partecipazione di due \textit{providers},
+ma il protocollo
 può essere analogamente implementato con $ N $ partecipanti, dove $ N \geq 3 $.
 
