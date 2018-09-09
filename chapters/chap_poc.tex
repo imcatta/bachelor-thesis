@@ -65,29 +65,68 @@ Ciò significa che al più una di queste potrà essere eseguita.
 Ora $ U_0 $ crea ulteriori $ N $ transazioni, una per ogni account,
 con queste caratteristiche:
 \begin{itemize}
-	\item $T_{i0} $ \textbf{Transazione d'inizializzazione}
+	\item \label{trans-init:title}
+	      $T_{i0} $ \textbf{Transazione d'inizializzazione}
 	      \begin{itemize}
 		      \item SEQUENCE\textunderscore NUMBER = nextSequenceNumber($ A_i $)
 		      \item OPERATIONS
 		            \begin{enumerate}
-			            \item SET \textit{master weight} = 255
-			            \item SEND \textit{med threshold} = 2
-			            \item SEND \textit{high threshold} = 254
-			            \item APPEND PRE\textunderscore AUTH\textunderscore TX
+			            \item \label{trans-init:set-master-weight-255}
+			                  SET \textit{master weight} = 255
+			            \item \label{trans-init:set-med-thres}
+			                  SET \textit{med threshold} = 2
+			            \item \label{trans-init:set-high-thres}
+			                  SET \textit{high threshold} = 254
+			            \item \label{trans-init:set-pre-auth-tx}
+			                  APPEND PRE\textunderscore AUTH\textunderscore TX
 			                  \textit{hash($ T_{ij} $)} WITH WEIGHT 1
 			                  \\(per ogni $ T_{ij} $, con $ 1 \leq j \leq N $)
-			            \item APPEND HASHX\textunderscore SIGNER
+			            \item \label{trans-init:set-hashx-signer}
+			                  APPEND HASHX\textunderscore SIGNER
 			                  \textit{hash($ S_{i} $)} WITH WEIGHT 1
-			            \item SET \textit{master weight} = 255
+			            \item \label{trans-init:set-master-weight-0}
+			                  SET \textit{master weight} = 0
 
 		            \end{enumerate}
 	      \end{itemize}
 \end{itemize}
+A $ U_0 $ non resta che inviare ad ogni utente $ U_i $\footnote{con $ 1 \leq i \leq N $}
+il segreto $ S_i $, le transazioni prize e counterprize
+$ T_{ij} $ e fare il submit delle
+transazioni d'inizializzazione $ T_{i0} $.
+\\
+\\
+Analizziamo nel dettaglio la \hyperref[trans-init:title]{transazione d'inizializzazione}.
+Il \textit{med threshold} è la soglia da raggiungere per effettuare
+l'invio di Lumen dall'account.
+Con l'operazione \ref{trans-init:set-med-thres} lo abbiamo impostato a 2.
+Con le operazioni \ref{trans-init:set-pre-auth-tx} abbiamo pre-autorizzato
+le transazioni
+$ T_{ij} $ con $ 1 \leq j \leq N $ con peso pari a 1.
+Con l'operazione \ref{trans-init:set-hashx-signer} abbiamo aggiunto il segreto
+$ S_i $ tra le firme autorizzate, con peso pari a 1.
+Infine con le operazioni \ref{trans-init:set-high-thres} e
+\ref{trans-init:set-master-weight-0} abbiamo impedito all'utente $ U_0 $ (il
+detentore della masterkey) di effettuare alcun tipo di operazione dall'account $ A_i $.
+L'operazione \ref{trans-init:set-master-weight-255} ci è servita solo per
+non avere problemi
+nell'effettuare le operazioni successive.
+\\
+\\
+Lo scenario finale è che l'account $ A_i $ è bloccato: neanche $ U_0 $, il detentore
+della master key può apportarvi modifiche o prelevare fondi. Le uniche operazioni
+autorizzate sono le $ T_{ij} $, ossia le transazioni per ottenere il \textit{prize}
+o il \textit{counterprize}. Per fare il submit di queste transazioni è inoltre
+necessario conoscere $ S_i $, perché in questo modo si riesce a raggiungere
+il med threshold.
 
-Infine $ U_0 $ fa il submit sul network delle transazioni
-d'inizializzazione $ T_{i0} $ e comunica agli utenti il segreto che
-devono conservare.
+\section{Limitazioni della soluzione proposta}
 
+\subsection{}
+Una limitazione imposta dallo Stellar Network è che con
+una singola transazione è possibile aggiungere al massimo di 20 firme.
+Ciò comporta che se $ N >= 20 $ è necessario creare più di una transazione
+d'inizializzazione per ogni account.
 
 
 
@@ -97,6 +136,11 @@ Di seguito uno script scritto in Python che applica quanto detto sopra.
 Si fa uso del \textit{Python SDK per Stellar} e di
 \textit{secretsharing di Blockstack}, un'implementazione open-source dello
 Shamir Secret Sharing.
+
+Simuliamo la \textit{versione avanzata}, con Carol che genera due share e li
+affida ad Alice e Bob.
+Simuliamo inoltre che Alice venga in possesso dello share di Bob, e quindi riesca ad
+ottenere il \textit{counterprize} associato.
 \lstinputlisting[caption={}]{code/poc/main.py}
 Github:
 \url{https://github.com/imcatta/stellar-time-lock-encryption-poc}
