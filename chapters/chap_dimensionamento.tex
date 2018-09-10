@@ -1,3 +1,81 @@
 \chapter{Scelta dei parametri del protocollo}
 \label{chap:dimensionamento}
 
+In questo capitolo vedremo quali sono i parametri del protocollo
+e analizzaremo alcuni criteri per il dimensionamento.
+
+\section{I Parametri}
+
+\subsection{La deadline $ \tau $}
+La deadline $ \tau $ rappresenta l'istante di tempo in cui
+si desidera che il segreto venga reso pubblico.
+Si tratta di un parametro deciso a priori, sul quale difficilmente si riesce ad
+intervenire. Ad ogni modo è bene sapere che più $ \tau $ è lontano, più aumentano
+le possibilità che qualcosa vada storto.
+
+\subsection{La tolleranza $ \delta $}
+La tolleranza $ \delta $ rappresenta quanto ritardo rispetto a $ \tau $ è
+accettato per la pubblicazione del segreto. Una tolleranza troppo
+piccola potrebbe causare problemi se ad esempio il provider è
+temporaneamente offline al tempo $ \tau $.
+Allo stesso tempo una tolleranza
+troppo grande potrebbe causare un ritardo non accettabile rispetto alla deadline.
+Per la scelta di questo parametro bisogna anche tenere in considerazione
+anche la velocità di elaborazione delle transazioni
+del DLT sottostante.
+Una buona scelta per questo parametro potrebbe essere un valore compreso tra
+un minimo di 10 minuti e un massimo di 7 giorni.
+
+\subsection{Il \textit{prize}}
+Il \textit{prize} è la ricompensa da corrispondere al provider per il suo servizio
+di detenzione del segreto. È una cifra che deve essere concordata tra le parti,
+ed è bene che sia proporzionale a quanto dista $ \tau $ dal momento
+dell'inizializzazione del protocollo
+e a quanto è importante il segreto.
+
+\subsection{Il \textit{counterprize}}
+\label{subsec:counterprize}
+Il \textit{counterprize} è la cifra che viene corrisposta a chi invia il segreto
+allo smart contract prima del tempo $ \tau $. È bene che
+\begin{center}
+	\textit{prize} $ \gg $ \textit{counterprize}
+\end{center}
+Il motivo è che il provider potrebbe potenzialmente ottenere
+il \textit{counterprize} (perché chiaramente conosce il segreto) e quindi
+rendere noto il segreto prima di $ \tau $. Se però il
+\textit{prize} è molto più grande sarebbe contro il suo
+interesse farlo,
+poiché perderebbe la possibilità di ottenere un guadagno significativamente
+maggiore al tempo $ \tau $.
+
+\subsection{Il \textit{pawn}}
+Il \textit{pawn} è la cifra che viene restituita al client quando il segreto
+viene pubblicato nella finestra temporale $ \tau \leq t \leq \tau + \delta $.
+
+Il \textit{pawn} è necessario perché, ovviamente, anche il client conosce il segreto
+e quindi potrebbe ottenere il \textit{counterprize} (magari poco prima della deadline).
+Se lo facesse il provider non potrebbe più ottenere il \textit{prize} anche se si è
+comportato in maniera corretta, venendo in un certo senso truffato dal client.
+Come nel caso del \hyperref[subsec:counterprize]{\textit{counterprize}}
+si vuole scoraggiare questo comportamento con il vincolo.
+\begin{center}
+	\textit{pawn} $ \gg $ \textit{counterprize}
+\end{center}
+
+\subsection{Numero di share}
+
+\subsection{Threshold per la ricostruzione del segreto}
+
+\section{Criteri di dimensionamento}
+\subsection{Costo}
+\subsection{Denaro necessario}
+\subsection{Resistenza a smarrimenti}
+\subsection{Resistenza a furti}
+
+
+
+
+
+
+
+
