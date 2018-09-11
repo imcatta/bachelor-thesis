@@ -16,15 +16,14 @@ le possibilità che qualcosa vada storto.
 \subsection{La tolleranza $ \delta $}
 La tolleranza $ \delta $ rappresenta quanto ritardo rispetto a $ \tau $ è
 accettato per la pubblicazione del segreto. Una tolleranza troppo
-piccola potrebbe causare problemi se ad esempio il provider è
+piccola potrebbe causare problemi se il client non è abbastanza reattivo,
+ad esempio perché è
 temporaneamente offline al tempo $ \tau $.
 Allo stesso tempo una tolleranza
 troppo grande potrebbe causare un ritardo non accettabile rispetto alla deadline.
-Per la scelta di questo parametro bisogna anche tenere in considerazione
-anche la velocità di elaborazione delle transazioni
+Per la scelta di questo parametro è ben tenere in considerazione anche
+la velocità di elaborazione delle transazioni
 del DLT sottostante.
-Una buona scelta per questo parametro potrebbe essere un valore compreso tra
-un minimo di 10 minuti e un massimo di 7 giorni.
 
 \subsection{Il \textit{prize}}
 Il \textit{prize} è la ricompensa da corrispondere al provider per il suo servizio
@@ -32,6 +31,7 @@ di detenzione del segreto. È una cifra che deve essere concordata tra le parti,
 ed è bene che sia proporzionale a quanto dista $ \tau $ dal momento
 dell'inizializzazione del protocollo
 e a quanto è importante il segreto.
+$$ \textit{prize} \propto \tau - t_{init} $$
 
 \subsection{Il \textit{counterprize}}
 \label{subsec:counterprize}
@@ -40,9 +40,10 @@ allo smart contract prima del tempo $ \tau $. È bene che
 \begin{center}
 	\textit{prize} $ \gg $ \textit{counterprize}
 \end{center}
-Il motivo è che il provider potrebbe potenzialmente ottenere
+Il motivo di questo vincolo è che il provider potrebbe in un qualsiasi momento
+prima di $ \tau $ ottenere
 il \textit{counterprize} (perché chiaramente conosce il segreto) e quindi
-rendere noto il segreto prima di $ \tau $. Se però il
+rendere noto il segreto prima della deadline. Se però il
 \textit{prize} è molto più grande sarebbe contro il suo
 interesse farlo,
 poiché perderebbe la possibilità di ottenere un guadagno significativamente
@@ -57,20 +58,72 @@ e quindi potrebbe ottenere il \textit{counterprize} (magari poco prima della dea
 Se lo facesse il provider non potrebbe più ottenere il \textit{prize} anche se si è
 comportato in maniera corretta, venendo in un certo senso truffato dal client.
 Come nel caso del \hyperref[subsec:counterprize]{\textit{counterprize}}
-si vuole scoraggiare questo comportamento con il vincolo.
+si vuole scoraggiare questo comportamento con il vincolo
 \begin{center}
 	\textit{pawn} $ \gg $ \textit{counterprize}
 \end{center}
 
 \subsection{Numero di share}
+Il numero di share $ n $ è uno dei parametri
+dell'algoritmo di secret sharing.
+La scelta di questo valore determina automaticamente anche il numero di provider
+necessari.
+Facciamo notare che la versione base può essere vista come un caso particolare
+della versione avanzata, dove $ n = 1 $.
 
 \subsection{Threshold per la ricostruzione del segreto}
+Il threshold $ t $ rappresenta il numero minimo di share che
+sono necessari per la ricostruzione del segreto.
+Anche in questo caso la versione base può essere vista come un caso particolare
+della versione avanzata, dove $ t = 1 $.
 
 \section{Criteri di dimensionamento}
-\subsection{Costo}
+
 \subsection{Denaro necessario}
+Il denaro necessario $ d $ rappresenta quanto denaro è necessario per inizializzare
+il protocollo.
+$$ d = \sum_{i=1}^{N} \textit{prize}_i + pawn_i + fee_i $$
+Nell'ipotesi che tutti i \textit{prize} e tutti i \textit{pawn}
+siano uguali e che le commissioni \textit{fee} siano trascurabili
+l'espressione diventa
+$$ d = N(prize + pawn) $$
+\textbf{N.B.} Questo valore non è il costo che deve sostenere il client, perché parte
+di questi soldi gli verranno restituiti attraverso i \textit{pawn}.
+
+\subsection{Costo}
+Il costo $ c $ rappresenta quanto denaro dovrà spendere il client per il servizio
+richiesto. Il costo non è fisso a priori,
+perché dipende da quanti \textit{pawn} verranno
+restituiti.
+$$ c = \sum_{i=1}^{N} (\textit{prize}_i + \textit{fee}_i) + \sum \textit{pawn}_j $$
+\begin{flushright}
+	dove $ \sum \textit{pawn}_j $ è la somma dei \textit{pawn} restituiti.
+\end{flushright}
+Nel caso migliore, ossia quando tutti i \textit{pawn} ritornano al client diventa
+$$ c = \sum_{i=1}^{N} (prize_i + fee_i) $$
+Mentre nel caso peggiore, ossia quando nessun \textit{pawn}
+ritorna al client, è pari a
+$$ c = d = \sum_{i=1}^{N} (prize_i + pawn_i + fee_i) $$
+
+
 \subsection{Resistenza a smarrimenti}
+La resistenza agli smarrimenti $ \theta $ rappresenta quanti provider possono non
+rendere noto il proprio share senza compromettere la pubblicazione del messaggio
+originale.
+$$ \theta = n - t $$
+È interessante valutare questo valore in relazione
+al numero totale di share $ n $.
+$$ \theta_r = \frac{n - t}{n} $$
+$$ \theta_\% = 100 \cdot \theta_r = 100 \cdot \frac{n - t}{n} $$
+
 \subsection{Resistenza a furti}
+La resistenza ai furti $ \gamma $ è il numero di share che un soggetto deve riuscire
+ad ottenere dai provider affinchè possa
+ricostruire il segreto prima del tempo $ \tau $.
+Questo numero è ovviamente pari a
+\begin{center}
+	$ \gamma = t $
+\end{center}
 
 
 
