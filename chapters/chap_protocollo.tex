@@ -31,6 +31,8 @@ allo smart contract una certa cifra in criptomoneta
 che corrispone alla somma tra il \textit{prize} da corrispondere ad Alice e un
 \textit{pawn} che le verrà restituito al termine delle operazioni, un hash
 crittografico del messaggio $ x $, l'istante di tempo $ \tau $ e una tolleranza $ \delta $.
+
+TODO aggiungere \textit{fee}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.3\linewidth]{images/chap_protocollo/base-creazione.pdf}
@@ -96,39 +98,6 @@ Il riscatto del \textit{counterprize} impedisce ad Alice di ottenere il suo prem
 		\caption{Leak 2}
 	\end{minipage}
 \end{figure}
-
-
-TODO RIVEDERE QUESTA PARTE: SE ALICE CONOSCE X PUÒ OTTENERE IL COUNTERPRIZE DI BOB
-Una criticità di quanto abbiamo visto fino ad ora è che se Alice, per 
-un qualsiasi motivo,
-non riuscisse a pubblicare $ x $ nella finestra temporale compresa tra $ \tau $ e 
-$ \tau + \delta $ il messaggio non verrebbe reso pubblico.
-\footnote{O meglio, difficilmente verrebbe reso pubblico. Alice, se non ha smarrito
-il messaggio, potenzialmente potrebbe
-comunque renderlo noto anche dopo $ \tau + \delta $, ma non avrebbe alcun 
-incentivo economico per farlo.}
-Per contrastare questo
-problema Carol può affidare lo stesso messaggio anche ad un altro provider, nel nostro
-caso Bob.
-In questo modo è sufficiente che almeno uno dei provider riesca a pubblicare $ x $ 
-affinché il messaggio diventi noto.
-\begin{figure}[H]
-	\begin{minipage}{0.5\textwidth}
-		\centering
-		\includegraphics[width=.9\linewidth]{images/chap_protocollo/base-ridondanza-1.pdf}
-		\caption{}
-	\end{minipage}\hfill
-	\begin{minipage}{0.5\textwidth}
-		\centering
-		\includegraphics[width=.9\linewidth]{images/chap_protocollo/base-ridondanza-2.pdf}
-		\caption{}
-	\end{minipage}
-\end{figure}
-Per una analisi approfondita su come sfruttare la ridondanza per 
-garantire un buon grado di robustezza vi rimandiamo al capitolo
-\ref{chap:dimensionamento}.
-
-
 
 \section{Versione avanzata}
 Facciamo notare che nella versione base (\ref{sec:versione-base})
@@ -219,4 +188,7 @@ di Bob.
 Abbiamo visto un esempio con la partecipazione di due \textit{provider},
 ma il protocollo
 può essere analogamente implementato con $ N $ partecipanti, dove $ N \geq 3 $.
+Per una analisi approfondita su come sfruttare la ridondanza per 
+garantire un buon grado di robustezza rimandiamo al capitolo
+\ref{chap:dimensionamento}.
 

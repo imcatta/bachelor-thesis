@@ -16,9 +16,11 @@ le possibilità che qualcosa vada storto.
 \subsection{La tolleranza $ \delta $}
 La tolleranza $ \delta $ rappresenta quanto ritardo rispetto a $ \tau $ è
 accettato per la pubblicazione del segreto. Una tolleranza troppo
-piccola potrebbe causare problemi se il client non è abbastanza reattivo,
-ad esempio perché è
-temporaneamente offline al tempo $ \tau $.
+piccola potrebbe causare problemi se il client non è abbastanza reattivo
+al tempo $ \tau $, ad esempio
+per un intasamento del network o
+perché è
+temporaneamente offline.
 Allo stesso tempo una tolleranza
 troppo grande potrebbe causare un ritardo non accettabile rispetto alla deadline.
 Per la scelta di questo parametro è ben tenere in considerazione anche
@@ -40,7 +42,7 @@ allo smart contract prima del tempo $ \tau $. È bene che
 \begin{center}
 	\textit{prize} $ \gg $ \textit{counterprize}
 \end{center}
-Il motivo di questo vincolo è che il provider potrebbe in un qualsiasi momento
+Il motivo di questo vincolo è che il provider potrebbe in un qualsiasi istante
 prima di $ \tau $ ottenere
 il \textit{counterprize} (perché chiaramente conosce il segreto) e quindi
 rendere noto il segreto prima della deadline. Se però il
@@ -65,7 +67,8 @@ si vuole scoraggiare questo comportamento con il vincolo
 
 \subsection{Numero di share}
 Il numero di share $ n $ è uno dei parametri
-dell'algoritmo di secret sharing.
+dell'algoritmo di secret sharing, utilizzato dalla versione
+avanzata del protocollo.
 La scelta di questo valore determina automaticamente anche il numero di provider
 necessari.
 Facciamo notare che la versione base può essere vista come un caso particolare
@@ -84,7 +87,7 @@ Il denaro necessario $ d $ rappresenta quanto denaro è necessario per inizializ
 il protocollo.
 $$ d = \sum_{i=1}^{N} \textit{prize}_i + pawn_i + fee_i $$
 Nell'ipotesi che tutti i \textit{prize} e tutti i \textit{pawn}
-siano uguali e che le commissioni \textit{fee} siano trascurabili
+siano uguali tra loro e che le commissioni \textit{fee} siano trascurabili
 l'espressione diventa
 $$ d = N(prize + pawn) $$
 \textbf{N.B.} Questo valore non è il costo che deve sostenere il client, perché parte
@@ -92,7 +95,7 @@ di questi soldi gli verranno restituiti attraverso i \textit{pawn}.
 
 \subsection{Costo}
 Il costo $ c $ rappresenta quanto denaro dovrà spendere il client per il servizio
-richiesto. Il costo non è fisso a priori,
+richiesto. Il costo non è fissato a priori,
 perché dipende da quanti \textit{pawn} verranno
 restituiti.
 $$ c = \sum_{i=1}^{N} (\textit{prize}_i + \textit{fee}_i) + \sum \textit{pawn}_j $$
@@ -107,7 +110,8 @@ $$ c = d = \sum_{i=1}^{N} (prize_i + pawn_i + fee_i) $$
 
 
 \subsection{Resistenza a smarrimenti}
-La resistenza agli smarrimenti $ \theta $ rappresenta quanti provider possono non
+La resistenza agli smarrimenti $ \theta $ rappresenta 
+il numero di provider che possono non
 rendere noto il proprio share senza compromettere la pubblicazione del messaggio
 originale.
 $$ \theta = n - t $$
