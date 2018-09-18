@@ -1,28 +1,63 @@
-\chapter{Analisi dei possibili attacchi}
+\chapter{Analisi delle criticità}
 \label{chap:analisi-attacchi}
-
-In questo capitolo analizzeremo le possibili criticità e i
-possibili attacchi a cui il protocollo proposto
-è soggetto.
+In questo capitolo analizzeremo le principali criticità a cui il protocollo
+proposto è esposto. Presenteremo i diversi scenari divisi per punti, ma è bene
+sapere che acune di queste situazioni potrebbero verificarsi anche allo stesso
+tempo.
 
 \section{Comportamenti negligenti dei singoli utenti}
-\subsection{Il provider perde il segreto}
+\subsection{Uno o più provider perdono il segreto}
+
+
 \subsection{Il provider si fa rubare il segreto}
-\subsection{Il client si fa rubare/pubblica il segreto prima di tau}
+
+\subsection{Il client si fa rubare/pubblica il segreto prima di $ \tau $}
 
 
-\section{Comportamenti malevoli dei signoli utenti}
+\section{Comportamenti malevoli dei singoli utenti}
 \subsection{Comportamento malevole del client}
 
 \subsection{Comportamento malevolo di un provider}
 
 
 \section{Coalizioni tra provider}
-\subsection{Coalizione tra tutti i provider}
-\subsection{Coalizione tra $ N $ provider}
 
-\section{Coalizioni tra client e provider}
 
 \section{Un singolo attore controlla più provider}
+Affinché il protocollo funzioni al meglio
+è bene che tutti gli $ N $ provider
+siano entità ben distinte. Purtroppo non in tutti i contesti
+questa caratteristica è facile da verificare.
+Possono quindi venirsi a creare situazioni nelle quali un unico soggetto controlla
+più provider. Fissato $ k $ il numero di provider che controlla,
+individuiamo due casi:
+\paragraph{Un singolo soggetto controlla $ k < \gamma $ provider}
+In questo caso il soggetto non dispone di un numero sufficiente di share per
+ricostruire il segreto. Bisogna considerare però che parte da una posizione di
+vantaggio, perché deve recuperare solo altri $ \gamma - k $ share.
+\paragraph{Un singolo soggetto controlla $ k \geq \gamma $ provider}
+In questo caso il soggetto dispone di un numero sufficiente di share per
+ricostruire il segreto. Significa che sin dal momento dell'inizializzazione
+del protocollo viene meno il requisito di
+segretezza del messaggio [vedi \ref{subsec:segretezza-tle}].
+
 
 \section{Un soggetto corrompe i provider}
+Un attaccante che vuole ottenere il messaggio prima del tempo $ \tau $ deve riuscire
+ad ottenere almeno $ \gamma $ share.
+
+Un tecnica che può usare è quella di "corrompere" un numero $ \gamma $ di provider.
+Per farlo deve offrire ad ogni provider una cifra maggiore di \textit{prize}.
+Il provider ha interesse nel tenere il proprio share segreto perché sa che se lo fa
+al tempo $ \tau $ può ottenere una ricompensa \textit{prize}.
+Se però un soggetto gli
+offre una cifra maggiore o uguale di \textit{prize} a quel punto l'azione
+più conviente diventa cedere il segreto.
+
+Come è possibile difendersi? Quello che può fare il client è fissare dei
+\textit{prize} adeguatamente alti rispetto al valore del segreto.
+Un'altra tecnica che può aiutare è quella di
+apportare un'ulteriore penalizzazione nel
+caso in cui il provider ceda il segreto. Queste penalizzazioni possono essere
+legate al particolare dominio applicativo in cui il protocollo viene utilizzato.
+Un esempio è visibile nell'ultimo capitolo.
