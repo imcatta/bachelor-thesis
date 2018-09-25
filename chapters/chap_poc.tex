@@ -135,9 +135,77 @@ In generale, il numero delle transazioni d'inizializzazione necessarie è
 \end{center}
 
 \subsection{Riscatto dei \textit{counterprize}}
-TODO
+L'implementazione proposta si basa sul fatto che in Stellar è possibile pre-autorizzare
+delle transazioni. Uno dei problemi è che non è possibile pre-autorizzare delle transazioni con
+un destinatario generico, ma è necessario definirlo a priori. Nel nostro caso ciò comporta che
+i possibili destinatari dei \textit{counterprize} devono essere decisi già nella
+fase di inizializzazione. Per il tipo di soluzione proposta non vi è un limite teorico
+per il numero di transazioni \textit{counterprize} che si possono emettere, ma chiaramente
+non è sostenibile l'emissione di transazioni verso tutti i potenziali account Stellar.
+Si è deciso quindi di emettere transazioni \textit{counterprize} riscattabili solo dai
+provider coinvolti.
 
+Ciò comporta che solo i provider possano riscattare il \textit{counterprize}. Questo potrebbe
+essere un problema, perché comporta che un provider non avrebbe il disincentivo economico
+nel cedere il proprio share ad un soggetto esterno.
 
+Eve ottiene lo share dal provider Alice. Eve a questo punto può decidere di dividersi
+il \textit{counterprize} con il provider Bob. Per farlo Bob pre-autorizza due transazioni
+
+\begin{itemize}
+	\item $ T_1 $
+	      \begin{itemize}
+		      \item SEQUENCE\textunderscore NUMBER = nextSequenceNumber($ A_B $) + 1
+		      \item OPERATIONS
+		            \begin{enumerate}
+			            \item SEND (\textit{counterprize} / 2) TO $ U_j $
+			            \item SET \textit{master weight} = 1
+		            \end{enumerate}
+	      \end{itemize}
+\end{itemize}
+\begin{itemize}
+	\item $ T_2 $
+	      \begin{itemize}
+		      \item SEQUENCE\textunderscore NUMBER = nextSequenceNumber($ A_B $) + 1
+		      \item MIN\textunderscore TIME = $ \bar{t} $
+		      \item MAX\textunderscore TIME =  \textit{None}
+		      \item OPERATIONS
+		            \begin{enumerate}
+			            \item SET \textit{master weight} = 1
+		            \end{enumerate}
+	      \end{itemize}
+\end{itemize}
+
+e inizializza lo scambio con
+\begin{itemize}
+	\item $ T_0 $
+	      \begin{itemize}
+		      \item SEQUENCE\textunderscore NUMBER = nextSequenceNumber($ A_B $)
+		      \item OPERATIONS
+		            \begin{enumerate}
+			            \item SEND \textit{all} TO $ A_B^{\prime} $
+			            \item APPEND PRE\textunderscore AUTH\textunderscore TX
+			                  \textit{hash($ T_{1} $)} WITH WEIGHT 1
+			            \item APPEND PRE\textunderscore AUTH\textunderscore TX
+			                  \textit{hash($ T_{2} $)} WITH WEIGHT 1
+			            \item SET \textit{master weight} = 0
+		            \end{enumerate}
+	      \end{itemize}
+\end{itemize}
+
+Quello che avviene con la transazione $ T_0 $ e che
+Bob svuota l'account destinatario del \textit{counterprize} $ A_B $, si esclude
+dagli aventi diritto di firma su $ A_B $ e allo stesso tempo pre-autorizza
+le due transazioni $ T_1 $ e $ T_2 $.
+
+La transazione $ T_1 $ invia ad Eve metà del \textit{counterprize}
+e ripristina la firma di Bob su $ A_B $.
+L'idea è che sia Eve a fare il submit di questa transazione. L'unico modo che ha per
+farlo è quello di fare il submit della transazione \textit{counterprize}, in modo da avere
+sull'account $ A_B $ un deposito di fondi sufficienti.
+
+Infine $ T_2 $ serve a tutelare Bob; se Eve non fa il submit di $ T_{1} $ in un tempo ragionevole
+$ \bar{t} $ Bob può usare $ T_2 $ per riprendere il possesso del suo account $ A_B $.
 
 
 \section{Lo script}
