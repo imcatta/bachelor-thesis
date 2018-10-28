@@ -34,8 +34,8 @@ La \textbf{Blockchain} non è altro che una tipologia di DLT. Spesso nell'lingua
 comune queste due parole vengono usate come sinonimi, ma in questa tesi ci impegneremo
 nel mantenere questa distinzione.
 
-Una Blockchain è una catena di transazioni in continua crescita. I transazioni sono
-raggruppati in blocchi, e questi blocchi sono collegati tra di loro con tecniche
+Una Blockchain è una catena di transazioni in continua crescita. Le transazioni sono
+raggruppate in blocchi che sono collegati tra di loro con tecniche
 crittografiche.
 
 Ogni blocco è composto da:
@@ -45,18 +45,84 @@ Ogni blocco è composto da:
 	\item Un insieme di transazioni
 \end{itemize}
 La Blockchain è stata inventata da Satoshi Nagamoto nel 2008 per essere utilizzata
-come ledger pubblico per la gestione della criptovaluta Bitcoin. Con la blockchain,
-per la prima volta si è potuto risolvere il problema del \textit{double-spending}
-senza ricorrere ad una autorità fidata.
+come ledger pubblico per la gestione della criptovaluta Bitcoin. ,
+grazie all'utilizzo della blockchain, è stato possibile risolvere il problema
+del \textit{double-spending} senza ricorrere ad una autorità fidata.
 
 
 \section{Smart Contracts}
-Uno \textbf{Smart Contract} è un protocollo computerizzato che ha lo scopo di
-facilitare, verificare o obbligare la negoziazione o l'esecuzione di un contratto.
-L'aspetto sicuramente più interessante è che permettono di garantire l'esecuzione
-di determinate azioni, come un pagamento, senza l'intervento di un soggetto terzo.
-Gli Smart Contracts furono pensati per la prima volta da Nick Szabo nel 1994, per poi
-essere formalizzati dal lui stesso nel 1997 \cite{szabo-smart-contracts}.
+Lo Smart Contract è uno strumento che ha un forte legame con la blockchain e che ha un ruolo chiave
+nelle applicazioni enterprise e non solo.
+Ciò nonostante, non vi è ancora un chiaro consenso sulla definizione di Smart Contract.
+
+L'idea di Smart Contract risale a ben prima della nascita della Blockchain. È stata infatti introdotta
+per la prima volta nel 1994 da Nick Szabo, per poi
+essere formalizzato da lui stesso nel 1997 \cite{szabo-smart-contracts}.
+Secondo la definizione originale,
+\begingroup
+\advance\leftmargini 2em
+\begin{quote}
+	{\bf
+		{\em Smart contracts combine protocols with user interfaces to formalize
+			and secure relationships over computer networks.
+			Objectives and principles for the design of these systems
+			are derived from legal principles, economic theory,
+			and theories of reliable and secure protocols.}
+	}
+\end{quote}
+\endgroup
+
+Più recentemente sono emerse definizioni in linea con la realtà contemporanea.
+In \cite{making-sense-of-bsc}, Stark fornisce una panoramica dei due diversi significati che il termine
+Smart Contract ha assunto:
+\begin{enumerate}
+	\item \textbf{Smart Contract Code}: opera nel mondo naturale,
+	      coinvolgendo l'uso di agenti software che tipicamente,
+	      ma non necessariamente, operano su un ledger condiviso. La parola contratto in questo senso
+	      indica che gli agenti software devono sottostare ad alcuni vincoli e possono prendere il controllo
+	      di alcuni asset in un ledger condiviso. Non vi è un chiaro consenso  There is no clear consensus on the
+	      definition of this use of the term “smart contract” — each definition is different in subtle
+	      ways [18, 17, 16, 3]. Stark renames these agents as smart contract code.
+	\item \textbf{Smart Legal Contract}: The second focuses on how legal contracts can be expressed and executed in software.
+	      This therefore encompasses operational aspects, issues relating to how legal contracts
+	      are written and how the legal prose should be interpreted. There are several ideas and
+	      projects which focus on these aspects such as the Ricardian Contract [7], CommonAccord
+		      [4] and Legalese [13]. Stark renames these as smart legal contracts.
+\end{enumerate}
+Partendo dall'analisi di Spark, Clack et al. in \cite{Clack2016SmartCT} propongono una definizione
+di più alto livello che include entrambi i significati di cui sopra, basata sui temi
+dell'automazione e dell'applicabilità:
+\begingroup
+\advance\leftmargini 2em
+\begin{quote}
+	{\bf
+		{\em A smart contract is an automatable and enforceable agreement. Automatable by computer,
+			although some parts may require human input and control. Enforceable either by legal
+			enforcement of rights and obligations or via tamper-proof execution of computer code.  }
+	}
+\end{quote}
+\endgroup
+\begingroup
+\advance\leftmargini 2em
+\begin{quote}
+	{
+		{\em Uno smart contract è un accordo automatizzabile e applicabile. Automatizzabile da computer,
+				sebbene alcune parti possano richiedere input e controllo umani. Applicabile sia attraverso
+				l'obbligatorietà legale di diritti e doveri o tramite
+				l'esecuzione di codice informatico a prova di manomissione.}
+	}
+\end{quote}
+\endgroup
+Questa definizione è sufficientemente astratta da includere sia lo "smart legal contract"
+(dove l'accordo è un accordo legale, che è in grado di essere eseguito automaticamente da un software)
+e lo "smart contract code" (che potrebbe non essere necessariamente legato ad un accordo legale formale,
+ma che comunque viene eseguito automaticamente).
+
+
+
+\subsection{Vulnerabilità negli Smart Contracts}
+https://securify.chainsecurity.com/
+https://drive.google.com/drive/u/2/folders/0B2KxxEraxibtSl9QT3Q2RE8tLVk
 
 \section{Stellar}
 
@@ -164,6 +230,12 @@ e quale sarà l'evoluzione futura.
 	\caption{Spesa mondiale in soluzioni blockchain per regione (in miliardi di
 		dollari U.S.) \cite{global-blockchain-solutions-spending}}
 \end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\linewidth]{images/chap_intro/leading-territories-worldwide.pdf}
+	\caption{
+		\cite{leading-territories-worldwide}}
+\end{figure}
 
 \subsection{Le aspettative delle imprese}
 \begin{figure}[H]
@@ -171,4 +243,16 @@ e quale sarà l'evoluzione futura.
 	\includegraphics[width=.75\linewidth]{images/chap_intro/potential-blockchain-applications.pdf}
 	\caption{Sondaggio: quale problema può potenzialmente risolvere l'uso della blockchain
 		nella catena di commercio? \cite{potential-blockchain-applications}}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\linewidth]{images/chap_intro/use-cases-among-businesses.pdf}
+	\caption{Sondaggio: in quali caso d'uso di business la blockchain è utile?
+		\cite{use-cases-among-businesses}}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.75\linewidth]{images/chap_intro/barriers-worldwide.pdf}
+	\caption{
+		\cite{barriers-worldwide}}
 \end{figure}
