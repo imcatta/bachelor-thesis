@@ -2,12 +2,16 @@
 \label{chap:protocollo}
 
 In questo capitolo verrà trattato il protocollo proposto per l'implementazione
-della Time-Lock Encryption sui DLT. Nella prima parte cercheremo di spiegare
-l'idea che sta alla base, anche con l'ausilio di un esempio. Nella seconda parte
-invece passeremo ad analizzare gli aspetti più formali, come le caratteristiche
-dello Smart Contract che
-serve implementare e i requisiti del DLT sui cui operare.
+della Time-Lock Encryption sui DLT.
+Cercheremo di spiegare
+l'idea che sta alla base con l'ausilio di un esempio.
 
+Rientra nella categoria degli approcci
+con \textit{trusted agents} [\ref{subsec:trusted-agents}].
+L'idea è quella di sfruttare alcuni
+smart contract per
+fornire degli incentivi economici agli agenti in modo che questi si comportino in
+maniera onesta.
 \section{Versione base}
 \label{sec:versione-base}
 Immaginiamo che Carol abbia bisogno di Time-Lock Encryption su un certo messaggio $ x $.
@@ -188,7 +192,7 @@ di Bob.
 Abbiamo visto un esempio con la partecipazione di due \textit{provider},
 ma il protocollo
 può essere analogamente implementato con $ N $ partecipanti, dove $ N \geq 3 $.
-Per una analisi approfondita su come sfruttare la ridondanza per 
+Per una analisi approfondita su come sfruttare la ridondanza per
 garantire un buon grado di robustezza rimandiamo al capitolo
 \ref{chap:dimensionamento}.
 
