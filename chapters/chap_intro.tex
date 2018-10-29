@@ -164,15 +164,26 @@ di casi reali.
 
 \subsubsection{Strumenti per l'individuazione di vulnerabilità}
 Esistono diversi strumenti in grado di rilevare eventuali vulnerabilità presenti
-negli Smart Contracts. Ne proponiamo un paio tra quelli che operano con
+negli Smart Contracts.  Ne proponiamo un paio tra quelli che operano con
 gli Smart Contract di Ethereum.
 
-\paragraph{SECURIFY}
-Tool: \cite{secufiry-url}. Paper: \cite{secufiry-paper}
+\paragraph{SECURIFY} Tool: \cite{secufiry-url}. Paper: \cite{secufiry-paper}.
+Si tratta di uno strumento per l'analisi statica di Smart Contract scritti in Solidity. È in grado
+di dimostrare che i comportamenti degli Smart Contract sono sicuri/non sicuri
+rispetto a determinate proprietà.
+L'analisi di Securify consiste in due passaggi.
+Per prima cosa analizza simbolicamente il grafo delle dipendenze
+del contratto per estrarre informazioni semantiche dal codice.
+Quindi usa modelli di conformità e violazione
+in grado di individuare condizioni sufficienti per dimostrare se una
+proprietà è valida o meno.
 
+\paragraph{MAIAN} Tool: \cite{maian-url}. Paper: \cite{Nikolic2018FindingTG}
+È uno strumento di analisi in grado di individuare vulnerabilità direttamente
+dal bytecode di Ethereum Smart Contract, senza l'uso dei sorgenti.
+Si basa sullo studio delle \textit{trace properties}, impiegando l'uso di
+analisi simbolica inter-procedurale e di un validatore.
 
-https://securify.chainsecurity.com/
-https://drive.google.com/drive/u/2/folders/0B2KxxEraxibtSl9QT3Q2RE8tLVk
 
 \section{Stellar}
 
