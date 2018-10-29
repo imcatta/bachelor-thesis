@@ -120,7 +120,57 @@ ma che comunque viene eseguito automaticamente).
 
 
 
-\subsection{Vulnerabilità negli Smart Contracts}
+\section{Vulnerabilità negli Smart Contract}
+Come abbiamo visto gli Smart Contract permettono l'esecuzione di codice arbitrario
+sulle blockchain, permettendo interazioni automatizzate tra diversi attori in un contesto
+\textit{trustless} senza ricorrere all'utilizzo di terze parti fidate.
+
+Gli Smart Contract si ritrovano a gestire diversi miliardi di USD in criptomoneta,
+attirando quindi le attenzioni di malintenzionati. In questa sezione analizzeremo
+diverse vulnerabilità emerse nel corso del tempo e mostreremo
+alcuni strumenti in grado di aiutarci nello sviluppo di Smart Contract sicuri.
+
+\subsection{Classificazione delle vulnerabilità}
+Secondo Nikolic et al. \cite{Nikolic2018FindingTG},
+gli Smart Contract vulnerabili possono essere divisi in tre categorie.
+
+\paragraph{Prodigal Contracts}
+Esistono alcune categorie di destinatari tipici delle transazioni effettuate
+dagli smart contracts. I contratti spesso restituiscono fondi ai
+proprietari, agli indirizzi che hanno inviato
+criptomoneta ad essi in passato (ad es. nelle lotterie) o a indirizzi
+per i quali vi è una ragione specifica (ad es. invio di una ricompensa).
+I \textbf{prodigal contracts} sono contratti che inviano fondi ad
+indirizzi arbitrari che non rientrano nelle categorie di cui sopra.
+
+\paragraph{Suicidal Contracts}
+I contratti spesso hanno una opzione di sicurezza che permette al proprietario
+o a un account fidato di uccidere il contratto in situazioni di emergenza,
+come un attacco o un malfunzionamento. Se questa funzionalità non è correttamente gestita
+un contratto potrebbe essere ucciso da un qualunque account arbitrario.
+Se è così, allora il contratto rientra nella categoria dei \textbf{suicidal contracts}.
+
+\paragraph{Greedy Contracts}
+I \textbf{greedy contracts} sono i contratti che rimangono vivi e detengono
+criptomoneta per un tempo indefinito e che non permettono il riscatto dei
+fondi contenuti in alcuna circostanza.
+
+\subsection{Come costruire Smart Contracts sicuri}
+Una buona pratica da seguire per sviluppare Smart Contracts sicuri è
+informarsi sulle vulnerabilità note.
+Lo Smart Contract Weakness Classification Registry \cite{swc-registry} fornisce un elenco
+costantemente aggiornato catalogo di vulnerabilità e anti-pattern noti insieme ad esempi
+di casi reali.
+
+\subsubsection{Strumenti per l'individuazione di vulnerabilità}
+Esistono diversi strumenti in grado di rilevare eventuali vulnerabilità presenti
+negli Smart Contracts. Ne proponiamo un paio tra quelli che operano con
+gli Smart Contract di Ethereum.
+
+\paragraph{SECURIFY}
+Tool: \cite{secufiry-url}. Paper: \cite{secufiry-paper}
+
+
 https://securify.chainsecurity.com/
 https://drive.google.com/drive/u/2/folders/0B2KxxEraxibtSl9QT3Q2RE8tLVk
 
@@ -142,10 +192,11 @@ il facilitare lo scambio di denaro tra privati invece che tra banche.
 
 \subsection{Gli Smart Contracts in Stellar}
 \label{subsec:stellar smart contracts}
-In Stellar gli Smart Contracts di Szabo sono implementati
-attraverso gli Stellar Smart Contracts.
+% In Stellar gli Smart Contracts di Szabo sono implementati
+% attraverso gli Stellar Smart Contracts.
 
-Uno \textbf{Stellar Smart Contract} (SSC) è espresso come la composizione
+Secondo la documentazione ufficiale \cite{stellar-doc-sc},
+uno \textbf{Stellar Smart Contract} (SSC) è espresso come la composizione
 di transazioni connesse fra loro ed eseguite secondo certi vincoli.
 I vincoli che si possono utilizzare nella realizzazione di SSCs sono:
 
@@ -191,10 +242,10 @@ I limiti di tempo sono vincoli sul periodo di tempo durante il quale
 una transazione è valida. L'utilizzo dei limiti di tempo
 consente di rappresentare i periodi di tempo in un SSC.
 
-\section{Statistiche}
+\section{L'adozione della blockchain nelle industrie}
 In questa sezione vedremo alcuni dati e statistiche che ci aiuteranno a capire quale è
-lo stato dell'arte per quanto riguarda l'adozione delle tecnologia blockchain nelle industrie
-e quale sarà l'evoluzione futura.
+lo stato dell'arte per quanto riguarda l'adozione delle tecnologie blockchain nelle industrie
+e cosa aspettarci per il futuro.
 
 \subsection{Il panorama attuale}
 \begin{figure}[H]
