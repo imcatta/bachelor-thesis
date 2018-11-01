@@ -44,25 +44,25 @@
     pdfstartview={FitH},
     colorlinks,
     linkcolor={black}, %COLORE DEI RIFERIMENTI AL TESTO
-    citecolor={blue}, %COLORE DEI RIFERIMENTI ALLE CITAZIONI
-    urlcolor={blue} %COLORI DEGLI URL
+    citecolor={black}, %COLORE DEI RIFERIMENTI ALLE CITAZIONI
+    urlcolor={black} %COLORI DEGLI URL
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % CONFIGURAZIONE LISTATI/CODICE - CANCELLARE SE NON NECESSARIO
 % PYTHON - BIANCO E NERO
-\lstset{%
-	captionpos=b,
-	language=Python,
-	basicstyle =\small\ttfamily,
-	keywordstyle=\color{black}\bfseries,
-	breaklines=true,
-	breakatwhitespace=true,
-	frame=lines,
-	numbers=left,
-	numberstyle=\footnotesize,
-}
+% \lstset{%
+% 	captionpos=b,
+% 	language=Python,
+% 	basicstyle =\small\ttfamily,
+% 	keywordstyle=\color{black}\bfseries,
+% 	breaklines=true,
+% 	breakatwhitespace=true,
+% 	frame=lines,
+% 	numbers=left,
+% 	numberstyle=\footnotesize,
+% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -89,10 +89,10 @@
 
 % INFORMAZIONI PDF - PERSONALIZZARE
 \pdfinfo{%
-  /Title    (Senza carta igienica)
-  /Author   (Tinaso de Tinasis)
-  /Subject  (Un trattato di toccante urgenza)
-  /Keywords (LaTeXi carta igienica urgenza Politecnico Presicce)
+  /Title    (Un approccio alla Time-Lock Encryption basato su Smart Contract)
+  /Author   (Andrea Cattaneo)
+% /Subject  (Un trattato di toccante urgenza)
+% /Keywords (LaTeXi carta igienica urgenza Politecnico Presicce)
 }
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -175,7 +175,7 @@ chapters/chap_possibili_usi,%
 \begin{document}
 
 % \frontespizio
-\includepdf[fitpaper=true,]{frontespizio/fronteingegnerialt.pdf}
+\includepdf[fitpaper=true]{frontespizio/fronteingegnerialt.pdf}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -259,6 +259,7 @@ Piacere, sommario.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % BIBLIOGRAFIA
+\phantomsection
 \addcontentsline{toc}{chapter}{\refname}
 \nocite{*}
 \printbibliography
