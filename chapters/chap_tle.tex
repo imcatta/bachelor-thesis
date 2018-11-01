@@ -1,38 +1,88 @@
 \chapter{Time-Lock Encryption}
 
 \section{Cosa è la TLE}
-Lo scopo della \textbf{Time-Lock Encryption} è quello di "inviare un messaggio nel futuro".
+La \textbf{Time-Lock Encryption} (TLE) (o \textbf{Timed-Release Encryption})
+è un metodo per cifrare un messaggio in modo che possa
+essere decifrato solo dopo che una certa deadline è stata raggiunta.
+Un avversario, anche se ha a disposizione una grande quantità di potenza di calcolo,
+non deve essere in grado di ottenere il messaggio prima della deadline.
+Inoltre, dopo la deadline i destinatari devono poter leggere il messaggio,
+indipendentemente dalla potenza di calcolo che ha a disposizione e
+senza dover interagire con il mittente,
+con altri riceventi o con terze parti fidate.
+
+Questo tipo di crittografia è molto difficile da ottenere con un modelli
+di computazione standard (come la macchina di Turing), perché questi non mettono
+a disposizione un "orologio del mondo reale" affidabile.
+Nel capitolo \ref{chap:protocollo} proponiamo una soluzione che si appoggia sui DLT,
+i quali mettono a disposizione
+le buone proprietà di cui necessita la Time-Lock Encryption.
+
+Il problema dell'\textit{invio di un messaggio nel futuro} è stato proposto per la prima volta
+da May \cite{May:time-released-crypto} nel 1993 e
+successivamente studiato da Rivest, Shamir and Wagner \cite{Rivest96time-lockpuzzles}.
+
+La Time-Lock Encryption ha diverse applicazioni nel mondo reale. Queste verranno
+discusse nel dettaglio nel capitolo \ref{chap:possibili-usi}.
 
 \section{Requisiti}
-Quello che ci aspettiamo da un buon sistema di TLE è che abbia le seguenti proprietà.
+Ricapitolando, un buon sistema di TLE deve soddisfare i seguenti requisiti.
 
 \subsection{Certezza di pubblicazione del messaggio al tempo $ \tau $}
+Un buon sistema di TLE deve garantire che il messaggio venga pubblicato al
 
 \subsection{Segretezza del messaggio sino al tempo $ \tau $}
 \label{subsec:segretezza-tle}
 
 
 \section{Come implementare la TLE}
-Ipotizziamo che Alice voglia inviare un messaggio a Bob in modo che Bob
-non lo possa leggere prima di un certo tempo $ \tau $.
 Sostanzialmente esistono due strategie
 per affrontare questo problema
 
-\subsection{Time-Lock Puzzle}
-Alice crittografa il suo messaggio in modo che Bob debba eseguire una computazione non
-paralelizzabile senza mai fermarsi per un certo periodo di tempo per poterlo decriptare.
-Se Alice prevede con precisione la potenza di calcolo di cui disporra Bob da qua
-all'istante $ \tau $, allora Bob riesce a leggere il messaggio all'istante desiderato.
+\subsection{Time-Locked Puzzle}
+I Time-Locked puzzle sono stati introdotti per la prima volta
+da Merkle \cite{Merkle:1978:SCO:359460.359473} e approfonditi
+da Bellare et. al. \cite{Bellare:1996:EKE:888619}
+e da Rivest et. al. \cite{Rivest96time-lockpuzzles}.
+L'idea che sta alla base è che il messaggio venga trasformato in un certo instante $ t_0 $
+in modo tale che ogni macchina
+(seriale o parallela) debba lavorare per un certo quantitativo di tempo $ \Delta $ per risolvere
+il problema computazionale sottostante (puzzle). La somma tra $ t_0 $ e $ \Delta $ è la deadline.
 
-% L'idea è quella di crittografare il segreto attraverso un problema matematico,
-% risolvibile con un calcolatore, che richiede un certo tempo $ \tau $ stimabile
-% per poter essere risolto.
-% ... inserire algoritmo ...
-% Le criticità di questo approccio sono diverse. In primo luogo vi è la difficoltà nel
-% trovare un algoritmo che soddisfi i requisiti qua sopra, e soprattutto che sia robusto
-% anche a fronte del miglioramento della potenza di calcolo dei computer del futuro.
 
-% Un'altra questione è necessario che vi sia qualcuno disposto a risolvere il problema
+Sebbene rappresenti un approccio elegante nell'ambito della teoria della complessità computazionale,
+l'uso \textit{Time-Locked Puzzle} è poco sostenibile nella pratica poiché è poco flessibile e richiede l'uso di
+grandi quantità di risorse di calcolo. Inoltre è possibile garantire solo un limite inferiore
+sull'istante di pubblicazione del messaggio, dato che la macchina risolutrice potrebbe per vari motivi
+non iniziare immediatamente
+a lavorare, potrebbe effettuare delle pause durante l'elaborazione
+o peggio ancora potrebbe decidere di non risolvere il puzzle.
+Un altro problema è che in futuro potrebbero venir creati nuovi strumenti hardware in grado
+di ridurre il tempo necessario per la risoluzione del puzzle, qualsiasi esso sia.
+
+
+Although elegant in the complexity theoretic sense, the time-lock puzzle approach is impractical,
+consumes a large amount of computational resources and lacks flexibility. Since
+time-lock puzzles try to make “CPU time” and “real time” agree as closely as possible, it can
+only solve the relative time problem (with reference to the start of solving the puzzle) with an
+approximately controllable time (different machines work at different speeds) and the puzzle
+does not automatically become solvable at a given time (if solving is not started immediately
+upon receipt). If absolute and precise timing of information release is essential, like the sealed
+bid scenario mentioned above, the approach based on a trusted time server is inevitable.
+% Alice crittografa il suo messaggio in modo che Bob debba eseguire una computazione non
+% paralelizzabile senza mai fermarsi per un certo periodo di tempo per poterlo decriptare.
+% Se Alice prevede con precisione la potenza di calcolo di cui disporra Bob da qua
+% all'istante $ \tau $, allora Bob riesce a leggere il messaggio all'istante desiderato.
+
+% % L'idea è quella di crittografare il segreto attraverso un problema matematico,
+% % risolvibile con un calcolatore, che richiede un certo tempo $ \tau $ stimabile
+% % per poter essere risolto.
+% % ... inserire algoritmo ...
+% % Le criticità di questo approccio sono diverse. In primo luogo vi è la difficoltà nel
+% % trovare un algoritmo che soddisfi i requisiti qua sopra, e soprattutto che sia robusto
+% % anche a fronte del miglioramento della potenza di calcolo dei computer del futuro.
+
+% % Un'altra questione è necessario che vi sia qualcuno disposto a risolvere il problema
 
 \subsection{Trusted agents (agenti fidati)}
 \label{subsec:trusted-agents}
