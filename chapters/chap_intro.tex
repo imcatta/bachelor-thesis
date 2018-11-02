@@ -231,8 +231,8 @@ viene creata la rappresentazione del potere nelle firme.
 Il Batching è il concetto dell'includere più operazioni in un'unica transazione.
 L'atomicità è la garanzia che, data una serie di operazioni raggruppate in
 un'unica transazione,
-al momento dell'invio sul network se anche una sola operazione fallisce,
-tutte le operazioni nella transazione falliscono.
+al momento dell'invio sul network se anche una sola operazione dovesse fallire,
+tutte le operazioni nella transazione fallirebbero.
 
 \begin{itemize}
 	\item \textit{Sequence (sequenza)} -
@@ -243,7 +243,7 @@ Il concetto di sequenza è rappresentato sullo Stellar network attraverso
 il numero di sequenza. Utilizzando i numeri di sequenza
 nella manipolazione delle transazioni è possibile garantire che
 transazioni specifiche non possano essere eseguite
-se viene inoltrata una transazione alternativa.
+nel momento in cui venisse inoltrata una transazione alternativa.
 
 \begin{itemize}
 	\item \textit{Time Bounds (limiti temporali)} -
@@ -254,6 +254,7 @@ una transazione è valida. L'utilizzo dei limiti di tempo
 consente di rappresentare i periodi di tempo in un SSC.
 
 \section{L'adozione della blockchain nelle industrie}
+Il successo o il fallimento di uan tecnologia è molto spesso legato più ... che alla bontà della tecnologia stessa.
 In questa sezione vedremo alcuni dati e statistiche che ci aiuteranno a capire quale è
 lo stato dell'arte per quanto riguarda l'adozione delle tecnologie blockchain nelle industrie
 e cosa aspettarci per il futuro.
