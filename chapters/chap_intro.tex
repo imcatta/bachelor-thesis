@@ -58,21 +58,34 @@ Ciò nonostante, non vi è ancora un chiaro consenso sulla definizione di Smart 
 L'idea di Smart Contract risale a ben prima della nascita della Blockchain. È stata infatti introdotta
 per la prima volta nel 1994 da Nick Szabo, per poi
 essere formalizzato da lui stesso nel 1997 \cite{szabo-smart-contracts}.
-Secondo la definizione originale,
+Secondo la definizione originale
 \begingroup
 \advance\leftmargini 2em
 \begin{quote}
-	{\bf
+	{
 		{\em Smart contracts combine protocols with user interfaces to formalize
-			and secure relationships over computer networks.
-			Objectives and principles for the design of these systems
-			are derived from legal principles, economic theory,
-			and theories of reliable and secure protocols.}
+				and secure relationships over computer networks.
+				Objectives and principles for the design of these systems
+				are derived from legal principles, economic theory,
+				and theories of reliable and secure protocols.}
+	}
+\end{quote}
+\endgroup
+\begingroup
+\advance\leftmargini 2em
+\begin{quote}
+	{
+		{\em Gli smart contract combinano protocolli con le interfacce utente
+				al fine di formalizzare e rendere sicure
+				le relazioni su reti di computer.
+				Obiettivi e principi per la progettazione di questi sistemi
+				derivano da principi giuridici, dalla teoria economica
+				e da teorie di protocolli affidabili e sicuri.}
 	}
 \end{quote}
 \endgroup
 
-Più recentemente sono emerse definizioni in linea con la realtà contemporanea.
+Più recentemente sono emerse definizioni aggiornate.
 In \cite{making-sense-of-bsc}, Stark fornisce una panoramica dei due diversi significati che il termine
 Smart Contract ha assunto:
 \begin{enumerate}
@@ -95,10 +108,10 @@ dell'automazione e dell'applicabilità:
 \begingroup
 \advance\leftmargini 2em
 \begin{quote}
-	{\bf
+	{
 		{\em A smart contract is an automatable and enforceable agreement. Automatable by computer,
-			although some parts may require human input and control. Enforceable either by legal
-			enforcement of rights and obligations or via tamper-proof execution of computer code.  }
+				although some parts may require human input and control. Enforceable either by legal
+				enforcement of rights and obligations or via tamper-proof execution of computer code.  }
 	}
 \end{quote}
 \endgroup
@@ -155,16 +168,17 @@ I \textbf{greedy contracts} sono i contratti che rimangono vivi e detengono
 criptomoneta per un tempo indefinito e che non permettono il riscatto dei
 fondi contenuti in alcuna circostanza.
 
-\subsection{Come costruire Smart Contracts sicuri}
+\subsection{Strumenti per l'individuazione di vulnerabilità}
 Una buona pratica da seguire per sviluppare Smart Contracts sicuri è
-informarsi sulle vulnerabilità note.
+rimanere aggiornati sulle vulnerabilità note.
 Lo Smart Contract Weakness Classification Registry \cite{swc-registry} fornisce un elenco
-costantemente aggiornato catalogo di vulnerabilità e anti-pattern noti insieme ad esempi
+continuamente aggiornato di vulnerabilità e anti-pattern noti insieme ad esempi
 di casi reali.
 
-\subsubsection{Strumenti per l'individuazione di vulnerabilità}
-Esistono diversi strumenti in grado di rilevare eventuali vulnerabilità presenti
-negli Smart Contracts.  Ne proponiamo un paio tra quelli che operano con
+\subsubsection{Strumenti di analisi automatizzata}
+Esistono diversi strumenti in grado di operare un'analisi per
+rilevare le vulnerabilità presenti
+negli Smart Contracts. Ne proponiamo un paio tra quelli che operano con
 gli Smart Contract di Ethereum.
 
 \paragraph{SECURIFY} Tool: \cite{secufiry-url}. Paper: \cite{secufiry-paper}.
@@ -175,8 +189,7 @@ L'analisi di Securify consiste in due passaggi.
 Per prima cosa analizza simbolicamente il grafo delle dipendenze
 del contratto per estrarre informazioni semantiche dal codice.
 Quindi usa modelli di conformità e violazione
-in grado di individuare condizioni sufficienti per dimostrare se una
-proprietà è valida o meno.
+in grado di individuare eventuali criticità.
 
 \paragraph{MAIAN} Tool: \cite{maian-url}. Paper: \cite{Nikolic2018FindingTG}
 È uno strumento di analisi in grado di individuare vulnerabilità direttamente
