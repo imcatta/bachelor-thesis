@@ -1,7 +1,7 @@
-\chapter{Time-Lock Encryption}
+\chapter{Timed-Release Encryption}
 
-\section{Cosa è la TLE}
-La \textbf{Time-Lock Encryption} (TLE) (o \textbf{Timed-Release Encryption})
+\section{Cosa è la Timed-Release Encryption}
+La \textbf{Timed-Release Encryption} (TRE)
 è un metodo per cifrare un messaggio in modo che possa
 essere decifrato solo dopo che una certa deadline è stata raggiunta.
 Un avversario, anche se ha a disposizione una grande quantità di potenza di calcolo,
@@ -16,26 +16,26 @@ di computazione standard (come la macchina di Turing), perché questi non metton
 a disposizione un "orologio del mondo reale" affidabile.
 Nel capitolo \ref{chap:protocollo} proponiamo una soluzione che si appoggia sui DLT,
 i quali mettono a disposizione
-le buone proprietà di cui necessita la Time-Lock Encryption.
+le buone proprietà di cui necessita la Timed-Release Encryption.
 
 Il problema dell'\textit{invio di un messaggio nel futuro} è stato proposto per la prima volta
 da May \cite{May:time-released-crypto} nel 1993 e
 successivamente studiato da Rivest, Shamir and Wagner \cite{Rivest96time-lockpuzzles}.
 
-La Time-Lock Encryption ha diverse applicazioni nel mondo reale. Queste verranno
+La Timed-Release Encryption ha diverse applicazioni nel mondo reale. Queste verranno
 discusse nel dettaglio nel capitolo \ref{chap:possibili-usi}.
 
 \section{Requisiti}
-Ricapitolando, un buon sistema di TLE deve soddisfare i seguenti requisiti.
+Ricapitolando, un buon sistema di TRE deve soddisfare i seguenti requisiti.
 
 \subsection{Certezza di pubblicazione del messaggio al tempo $ \tau $}
-Un buon sistema di TLE deve garantire che il messaggio venga pubblicato al
+Un buon sistema di Timed-Release Encryption deve garantire che il messaggio venga pubblicato al
 
 \subsection{Segretezza del messaggio sino al tempo $ \tau $}
-\label{subsec:segretezza-tle}
+\label{subsec:segretezza-tre}
 
 
-\section{Come implementare la TLE}
+\section{Implementare la Timed-Release Encryption}
 Sostanzialmente esistono due strategie
 per affrontare questo problema
 
