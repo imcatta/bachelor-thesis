@@ -17,7 +17,7 @@ transazioni in un \textit{ledger} condiviso.
 Le blockchain (in condizioni di normale funzionamento) garantiscono che
 nessuna transazione possa essere manomessa dopo essere stata pubblicata.
 
-L'idea di blockchain
+Nel 2008 l'idea di blockchain
 è stata combinata con altre tecnologie e concetti informatici
 per creare le criptovalute:
 denaro elettronico protetto e garantito attraverso meccanismi crittografici anziché
@@ -25,24 +25,121 @@ tramite autorità centrali.
 
 \section{Storia della blockchain}
 I concetti chiave alla base della tecnologia blockchain sono emersi a cavallo tra gli anni '80 e '90.
-Nel 1989 Lamport sviluppo il protocollo Paxos. Si tratta di
-un modello in grado di raggiungere un consenso in una rete di computer
+
+Nel 1989 Lamport sviluppò il protocollo Paxos. Si tratta di
+un protocollo per il raggiungimento di un consenso in una rete di computer
 dove i computer o la rete stessa posso essere inaffidabili. Lo descrisse nel paper
 \textit{The Part-Time Parliament} \cite{lamport1998part},
 che però venne pubblicato solo nel 1998.
+
 Nel 1991 Haber e Stornetta proposero l'uso di una catena di hash
 per risolvere il problema del \textit{time-stamping} di documenti,
 ossia per poter permettere di dimostrare l'esistenza di un certo
 documento in un istante di tempo passato \cite{haber1990time}.
 
-Questi concetti sono stati combinati e applicati al denaro elettronico nel 2008 e
+Questi concetti sono stati combinati e applicati al denaro elettronico e
 descritti nel paper \textit{Bitcoin: A peer-to-peer electronic cash system} \cite{nakamoto2008bitcoin}, pubblicato
 nel 2008 sotto lo pseudonimo Satoshi Nakamoto. Sulla base di questo documento
-nacque nel 2009 il Bitcoin cryptocurrency blockchain network.
+nacque nel 2009 il \textit{Bitcoin cryptocurrency blockchain network}.
 Il paper di Nakamoto contiene lo schema base
 seguito dalla maggior parte dei sistemi di criptovaluta moderni.
 
+Diversi sistemi di pagamento elettronico esistevano già prima della nascita di Bitcoin
+(ad esempio ecash e NetCash), ma nessuno di questi raggiunse una vasta adozione.
+La grande innovazione di Bitcoin rispetto ai precessori è stata la blockchain;
+questa ha consentito un'implementazione distribuita in grado
+di evitare un \textit{single point of failure} e di garantire che nessun utente singolo
+sia in grado di controllare denaro elettronico.
 ...
+
+In Bitcoin gli utenti sono anonimi, ma l'identificativo
+del loro account non lo è. Questa caratteristica prende il nome di \textit{pseudo-anonimità}.
+A causa della pseudo-anonimità è essenziale disporre di meccanismi in grado di creare
+fiducia in un ambiente dove gli utenti non possono facilmente essere identificati. Prima
+della blockchain, questa fiducia veniva tipicamente fornita tramite intermediari e terze parti fidate.
+La rete blockchain invece garantisce il bisogno di fiducia senza terze-parti fidate sfruttando
+le seguenti caratteristiche:
+\begin{itemize}
+	\item \textbf{Ledger}: la blockchain usa un ledger sequenziale per fornire un
+	      elenco completo delle transazioni avvenute. A differenza dei database tradizionali,
+	      gli elementi delle blockchain non possono essere sovrascritti.
+	\item \textbf{Sicurezza}: le blockchain sfruttano la crittografia per garantire che i dati contenuti
+	      nel ledger non siano stati alterati e l'attendibilità delle transazioni.
+	\item \textbf{Condivisione}: il ledger è condiviso tra diversi partecipanti. Questo garantisce
+	      trasparenza tra i nodi della blockchain.
+	\item \textbf{Distruzione}: le blockchain possono essere distribuite. Ciò permette di scalare
+	      il numero di nodi della rete blockchain in modo da renderla più resistente agli attacchi.
+	      In generale all'aumentare del numero di nodi la capacità di un attaccante di destabilizzare il
+	      protocollo di consenso diminuisce.
+\end{itemize}
+
+\section{Categorie di blockchain}
+Effettuando una classificazione basata sul modello di permessi,
+è possibile individuare due categorie di blockchain.
+
+\subsection{Permissionless}
+Le reti blockchain \textit{permissionless} sono ledger decentralizzati che danno la possibilità
+a chiunque di scrivere blocchi, senza il bisogno del permesso esplicito di una autorità.
+Spesso le piattaforme blockchain permissionless sono software open source, liberamente
+disponibili a chiunque per poter essere scaricati. Una conseguenza del fatto che
+chiunque ha il diritto di aggiungere blocchi è che la blockchain può essere letta da chiunque
+così come effettuare transazioni sulla blockchain.
+
+Qualsiasi utente di una blockchain permissionless può leggere e scrivere sul ledger.
+Poichè chiunque può partecipare alle reti blockchain permissionless, utenti malintenzionati
+potrebbero tentare di aggiungere blocchi malevoli al fine di sovvertire il sistema.
+Per prevenire ciò solitamente le blockchain usano algoritmi di consenso
+(vedi \ref{intro:modelli-consenso}) basati sul consumo o sul possesso di risorse.
+Solitamente i meccanismi di consenso nelle blockchain
+permissionless promuovono i comportamenti non-malevoli attraverso ricompense in criptovaluta
+attribuite a chi pubblica blocchi conformi al protocollo.
+
+\subsection{Permissioned}
+Nelle blockchain permissioned gli utenti che pubblicano blocchi devono essere autorizzati da una
+qualche autorità (centralizzata o decentralizzata). Poiché solo gli utenti autorizzati are maintaining
+the blockchain, è possibile atturare delle restrizioni sui permessi di lettura e scrittura.
+Le blockchain permissioned possono essere concepite in modo da permettere a chiunque di
+leggere la blockchain o possono fornire l'accesso in lettura solo ad alcuni utenti.
+Possono anche consentire a chiunque di effettuare transazioni sulla blockchain o, ancora,
+dare questa possibilità solo ad alcuni utenti. Le blockchain permissioned possono essere
+istanziate e manutenute attraverso software open source o closed source.
+
+Anche le blockchain permissioned possono avere la stessa tracciabilità degli asset
+scambiati come nel caso delle blockchain permissionless,
+così come la stessa struttura distribuita, resiliente e ridondante.
+Usano inoltre un meccanismo di consenso per la pubblicazione dei blocchi, ma spesso in questi casi
+non richiedono il consumo o il possesso di risorse (a differenza delle blockchain permissionless).
+Questo perché l'identità dei partecipanti è nota; gli attori che mantengono la blockchain hanno
+un certo grado di fiducia l'uno con l'altro e quindi i meccanismi di consenso possono essere
+meno dispendiosi computazionalmente e più veloci.
+
+Alcune reti blockchain permissioned supportano la capacità di rendere note
+le informazioni contenute in alcune transazioni solo a specifici utenti.
+Con questa feature si può ottenere un certo livello di privacy nelle transazioni. Per esempio,
+sulla blockchain può rimanere una traccia pubblica del fatto che una certa transazione è avvenuta tra
+due utenti, ma il contenuto della transazione è accessibile solo dalle parti coinvolte.
+Alcune blockchain permissionless richiedono che tutti gli utenti autorizzino l'invio e il
+ricevimento di transazioni (gli utenti né anonimi né pseudoanonimi).
+In questi sistemi le parti lavorano insieme per raggiungere un obiettivo
+di business condiviso con disincentivi naturali nel commettere frodi (visto che possono poi essere identificati).
+Se vengono effettuati comportamenti scorretti è possibile individuare le organizzazioni coinvolte e quali
+strumenti legali sono a disposizione per punire i colpevoli.
+
+
+\section{Modelli di consenso}
+\label{intro:modelli-consenso}
+
+\subsection{Proof of Work (PoW)}
+
+\subsection{Proof of Stake (PoS)}
+
+\subsection{Round Robin}
+
+\subsection{Proof of Authority/Proof of Identity}
+
+\subsection{Proof of Elapsed Time (PoET)}
+
+\subsection{Tabella di comparazione}
 
 \section{Smart Contracts}
 Lo Smart Contract è uno strumento che ha un forte legame con la blockchain e che ha un ruolo chiave
