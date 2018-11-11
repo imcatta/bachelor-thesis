@@ -128,8 +128,49 @@ strumenti legali sono a disposizione per punire i colpevoli.
 
 \section{Modelli di consenso}
 \label{intro:modelli-consenso}
+Una feature fondamentale per la tecnologia blockchain è che non vi è bisogno di una terza parte fidata
+per conoscere lo stato del sistema, infatti ogni utente può verificare l'integrità della blockchain.
+Per aggiungere un nuovo blocco tutti i nodi devono raggiungere un consenso condiviso, anche se un
+disaccordo temporaneo è permesso. Per raggiungere questo obietivo è necessario implementare un meccanismo
+di consenso. Nelle blockchain permissionless ci sono in genere diversi nodi che competono per pubblicare
+il prossimo blocco. Solitamente lo fanno per ottenere una ricompensa e/o commissioni sulle transazioni.
+Ogni nodo è motivato dall'ottenere un guadagno economico; non è interessato agli obiettivi degli altri
+nodi. In questa situazione, perché un nodo dovrebbe propagare un blocco che un altro
+nodo sta cercando di pubblicare? La blockchain risolve questo problema attraverso un meccanismo di
+consenso che permette ad un gruppo di utenti reciprocamente diffidenti di lavorare insieme.
+
+
+
 
 \subsection{Proof of Work (PoW)}
+Nel modello \textit{proof of work} l'utente che pubblica un blocco è il primo che risolve
+un puzzle computazionalmente oneroso. La soluzione di questo puzzle è la "prova" del lavoro effettuato.
+Il puzzle è progettato in modo tale sia difficile trovare una soluzione, ma semplice verificare che la soluzione
+sia valida. Questo permette a tutti gli altri nodi di verificare facilmente la validità dei blocchi proposti.
+Un tipico puzzle utilizzato è cercare un nonce da scrivere nell'header del blocco
+tale per cui l'hash digest del blocco sia minore di un certo valore target. ...
+Il valore target può essere modificato nel tempo per modificare la difficoltà del problema al fine di
+influenzare la velocità di pubblicazione di nuovi blocchi.
+
+Ad esempio Bitcoin, che usa la proof of work, regola la difficoltà del puzzle ogni 2016 blocchi
+con l'obiettivo di ottenere una velocità pari a circa un blocco ogni 10 minuti. La regolazione
+avviene essenzialemente aumentando o diminuendo il numero di zeri necessari come prefisso dell'hash digest.
+All'aumentare del numero di zeri richiesti la difficoltà aumenta, poiché diminuiscono le possibili soluzioni.
+Viceversa, diminuendo il numero di zeri la difficolà si riduce, perché lo spazio di soluzioni diventa più grande.
+Questa regolazione ha lo scopo di mantenere relativamente costante la difficoltà del puzzle al variare della
+potenza di calcolo a disposizione, e quindi garantire la sicurezza dell'intera rete Bitcoin.
+
+La proof of work è una tecnica computazionalmente onerosa per progettazione. Una conseguenza è che richiede
+l'uso di grandi quantità di energia elettrica. Per questo motivo molti miner tendono di poosizionare
+i nodi in area geografiche dove l'energia elettrica è economica.
+
+Un importante aspetto di questo modello è che i puzzle devono essere indipendenti tra di loro; in
+altre parole, il lavoro compiuto per risolvere un puzzle non deve in alcun modo influenzare la facilità di
+risoluzione dei puzzle successivi. Ciò comporta che quando un utente riceve un blocco completo
+e valido da un altro utente è incentivato a scartare immediatamente il puzzle a cui sta lavorando e
+iniziare a lavorare al immediatamente al blocco successivo perché sa che gli altri nodi
+inizieranno a costruire sul blocco appena ricevuto.
+
 
 \subsection{Proof of Stake (PoS)}
 
