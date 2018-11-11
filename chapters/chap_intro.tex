@@ -197,7 +197,18 @@ solo dalle commissioni sulle transazioni.
 
 
 \subsection{Round Robin}
+Il modello Round Robin è usato da alcune blockchain permissioned.
+In questo modello i ndoi a turno acquisiscono il diritto di pubblicare blocchi. Il consenso
+Round Robin ha una lunga storia nelle architettura distribuite. Per gestire le situazioni
+dove un nodo non può pubblicare un blocco quando è il suo turno, questi sistemi possono
+usare un tempo limite al diritto di pubblicazione. Questo modello garantisce che nessun nodo possa 
+pubblicare la maggior parte dei blocchi. 
 
+I vantaggi sono l'approccio diretto, l'assenza di puzzle crittografici e il ridotto consumo di energia.
+Visto che è richiesta una fiducia tra i nodi, il modello Round Robin non funziona bene 
+nelle blockchain permissionless. Questo perché attori malevoli possono contunuamente aggiungere 
+nodi per aumentare la probabilità di pubblicare blocchi. Nel caso peggiore possono
+sovvertire il corretto funzionamento della rete blockchain.
 \subsection{Proof of Authority/Proof of Identity}
 
 \subsection{Proof of Elapsed Time (PoET)}
