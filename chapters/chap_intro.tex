@@ -215,7 +215,7 @@ Il modello di consenso \textit{Proof of Authority} (anche noto come \textit{Proo
 si basa sulla fiducia parziale tra i nodi.
 L'identità dei nodi deve essere collegata con un soggetto del mondo reale; questo collegamento deve essere
 dimostrabile e verificabile all'interno della blockchain.
-L'idea è che il noto stia mettendo in gioco la sua reputazione quando pubblica blocchi. 
+L'idea è che il noto stia mettendo in gioco la sua reputazione quando pubblica blocchi.
 Il nodo può perdere la sua reputazione effettuando azioni in disaccordo con gli utenti della blockchain
 e allo stesso tempo può guadagnare reputazione agendo in modo concorde con gli altri utenti.
 Più è bassa la reputazione, minore è la probabilità di riuscire a pubblicare un blocco.
@@ -223,8 +223,47 @@ Di conseguenza è nell'interesse del nodo mantenere una reputazione alta. Questo
 è applicabile esclusivamente alla blockchain permissioned con un alto livello di fiducia.
 
 \subsection{Proof of Elapsed Time (PoET)}
+Nel modello \textit{Proof of Elapsed Time} ogni nodo richiede un tempo di attesa da una
+sorgente sicura di hardware presente all'interno del proprio elaboratore. La sorgente hardware
+sicura di tempo genera un tempo casuale e lo restitusice al software che opera sul nodo.
+Il nodo ottiene il tempo casuale e va in idle per quella durata. Dopo essersi risvegliato,
+il nodo generà un blocco e informa gli altri nodi del nuovo blocco; tutti gli altri nodi ancora
+in idle smettono di aspettare e l'intero processo riparte.
+Questo modello richiede la certezza dell'impiego di un tempo casuale, poiché se così non fosse
+un nodo malevolo potrebbe attendere sempre il tempo minimo e quindi domniare il sistema.
+Questo modello inoltre richiede la certezza che che il nodo attenda realmente tutto il tempo
+assegnatogli senza partire in anticipo.
+Questi requisiti sono soddisfatti dall'eseguire il software in un ambiente di esecuzione affidabile
+presente in alcuni processori
+(come ad esempio Intel Software Guard Extensions
+\footnote{\href{https://software.intel.com/en-us/sgx}{https://software.intel.com/en-us/sgx}},
+ARM TrustZone
+\footnote{\href{https://www.arm.com/products/silicon-ip-security}{https://www.arm.com/products/silicon-ip-security}},
+AMD Platform Security Processor
+\footnote{\href{https://www.amd.com/en/technologies/security}{https://www.amd.com/en/technologies/security}}
+).
 
-\subsection{Tabella di comparazione}
+Software verificati e affidabili possono venir eseguiti in questi ambienti sicuri e non possono venir
+alterati da programmi esterni.
+
+\begin{landscape}
+	\subsection{Tabella di comparazione}
+
+	\tiny
+	\begin{longtable}{|l|l|l|l|l|l|}
+		\hline
+		\textbf{Nome}                       & \textbf{Obiettivi}         & \textbf{Vantaggi}          & \textbf{Svantaggi}                 & \textbf{Domini}            & \textbf{Implementazioni}   \\ \hline
+		\endhead
+		%
+		Proof of Work                       & \begin{tabular}[c]{@{}l@{}}Fornire una barriera \\ alla pubblicazione \\ dei blocchi attraverso\\ un puzzle \\ computazionalmente oneroso \\ da risolvere per consentire \\ transazioni tra partecipanti\\ non fidati.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Difficile effettuare attacchi denial of\\ service inviando blocchi malformati\\ nella rete.\\ \\ Chiunque disponga di hardware può \\ provare a risolvere il puzzle.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Computazionalmente onerosa (per \\ progettazione), elevato consumo \\ di energia, corsa \\ all'armamento hardware.\\ \\ Potenziale attacco del 51\% se si \\ ottiene abbastanza potenza di calcolo.\end{tabular}          & \begin{tabular}[c]{@{}l@{}}Criptovalute\\ permissionless.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Bitcoin,\\ Ethereum,\\ e molti altri\end{tabular}  \\ \hline
+		Proof of Stake                      & \begin{tabular}[c]{@{}l@{}}Consentire una barriera meno\\ onerosa computazionalmente\\ alla pubblicazione dei blocchi,\\ ma consentire comunque\\ transazioni tra partecipanti\\ non fidati.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Meno computazionalmente onerosa \\ della PoW.\\ \\ Aperta a chiunque voglia ottenere stake.\\ \\ Gli stakeholder controllano il sistema.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Nulla impedisce la formazione di \\ un pool di stakeholder per la \\ creazione di un potere centralizzato.\\ \\ Potenziale attacco 51\% se si \\ ottiene abbastanza stake.\\ \\ Gli stakeholder controllano il sistema.\end{tabular}          & \begin{tabular}[c]{@{}l@{}}Criptovalute\\ permissionless.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Ethereum\\ Casper,\\ Krypton\end{tabular} \\ \hline
+		Delegated PoS                       & \begin{tabular}[c]{@{}l@{}}Consentire un modello di\\ consenso più efficiente \\ attraverso una "democrazia\\ liquida" dove i partecipanti\\ votano (usando messaggi\\ firmati crittograficamente)\\ per eleggere e revocare il\\ diritto di validazione\\ nei confronti di un delegato.\end{tabular} & \begin{tabular}[c]{@{}l@{}}I delegati eletti sono economicamente \\ incentivati a rimanere onesti.\\ \\ Più computazionalmente efficiente di\\ Pow.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Minor diversità tra nodi di Pow o \\ PoS pura.\\ \\ Maggior rischi di sicurezza\\ \\ Poiché tutti i delegati sono "noti", \\ potrebbe esserci un incentivo i nodi\\ nel colludere e accettare tangenti, \\ compromettendo la\\ sicurezza del sistema.\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Criptovalute\\ permissionless.\\ \\ Sistemi\\ permissioned.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Bitshares,\\ Steem, \\ Cardano,\\ EOS\end{tabular} \\ \hline
+		Round Robin                         & \begin{tabular}[c]{@{}l@{}}Fornire un sistema per la\\ pubblicazione di blocchi\\ tra nodi approvati/fidati.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Computazionalmente non oneroso.\\ \\ Immediato da comprendere.\end{tabular} & Richiede molta fiducia tra i nodi. & \begin{tabular}[c]{@{}l@{}}Sistemi\\ permissioned.\end{tabular} & MultiChain                 \\ \hline
+		\begin{tabular}[c]{@{}l@{}}Proof of \\ Authority/Identity\end{tabular}          & \begin{tabular}[c]{@{}l@{}}Creare un processo di \\ consenso centralizzato\\ per minimizzare la\\ velocità di creazione e\\ validazione dei blocchi.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Tempi di conferma ridotti.\\ \\ Consente una velocità di produzione\\ di blocchi dinamica.\\ \\ Può essere usato in sidechain a\\ blockchain che usano altri\\ modelli di consenso.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Si basa sull'assunzione che\\ il nodo di validazione corrente non\\ sia stato compromesso.\\ \\ Porta a un point of failure centralizzato.\\ \\ La reputazione di un nodo può essere \\ compromessa in qualsiasi momento.\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Sistemi\\ permissioned.\\ \\ Sistemi \\ ibridi\\ (sidechain).\end{tabular} & \begin{tabular}[c]{@{}l@{}}Ethereum\\ Kovan testnet,\\ POA Chain\end{tabular} \\ \hline
+		\begin{tabular}[c]{@{}l@{}}Proof of Elapsed\\ Time\end{tabular} & \begin{tabular}[c]{@{}l@{}}Consentire un modello di\\ consenso economico per la\\ blockchain, a spese della\\ maggior garanzia di sicurezza\\ associata alla Pow.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Meno computazionalmente onerosa \\ di Pow.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Necessita di hardware speciale.\\ \\ Assume che l'orologio hardware \\ non sia compromesso. \\ \\ A causa di vincoli minimi di latenza,\\ un vero sincronismo è essenzialmente\\ impossibile nei\\ sistemi distribuitiI \cite{lamport1998part}.\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Reti\\ permissioned.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Hyperledger\\ Sawtooth\end{tabular} \\ \hline
+	\end{longtable}
+\end{landscape}
+
 
 \section{Smart Contracts}
 Lo Smart Contract è uno strumento che ha un forte legame con la blockchain e che ha un ruolo chiave
