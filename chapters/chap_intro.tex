@@ -86,7 +86,7 @@ chiunque ha il diritto di aggiungere blocchi è che la blockchain può essere le
 così come effettuare transazioni sulla blockchain.
 
 Qualsiasi utente di una blockchain permissionless può leggere e scrivere sul ledger.
-Poichè chiunque può partecipare alle reti blockchain permissionless, utenti malintenzionati
+Poiché chiunque può partecipare alle reti blockchain permissionless, utenti malintenzionati
 potrebbero tentare di aggiungere blocchi malevoli al fine di sovvertire il sistema.
 Per prevenire ciò solitamente le blockchain usano algoritmi di consenso
 (vedi \ref{intro:modelli-consenso}) basati sul consumo o sul possesso di risorse.
@@ -173,6 +173,28 @@ inizieranno a costruire sul blocco appena ricevuto.
 
 
 \subsection{Proof of Stake (PoS)}
+Il modello \textit{proof of stake} è basato sul principio che più stake\footnote{
+	\textit{stake} è vagamente traducibile in italiano	come "posta in gioco"}
+l'utente ha investito nel sistema
+più è interessato al mantenere operativo il sistema stesso, o in altre parole più l'utente ha investito
+nel sistema più è disincentivato dal volerlo sovvertire.
+Lo stake è solitamente la quantità di criptovaluta che l'utente ha impegnato nel sistema (con
+diverse modalità, come ad esempio bloccando i fondi con una transazione speciale, inviandoli ad un certo
+indirizzo o possedendoli in speciali wallet). Uno volta nello stake, la criptovaluta generalmente non
+può più essere spesa. Le blockchain proof of stake usano il quantitativo di stake posseduto dall'utente
+come fattore determinante per la decidere chi può pubblicare nuovi blocchi. La facilità con cui un utente
+può pubblicare blocchi è legata al rapporto tra stake investito dall'utente e stake
+investito in tutta la blockchain. A differenza della proof of work, con la proof of stake
+non è necessario effettuare computazioni onerose (a livello di tempo, elettricità e capacità di calcolo).
+
+Poiché questo modello usa meno risorse, alcune blockchain decidono di non generare nuova criptovaluta
+nel tempo. Questi sistemi sono progettati in modo tale che tutta la criptovaluta circolante
+sia già distribuita tra gli utenti.
+In questi sistemi solitamente la ricompensa per la pubblicazione del blocco deriva
+solo dalle commissioni sulle transazioni.
+
+...
+
 
 \subsection{Round Robin}
 
