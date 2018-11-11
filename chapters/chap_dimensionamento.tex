@@ -44,12 +44,12 @@ allo smart contract prima del tempo $ \tau $. È bene che
 \begin{center}
 	\textit{prize} $ \gg $ \textit{counterprize}
 \end{center}
-Il motivo di questo vincolo è che il provider potrebbe in un qualsiasi istante
-prima di $ \tau $ ottenere
-il \textit{counterprize} (perché chiaramente conosce il segreto) e quindi
+Il motivo di questo vincolo è che il provider potrebbe ottenere
+il \textit{counterprize} in un qualsiasi istante
+prima di $ \tau $ (perché chiaramente conosce il segreto) e quindi
 rendere noto il segreto prima della deadline. Se però il
 \textit{prize} è molto più grande sarebbe contro il suo
-interesse farlo,
+interesse fare questa azione,
 poiché perderebbe la possibilità di ottenere un guadagno significativamente
 maggiore al tempo $ \tau $.
 
@@ -112,7 +112,7 @@ $$ c = d = \sum_{i=1}^{N} (prize_i + pawn_i + fee_i) $$
 
 
 \subsection{Resistenza a smarrimenti}
-La resistenza agli smarrimenti $ \theta $ rappresenta 
+La resistenza agli smarrimenti $ \theta $ rappresenta
 il numero di provider che possono non
 rendere noto il proprio share senza compromettere la pubblicazione del messaggio
 originale.
