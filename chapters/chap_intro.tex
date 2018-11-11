@@ -201,15 +201,26 @@ Il modello Round Robin è usato da alcune blockchain permissioned.
 In questo modello i ndoi a turno acquisiscono il diritto di pubblicare blocchi. Il consenso
 Round Robin ha una lunga storia nelle architettura distribuite. Per gestire le situazioni
 dove un nodo non può pubblicare un blocco quando è il suo turno, questi sistemi possono
-usare un tempo limite al diritto di pubblicazione. Questo modello garantisce che nessun nodo possa 
-pubblicare la maggior parte dei blocchi. 
+usare un tempo limite al diritto di pubblicazione. Questo modello garantisce che nessun nodo possa
+pubblicare la maggior parte dei blocchi.
 
 I vantaggi sono l'approccio diretto, l'assenza di puzzle crittografici e il ridotto consumo di energia.
-Visto che è richiesta una fiducia tra i nodi, il modello Round Robin non funziona bene 
-nelle blockchain permissionless. Questo perché attori malevoli possono contunuamente aggiungere 
+Visto che è richiesta una fiducia tra i nodi, il modello Round Robin non funziona bene
+nelle blockchain permissionless. Questo perché attori malevoli possono contunuamente aggiungere
 nodi per aumentare la probabilità di pubblicare blocchi. Nel caso peggiore possono
 sovvertire il corretto funzionamento della rete blockchain.
+
 \subsection{Proof of Authority/Proof of Identity}
+Il modello di consenso \textit{Proof of Authority} (anche noto come \textit{Proof of Identity})
+si basa sulla fiducia parziale tra i nodi.
+L'identità dei nodi deve essere collegata con un soggetto del mondo reale; questo collegamento deve essere
+dimostrabile e verificabile all'interno della blockchain.
+L'idea è che il noto stia mettendo in gioco la sua reputazione quando pubblica blocchi. 
+Il nodo può perdere la sua reputazione effettuando azioni in disaccordo con gli utenti della blockchain
+e allo stesso tempo può guadagnare reputazione agendo in modo concorde con gli altri utenti.
+Più è bassa la reputazione, minore è la probabilità di riuscire a pubblicare un blocco.
+Di conseguenza è nell'interesse del nodo mantenere una reputazione alta. Questo algoritmo
+è applicabile esclusivamente alla blockchain permissioned con un alto livello di fiducia.
 
 \subsection{Proof of Elapsed Time (PoET)}
 
@@ -364,7 +375,7 @@ Si basa sullo studio delle \textit{trace properties}, impiegando l'uso di
 analisi simbolica inter-procedurale e di un validatore.
 
 
-\section{Stellar}
+\section{Stellar Network}
 
 \textbf{Stellar} è un protocollo decentralizzato ed
 open source nato con lo scopo di poter
