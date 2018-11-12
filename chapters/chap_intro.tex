@@ -193,8 +193,6 @@ sia già distribuita tra gli utenti.
 In questi sistemi solitamente la ricompensa per la pubblicazione del blocco deriva
 solo dalle commissioni sulle transazioni.
 
-...
-
 \subsection{Practical Byzantine Fault Tolerance (pBFT)}
 Il modello \textit{practical byzantine fault tolerance} fornisce una pratica replica della macchina a stati
 bizantina in grado di tollerare difetti (es. nodi malevoli) presupponendo la presenza di difetti
@@ -222,7 +220,18 @@ della richiesta del client. Inoltre, una maggioranza qualificata di nodi onesti 
 se questo è malevolo con il nodo successivo nella lista.
 
 \subsection{Federated Byzantine Agreement (FBA)}
-Il modello \textit{federated byzantine agreement}
+Il modello \textit{federated byzantine agreement} si basa sull'uso di \textit{quorum}
+e di \textit{quorum slice}.
+Un quorum è un insieme di nodi sufficiente per raggiungere un consenso.
+Il modello federated byzantine agreement introduce il concetto di quorum slice, ossia
+un sottoinsieme di un quorum in grado di convincere un particolare nodo ad un consenso.
+Ogni nodo può decidere autonomamente a quale quorum slice partecipare. Inoltre, può anche partecipare a
+più quorum slice contemporaneamente. 
+L'obiettivo è quello di avere sovrapposizioni tra quorum, in modo che l'unione dei diversi quorum 
+copra l'intero sistema. Quando i quorum non si intersecano, nel sistema si vengono a nsazioniformare
+"quorum disgiunti". Questa è una situazione da evitare, poiché quorum disgiunti
+possono indipendentemente e simultaneamente raggiungere un accordo su transazioni contraddittorie,
+minando il consenso generale del sistema.
 
 \subsection{Round Robin}
 Il modello Round Robin è usato da alcune blockchain permissioned.
@@ -288,8 +297,8 @@ alterati da programmi esterni.
 		                           & \begin{tabular}[c]{@{}l@{}}Meno computazionalmente onerosa \\ della PoW.\\ \\ Aperta a chiunque voglia ottenere stake.\\ \\ Gli stakeholder controllano il sistema.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Nulla impedisce la formazione di \\ un pool di stakeholder per la \\ creazione di un potere centralizzato.\\ \\ Potenziale attacco 51\% se si \\ ottiene abbastanza stake.\\ \\ Gli stakeholder controllano il sistema.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Criptovalute\\ permissionless.\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Ethereum\\ Casper,\\ Krypton\end{tabular}                              \\ \hline
 		% Delegated PoS              & \begin{tabular}[c]{@{}l@{}}Consentire un modello di\\ consenso più efficiente \\ attraverso una "democrazia\\ liquida" dove i partecipanti\\ votano (usando messaggi\\ firmati crittograficamente)\\ per eleggere e revocare il\\ diritto di validazione\\ nei confronti di un delegato.\end{tabular} & \begin{tabular}[c]{@{}l@{}}I delegati eletti sono economicamente \\ incentivati a rimanere onesti.\\ \\ Più computazionalmente efficiente di\\ Pow.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Minor diversità tra nodi di Pow o \\ PoS pura.\\ \\ Maggior rischi di sicurezza\\ \\ Poiché tutti i delegati sono "noti", \\ potrebbe esserci un incentivo i nodi\\ nel colludere e accettare tangenti, \\ compromettendo la\\ sicurezza del sistema.\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Criptovalute\\ permissionless.\\ \\ Sistemi\\ permissioned.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Bitshares,\\ Steem, \\ Cardano,\\ EOS\end{tabular} \\ \hline
 		pBFT                       & \begin{tabular}[c]{@{}l@{}} \end{tabular}
-		                           & \begin{tabular}[c]{@{}l@{}} \end{tabular}
-		                           & \begin{tabular}[c]{@{}l@{}}Sybil attack\end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}}Efficienza energetica\\\\Velocità\\\\Uniformità di ricompensa per i nodi\end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}}Sybil attack\\\\Scalabilità\end{tabular}
 		                           & \begin{tabular}[c]{@{}l@{}} \end{tabular}
 		                           & \begin{tabular}[c]{@{}l@{}}Hyperledger Fabric,\\ Zilliqa\end{tabular}                                                                                                                             \\ \hline
 		FBA                        & \begin{tabular}[c]{@{}l@{}} \end{tabular}
