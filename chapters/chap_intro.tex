@@ -78,6 +78,7 @@ Effettuando una classificazione basata sul modello di permessi,
 è possibile individuare due categorie di blockchain.
 
 \subsection{Permissionless}
+\label{intro:permissionless}
 Le reti blockchain \textit{permissionless} sono ledger decentralizzati che danno la possibilità
 a chiunque di scrivere blocchi, senza il bisogno del permesso esplicito di una autorità.
 Spesso le piattaforme blockchain permissionless sono software open source, liberamente
@@ -220,14 +221,15 @@ della richiesta del client. Inoltre, una maggioranza qualificata di nodi onesti 
 se questo è malevolo con il nodo successivo nella lista.
 
 \subsection{Federated Byzantine Agreement (FBA)}
+\label{intro:fba}
 Il modello \textit{federated byzantine agreement} si basa sull'uso di \textit{quorum}
 e di \textit{quorum slice}.
 Un quorum è un insieme di nodi sufficiente per raggiungere un consenso.
 Il modello federated byzantine agreement introduce il concetto di quorum slice, ossia
 un sottoinsieme di un quorum in grado di convincere un particolare nodo ad un consenso.
 Ogni nodo può decidere autonomamente a quale quorum slice partecipare. Inoltre, può anche partecipare a
-più quorum slice contemporaneamente. 
-L'obiettivo è quello di avere sovrapposizioni tra quorum, in modo che l'unione dei diversi quorum 
+più quorum slice contemporaneamente.
+L'obiettivo è quello di avere sovrapposizioni tra quorum, in modo che l'unione dei diversi quorum
 copra l'intero sistema. Quando i quorum non si intersecano, nel sistema si vengono a nsazioniformare
 "quorum disgiunti". Questa è una situazione da evitare, poiché quorum disgiunti
 possono indipendentemente e simultaneamente raggiungere un accordo su transazioni contraddittorie,
@@ -468,14 +470,17 @@ analisi simbolica inter-procedurale e di un validatore.
 open source nato con lo scopo di poter
 trasferire denaro attraverso diversi
 paesi con costi di transazione irrisori. Il nome della criptovaluta scambiata
-è Lumen (\textbf{XLM}).
+è Lumen (XLM).
 
 È stato creato nel 2014 da \textbf{Jed McCaleb} e \textbf{Joyce Kim}.
 Si tratta di un progetto fortemente ispirato da \textit{Ripple} (di cui Jed McCaleb
-è co-fondatore). A differenza di quest'ultimo, Stellar si pone come obietivo
-il facilitare lo scambio di denaro tra privati invece che tra banche.
+è co-fondatore). A differenza di quest'ultimo, Stellar si pone come obiettivo
+il facilitare lo scambio di denaro tra privati invece che tra banche. Si tratta ovviamente di
+una rete \textit{permissionless} (si veda \ref{intro:permissionless}).
 
-[...]
+Il protocollo di consenso utilizzato è stato descritto nel 2015 nel paper
+\textit{The stellar consensus protocol: A federated model for internet-level consensus} \cite{mazieres2015stellar}.
+Rientra nella categoria di modelli di consenso Federated Byzantine Agreement (si veda \ref{intro:fba}).
 
 
 \subsection{Gli Smart Contracts in Stellar}
