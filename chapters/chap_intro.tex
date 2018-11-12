@@ -195,6 +195,34 @@ solo dalle commissioni sulle transazioni.
 
 ...
 
+\subsection{Practical Byzantine Fault Tolerance (pBFT)}
+Il modello \textit{practical byzantine fault tolerance} fornisce una pratica replica della macchina a stati
+bizantina in grado di tollerare difetti (es. nodi malevoli) presupponendo la presenza di difetti
+di nodi indipendenti e messaggi manipolati propagati da nodi specifici e indipendenti.
+I nodi nel modello pBFT sono ordinati sequenzialmente, dove uno di questi assume il ruolo di leader
+e gli il ruolo di nodi di backup. Tutti i nodi del sistema comunicano tra loro
+con l'obiettivo che tutti i nodi onesti riescano a raggiungere un consenso sullo stato del sistema.
+Per fare ciò devono dimostrare che i messaggi scambiati provengano da uno specifico nodo e devono
+verificare che i messaggi non siano stati modificati durante la trasmissione.
+Per il corretto funzionamento di pBFT il numero di nodi malevoli non deve essere uguale o superiore
+a un terzo rispetto a tutti i nodi del sistema in una data finestra di vulnerabilità.
+In pBFT la sicurezza del modello cresce al crescere dei partecipanti.
+Nel protocollo pBTF ogni round (chiamato \textit{view}) è diviso in quattro fasi:
+\begin{enumerate}
+	\item Un client invia una richiesta per una operazione di servizio al nodo leader.
+	\item Il leader fa il broadcast della richiesta a tutti i nodi di backup.
+	\item Il nodo esegue l'operazione richiesta e invia una conferma al client.
+	\item Il client attende $ f + 1 $\footnote{dove $ f $ rappresenta
+		      il numero massimo di potenziali nodi difettosi} risposte dai nodi con lo stesso risultato.
+	      Tale risultato è considerato il risultato dell'operazione.
+\end{enumerate}
+Il nodo leader è cambiato ad ogni view. Il leader può anche essere sostituito con un protocollo chiamato
+\textit{view change} se passa un certo tempo senza che questo effettui il broadcast
+della richiesta del client. Inoltre, una maggioranza qualificata di nodi onesti può sostituire il leader
+se questo è malevolo con il nodo successivo nella lista.
+
+\subsection{Federated Byzantine Agreement (FBA)}
+Il modello \textit{federated byzantine agreement}
 
 \subsection{Round Robin}
 Il modello Round Robin è usato da alcune blockchain permissioned.
@@ -252,14 +280,25 @@ alterati da programmi esterni.
 	\tiny
 	\begin{longtable}{|l|l|l|l|l|l|}
 		\hline
-		\textbf{Nome}                       & \textbf{Obiettivi}         & \textbf{Vantaggi}          & \textbf{Svantaggi}                 & \textbf{Domini}            & \textbf{Implementazioni}   \\ \hline
+		\textbf{Nome}              & \textbf{Obiettivi}         & \textbf{Vantaggi}          & \textbf{Svantaggi}                 & \textbf{Domini}            & \textbf{Implementazioni}   \\ \hline
 		\endhead
 		%
-		Proof of Work                       & \begin{tabular}[c]{@{}l@{}}Fornire una barriera \\ alla pubblicazione \\ dei blocchi attraverso\\ un puzzle \\ computazionalmente oneroso \\ da risolvere per consentire \\ transazioni tra partecipanti\\ non fidati.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Difficile effettuare attacchi denial of\\ service inviando blocchi malformati\\ nella rete.\\ \\ Chiunque disponga di hardware può \\ provare a risolvere il puzzle.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Computazionalmente onerosa (per \\ progettazione), elevato consumo \\ di energia, corsa \\ all'armamento hardware.\\ \\ Potenziale attacco del 51\% se si \\ ottiene abbastanza potenza di calcolo.\end{tabular}          & \begin{tabular}[c]{@{}l@{}}Criptovalute\\ permissionless.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Bitcoin,\\ Ethereum,\\ e molti altri\end{tabular}  \\ \hline
-		Proof of Stake                      & \begin{tabular}[c]{@{}l@{}}Consentire una barriera meno\\ onerosa computazionalmente\\ alla pubblicazione dei blocchi,\\ ma consentire comunque\\ transazioni tra partecipanti\\ non fidati.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Meno computazionalmente onerosa \\ della PoW.\\ \\ Aperta a chiunque voglia ottenere stake.\\ \\ Gli stakeholder controllano il sistema.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Nulla impedisce la formazione di \\ un pool di stakeholder per la \\ creazione di un potere centralizzato.\\ \\ Potenziale attacco 51\% se si \\ ottiene abbastanza stake.\\ \\ Gli stakeholder controllano il sistema.\end{tabular}          & \begin{tabular}[c]{@{}l@{}}Criptovalute\\ permissionless.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Ethereum\\ Casper,\\ Krypton\end{tabular} \\ \hline
-		Delegated PoS                       & \begin{tabular}[c]{@{}l@{}}Consentire un modello di\\ consenso più efficiente \\ attraverso una "democrazia\\ liquida" dove i partecipanti\\ votano (usando messaggi\\ firmati crittograficamente)\\ per eleggere e revocare il\\ diritto di validazione\\ nei confronti di un delegato.\end{tabular} & \begin{tabular}[c]{@{}l@{}}I delegati eletti sono economicamente \\ incentivati a rimanere onesti.\\ \\ Più computazionalmente efficiente di\\ Pow.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Minor diversità tra nodi di Pow o \\ PoS pura.\\ \\ Maggior rischi di sicurezza\\ \\ Poiché tutti i delegati sono "noti", \\ potrebbe esserci un incentivo i nodi\\ nel colludere e accettare tangenti, \\ compromettendo la\\ sicurezza del sistema.\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Criptovalute\\ permissionless.\\ \\ Sistemi\\ permissioned.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Bitshares,\\ Steem, \\ Cardano,\\ EOS\end{tabular} \\ \hline
-		Round Robin                         & \begin{tabular}[c]{@{}l@{}}Fornire un sistema per la\\ pubblicazione di blocchi\\ tra nodi approvati/fidati.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Computazionalmente non oneroso.\\ \\ Immediato da comprendere.\end{tabular} & Richiede molta fiducia tra i nodi. & \begin{tabular}[c]{@{}l@{}}Sistemi\\ permissioned.\end{tabular} & MultiChain                 \\ \hline
-		\begin{tabular}[c]{@{}l@{}}Proof of \\ Authority/Identity\end{tabular}          & \begin{tabular}[c]{@{}l@{}}Creare un processo di \\ consenso centralizzato\\ per minimizzare la\\ velocità di creazione e\\ validazione dei blocchi.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Tempi di conferma ridotti.\\ \\ Consente una velocità di produzione\\ di blocchi dinamica.\\ \\ Può essere usato in sidechain a\\ blockchain che usano altri\\ modelli di consenso.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Si basa sull'assunzione che\\ il nodo di validazione corrente non\\ sia stato compromesso.\\ \\ Porta a un point of failure centralizzato.\\ \\ La reputazione di un nodo può essere \\ compromessa in qualsiasi momento.\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Sistemi\\ permissioned.\\ \\ Sistemi \\ ibridi\\ (sidechain).\end{tabular} & \begin{tabular}[c]{@{}l@{}}Ethereum\\ Kovan testnet,\\ POA Chain\end{tabular} \\ \hline
+		Proof of Work              & \begin{tabular}[c]{@{}l@{}}Fornire una barriera \\ alla pubblicazione \\ dei blocchi attraverso\\ un puzzle \\ computazionalmente oneroso \\ da risolvere per consentire \\ transazioni tra partecipanti\\ non fidati.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Difficile effettuare attacchi denial of\\ service inviando blocchi malformati\\ nella rete.\\ \\ Chiunque disponga di hardware può \\ provare a risolvere il puzzle.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Computazionalmente onerosa (per \\ progettazione), elevato consumo \\ di energia, corsa \\ all'armamento hardware.\\ \\ Potenziale attacco del 51\% se si \\ ottiene abbastanza potenza di calcolo.\end{tabular}          & \begin{tabular}[c]{@{}l@{}}Criptovalute\\ permissionless.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Bitcoin,\\ Ethereum,\\ e molti altri\end{tabular}  \\ \hline
+		Proof of Stake             & \begin{tabular}[c]{@{}l@{}}Consentire una barriera meno\\ onerosa computazionalmente\\ alla pubblicazione dei blocchi,\\ ma consentire comunque\\ transazioni tra partecipanti\\ non fidati.\end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}}Meno computazionalmente onerosa \\ della PoW.\\ \\ Aperta a chiunque voglia ottenere stake.\\ \\ Gli stakeholder controllano il sistema.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Nulla impedisce la formazione di \\ un pool di stakeholder per la \\ creazione di un potere centralizzato.\\ \\ Potenziale attacco 51\% se si \\ ottiene abbastanza stake.\\ \\ Gli stakeholder controllano il sistema.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Criptovalute\\ permissionless.\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Ethereum\\ Casper,\\ Krypton\end{tabular}                              \\ \hline
+		% Delegated PoS              & \begin{tabular}[c]{@{}l@{}}Consentire un modello di\\ consenso più efficiente \\ attraverso una "democrazia\\ liquida" dove i partecipanti\\ votano (usando messaggi\\ firmati crittograficamente)\\ per eleggere e revocare il\\ diritto di validazione\\ nei confronti di un delegato.\end{tabular} & \begin{tabular}[c]{@{}l@{}}I delegati eletti sono economicamente \\ incentivati a rimanere onesti.\\ \\ Più computazionalmente efficiente di\\ Pow.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Minor diversità tra nodi di Pow o \\ PoS pura.\\ \\ Maggior rischi di sicurezza\\ \\ Poiché tutti i delegati sono "noti", \\ potrebbe esserci un incentivo i nodi\\ nel colludere e accettare tangenti, \\ compromettendo la\\ sicurezza del sistema.\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Criptovalute\\ permissionless.\\ \\ Sistemi\\ permissioned.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Bitshares,\\ Steem, \\ Cardano,\\ EOS\end{tabular} \\ \hline
+		pBFT                       & \begin{tabular}[c]{@{}l@{}} \end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}} \end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}}Sybil attack\end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}} \end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}}Hyperledger Fabric,\\ Zilliqa\end{tabular}                                                                                                                             \\ \hline
+		FBA                        & \begin{tabular}[c]{@{}l@{}} \end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}}Sicurezza asintotica\end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}}\\\end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}} \end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}}Stellar,\\ Ripple\end{tabular}                                                                                                                             \\ \hline
+		Round Robin                & \begin{tabular}[c]{@{}l@{}}Fornire un sistema per la\\ pubblicazione di blocchi\\ tra nodi approvati/fidati.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Computazionalmente non oneroso.\\ \\ Immediato da comprendere.\end{tabular} & Richiede molta fiducia tra i nodi. & \begin{tabular}[c]{@{}l@{}}Sistemi\\ permissioned.\end{tabular} & MultiChain                 \\ \hline
+		\begin{tabular}[c]{@{}l@{}}Proof of \\ Authority/Identity\end{tabular} & \begin{tabular}[c]{@{}l@{}}Creare un processo di \\ consenso centralizzato\\ per minimizzare la\\ velocità di creazione e\\ validazione dei blocchi.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Tempi di conferma ridotti.\\ \\ Consente una velocità di produzione\\ di blocchi dinamica.\\ \\ Può essere usato in sidechain a\\ blockchain che usano altri\\ modelli di consenso.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Si basa sull'assunzione che\\ il nodo di validazione corrente non\\ sia stato compromesso.\\ \\ Porta a un point of failure centralizzato.\\ \\ La reputazione di un nodo può essere \\ compromessa in qualsiasi momento.\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Sistemi\\ permissioned.\\ \\ Sistemi \\ ibridi\\ (sidechain).\end{tabular} & \begin{tabular}[c]{@{}l@{}}Ethereum\\ Kovan testnet,\\ POA Chain\end{tabular} \\ \hline
 		\begin{tabular}[c]{@{}l@{}}Proof of Elapsed\\ Time\end{tabular} & \begin{tabular}[c]{@{}l@{}}Consentire un modello di\\ consenso economico per la\\ blockchain, a spese della\\ maggior garanzia di sicurezza\\ associata alla Pow.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Meno computazionalmente onerosa \\ di Pow.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Necessita di hardware speciale.\\ \\ Assume che l'orologio hardware \\ non sia compromesso. \\ \\ A causa di vincoli minimi di latenza,\\ un vero sincronismo è essenzialmente\\ impossibile nei\\ sistemi distribuitiI \cite{lamport1998part}.\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Reti\\ permissioned.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Hyperledger\\ Sawtooth\end{tabular} \\ \hline
 	\end{longtable}
 \end{landscape}
