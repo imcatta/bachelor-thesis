@@ -26,18 +26,21 @@ La Timed-Release Encryption ha diverse applicazioni nel mondo reale. Queste verr
 discusse nel dettaglio nel capitolo \ref{chap:possibili-usi}.
 
 \section{Requisiti}
-Ricapitolando, un buon sistema di TRE deve soddisfare i seguenti requisiti.
+In sintesi, un buon sistema di TRE deve soddisfare i seguenti requisiti:
 
-\subsection{Certezza di pubblicazione del messaggio al tempo $ \tau $}
-Un buon sistema di Timed-Release Encryption deve garantire che il messaggio venga pubblicato al
+\paragraph{Certezza di pubblicazione}
+Un sistema di TRE deve garantire con un buon
+grado di confidenza che al tempo $ \tau $ il messaggio venga reso noto.
 
-\subsection{Segretezza del messaggio sino al tempo $ \tau $}
+\paragraph{Segretezza del messaggio}
 \label{subsec:segretezza-tre}
+Un sistema di TRE deve garantire con un buon
+grado di confidenza che il messaggio rimanga segreto sino al tempo $ \tau $.
 
 
 \section{Implementare la Timed-Release Encryption}
-Sostanzialmente esistono due strategie
-per affrontare questo problema
+Le tecniche di implementazione della Timed-Release Encryption possono essere classificate
+in due categorie.
 
 \subsection{Time-Locked Puzzle}
 I Time-Locked puzzle sono stati introdotti per la prima volta
