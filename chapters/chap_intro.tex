@@ -235,6 +235,26 @@ copra l'intero sistema. Quando i quorum non si intersecano, nel sistema si vengo
 possono indipendentemente e simultaneamente raggiungere un accordo su transazioni contraddittorie,
 minando il consenso generale del sistema.
 
+% Stellar Consensus protocol algorithm [13] uses the concept of quorums and
+% quorum slices. Quorum is a set of nodes sufficient to reach agreement. A quorum slice is a subset of a quorum
+% that can convince one particular node about agreement. An individual node can appear on multiple quorum
+% slices. Stellar introduces quorum slices to allow each individual node to choose a set of nodes within its
+% slice thereby allowing open participation. These quorum slices and quorums are based on real life business
+% relationships between various entities thereby leveraging trust that already exists in business models. To reach
+% global consensus in the entire systems, quorums have to intersect. Overall consensus is reached globally from
+% decisions made by individual nodes.
+% The consensus protocol works as follows. Each node first performs initial voting on transactions, also generically 
+% considered as statements. This is the first step of the federated voting process. Each node performs its selection
+% of statements and will never vote for another statement contradicting its selection. It can however accept a
+% different statement if its quorum slice has accepted a different one. Second step is the acceptance step. A node
+% accepts a statement if it has never accepted a statement contradicting the current statement and each node in
+% its v-blocking set has accepted that statement. A v-blocking set is a set of nodes one each from a quorum slice
+% to which the current node belongs to. Quorum slices influence one another leading to quorums that agree on
+% a certain statements. This step is known as ratification when all members of a quorum agree on a statement.
+% Confirmation is the final step of the voting process and signifies system level agreement. This step ensures that
+% nodes send each other confirmation messages so that all agree upon the final value of the state in the system.
+
+
 \subsection{Round Robin}
 Il modello Round Robin è usato da alcune blockchain permissioned.
 In questo modello i ndoi a turno acquisiscono il diritto di pubblicare blocchi. Il consenso
@@ -466,13 +486,13 @@ analisi simbolica inter-procedurale e di un validatore.
 
 \section{Stellar Network}
 
-\textbf{Stellar} è un protocollo decentralizzato ed
+\textit{Stellar} è un protocollo decentralizzato ed
 open source nato con lo scopo di poter
 trasferire denaro attraverso diversi
 paesi con costi di transazione irrisori. Il nome della criptovaluta scambiata
 è Lumen (XLM).
 
-È stato creato nel 2014 da \textbf{Jed McCaleb} e \textbf{Joyce Kim}.
+È stato creato nel 2014 da \textit{Jed McCaleb} e \textit{Joyce Kim}.
 Si tratta di un progetto fortemente ispirato da \textit{Ripple} (di cui Jed McCaleb
 è co-fondatore). A differenza di quest'ultimo, Stellar si pone come obiettivo
 il facilitare lo scambio di denaro tra privati invece che tra banche. Si tratta ovviamente di
@@ -489,7 +509,7 @@ Rientra nella categoria di modelli di consenso Federated Byzantine Agreement (si
 % attraverso gli Stellar Smart Contracts.
 
 Secondo la documentazione ufficiale \cite{stellar-doc-sc},
-uno \textbf{Stellar Smart Contract} (SSC) è espresso come la composizione
+uno \textit{Stellar Smart Contract} (SSC) è espresso come la composizione
 di transazioni connesse fra loro ed eseguite secondo certi vincoli.
 I vincoli che si possono utilizzare nella realizzazione di SSCs sono:
 
@@ -543,62 +563,142 @@ lo stato dell'arte per quanto riguarda l'adozione delle tecnologie blockchain ne
 e cosa aspettarci per il futuro.
 
 \subsection{Il panorama attuale}
+Il numero di portafogli blockchain presenti a livello mondiale al termine di settembre 2018
+era pari a circa 28 milioni \cite{number-of-blockchain-wallet}.
+Dalla figura \ref{fig:number-of-blockchain-wallet} vediamo che questo valore è in continua crescita,
+con un trend positivo dall'andamento esponenziale.
+
+Nel Q4 del 2017 abbiamo assistito ad una crescita più decisa del numero di portafogli blockchain.
+La ragione è che in quel periodo vi è stata un'esplosione del prezzo delle criptovalute, la quale
+ha attirato molti utenti ad interessarsi e ad investire nel mondo blockchain \cite{bitcoin-price-boom}.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.75\linewidth]{images/chap_intro/number-of-blockchain-wallet.pdf}
 	\caption{Numero di portafogli blockchain nel mondo \cite{number-of-blockchain-wallet}}
+	\label{fig:number-of-blockchain-wallet}
 \end{figure}
+
+In figura \ref{fig:model-focus-for-blockchain}
+vediamo i risultati di un sondaggio condotto a livello mondiale da \textit{Deloitte} nell'aprile 2018.
+Alla domanda "Su quale modello blockchain stai concentrando le tue attività?"
+il 52\% delle organizzazioni intervistate stanno concentrando i propri sforzi hanno risposto con
+\textit{blockchain permissioned} \cite{model-focus-for-blockchain}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.75\linewidth]{images/chap_intro/model-focus-for-blockchain.pdf}
 	\caption{Modelli blockchain utilizzati dalla organizzazioni \cite{model-focus-for-blockchain}}
+	\label{fig:model-focus-for-blockchain}
 \end{figure}
 
+La blockchain è una tecnologia relativamente giovane. Come è lecito attendersi, le aziende
+non hanno ancora maturato una forte esperienza con questa tecnologia, ma ciononostante
+sono consapevoli che si tratta
+di una opportunità da seguire con attenzione.
+Secondo \textit{PwC} solo il 15\% delle aziende U.S.A.
+attive nel mondo blockchain sono arrivate ad utilizzare
+la blockchain in produzione \cite{stages-of-blockchain-incorporation} e secondo
+\textit{eft Supply Chain \& Logistics Business Intelligence}
+il 69\% delle organizzazioni intervistate ha dichiarato di stare investendo
+nel comprendere la tecnologia \cite{top-spending-in-supply-chain-industry}.
+
+
 \begin{figure}[H]
-	\begin{minipage}{0.48\textwidth}
-		\centering
-		\includegraphics[width=1\linewidth]{images/chap_intro/top-spending-in-supply-chain-industry.pdf}
-		\caption{Sondaggio: in che modo la tua organizzazione sta investendo nella blockchain?
-			\cite{top-spending-in-supply-chain-industry}}
-	\end{minipage}\hfill
 	\begin{minipage}{0.48\textwidth}
 		\centering
 		\includegraphics[width=1\linewidth]{images/chap_intro/stages-of-blockchain-incorporation.pdf}
 		\caption{Livelli di adozione della blockchain nelle imprese U.S.
 			\cite{stages-of-blockchain-incorporation}}
+		\label{fig:stages-of-blockchain-incorporation}
 	\end{minipage}
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=1\linewidth]{images/chap_intro/top-spending-in-supply-chain-industry.pdf}
+		\caption{Sondaggio: in che modo la tua organizzazione sta investendo nella blockchain?
+			\cite{top-spending-in-supply-chain-industry}}
+		\label{fig:top-spending-in-supply-chain-industry}
+	\end{minipage}\hfill
 \end{figure}
 
 \subsection{L'evozione futura}
+In figura \ref{fig:global-blockchain-solutions-spending} viene presentata la spesa complessiva
+in soluzioni blockchain suddivisa per macroregioni geografiche tra il 2016 e il 2022.
+Nel 2022 la spesa per soluzioni blockchain a livello mondiale toccherà gli 11,65 miliardi di dollari
+e nei soli U.S.A viene proiettata a 4,2 miliardi di dollari \cite{global-blockchain-solutions-spending}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.75\linewidth]{images/chap_intro/global-blockchain-solutions-spending.pdf}
 	\caption{Spesa mondiale in soluzioni blockchain per regione (in miliardi di
 		dollari U.S.) \cite{global-blockchain-solutions-spending}}
+	\label{fig:global-blockchain-solutions-spending}
 \end{figure}
+
+In figura \ref{fig:leading-territories-worldwide} vengono mostrati i risultati di un sondaggio
+pubblicato in agosto 2018 in cui veniva chiesto
+quali sono i territori leader nello sviluppo di tecnologie blockchain.
+Circa il 18\% dei partecipanti considera la Cina leader nel 2018.
+Alla domanda di considerare quale territorio sarebbe il leader nella tecnologia blockchain
+lo sviluppo dal 2021 al 2023, la percentuale di rispondenti che
+rispondono alla "Cina" è cresciuta al 30\% \cite{leading-territories-worldwide}.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.75\linewidth]{images/chap_intro/leading-territories-worldwide.pdf}
-	\caption{
+	\caption{Territori mondiali considerati leader nello sviluppo di tecnologie blockchain
+		nel 2018 e dal 2021 al 2023
 		\cite{leading-territories-worldwide}}
+	\label{fig:leading-territories-worldwide}
 \end{figure}
 
 \subsection{Le aspettative delle imprese}
+
+This statistic shows the answers to a survey question on the potential
+applications for blockchain in retail, according to retailers in the Netherlands as of 2017.
+Blockchain is the main technology behind cryptocurrencies, such as Bitcoin. In essence,
+the blockchain data protocol works like a distributed ledger with the potential to the
+remove the need for (financial) intermediaries. Therefore, expectancies in Europe for
+the effect of this technology on payment solutions are high. The leading application
+for blockchain within the retail chain in the Netherlands, according to this survey,
+would be to increase the speed of payment transactions without having to use banks as an intermediary.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.75\linewidth]{images/chap_intro/potential-blockchain-applications.pdf}
-	\caption{Sondaggio: quale problema può potenzialmente risolvere l'uso della blockchain
+	\caption{Quale problema può potenzialmente risolvere l'uso della blockchain
 		nella catena di commercio? \cite{potential-blockchain-applications}}
+	\label{fig:potential-blockchain-applications}
 \end{figure}
+
+This statistic depicts the results of a survey conducted in Italy
+among banks, FinTech companies and other financial institutions as
+of 2017. The aim of the survey was to find out the most likely business
+use cases of blockchain. Blockchain is a technology that allows for fast,
+secure and transparent peer-to-peer transfer of digital goods-
+including money and intellectual property- and nowadays it has
+become a common element in business processes. As of the survey period,
+the most likely business use cases of blockchain were in payment
+infrastructure (67 percent) and trade finance (61 percent).
+Some 44 percent of respondents stated that blockchain technology was useful in the digital identity management.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.75\linewidth]{images/chap_intro/use-cases-among-businesses.pdf}
-	\caption{Sondaggio: in quali caso d'uso di business la blockchain è utile?
+	\caption{In quali caso d'uso di business la blockchain è utile?
 		\cite{use-cases-among-businesses}}
+	\label{fig:use-cases-among-businesses}
 \end{figure}
+
+
+The statistic shows the biggest barriers for blockchain technology adoption
+worldwide as of 2018. Respondents were asked to rank the top 3 most important
+barriers to blockchain adoption that they believed would affect their organization
+in the next three to five years. Regulatory uncertainty was the most frequently
+stated response with around 48 percent of
+respondents placing it in their top three, and 27 percent of those ranking
+it as the number one barrier.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.75\linewidth]{images/chap_intro/barriers-worldwide.pdf}
 	\caption{
 		\cite{barriers-worldwide}}
+	\label{fig:barriers-worldwide}
 \end{figure}
