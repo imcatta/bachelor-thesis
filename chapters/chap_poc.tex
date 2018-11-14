@@ -11,13 +11,13 @@ del protocollo proposto non è necessario un ambiente che
 offre degli smart contract "potenti" come ad esempio
 la \textit{Ethereum Virtual Machine},
 ma è sufficiente un supporto
-"debole" agli smart contract (\ref{subsec:stellar smart contracts}).
+"debole" agli smart contract (si veda \ref{subsec:stellar smart contracts}).
 
 
 \section{Un'implementazione sullo Stellar Network}
 Sia $ U_0 $ il \textit{client};
-siano $ U_1, ...\, , U_N $ i \textit{provider} e
-siano rispettivamente $ S_1, ...\, , S_N $ i segreti assegnati ai provider
+siano $ U_1, ...\, , U_N $ gli \textit{agenti} e
+siano rispettivamente $ S_1, ...\, , S_N $ i segreti assegnati agli agenti
 (share o messaggi).
 
 Per prima cosa $ U_0 $ crea gli account $ A_1, ...\, , A_N $ e
@@ -26,7 +26,7 @@ il \textit{prize}, il \textit{pawn} e il costo che dovrà sostenere per le commi
 delle transazioni che dovrà effettuare.
 TODO SPIEGARE COME CALCOLARE IL COSTO DELLE COMMISSIONI.
 
-A questo punto per ogni account $ A_i $ crea $ N $ transazioni
+A questo punto per ogni account $ A_i $ il client crea $ N $ transazioni
 ognuna delle quali rivolta ad uno degli utenti $ U_1,\ ...\ , U_N $, per un totale
 di $ N \times N $ transazioni. Indichiamo con $ T_{{A_i}{U_j}} $ la transazione
 proveniente dall'account $ A_i $ e diretta all'utente $ U_j $.
@@ -61,7 +61,7 @@ Le transazioni sono così fatte:
 \end{itemize}
 
 Facciamo notare che tutte queste transazioni hanno lo stesso sequence number.
-Ciò significa che al più una di queste potrà essere eseguita.
+Ciò comporta che al più una di queste potrà essere eseguita.
 \\
 \\
 Ora $ U_0 $ crea ulteriori $ N $ transazioni, una per ogni account,
@@ -116,7 +116,7 @@ nell'effettuare le operazioni successive.
 \\
 \\
 Lo scenario finale è che l'account $ A_i $ è bloccato: neanche $ U_0 $, il detentore
-della master key può apportarvi modifiche o prelevare fondi. Le uniche operazioni
+della master key, può apportarvi modifiche o prelevare fondi. Le uniche operazioni
 autorizzate sono le $ T_{ij} $, ossia le transazioni per ottenere il \textit{prize}
 o il \textit{counterprize}. Per fare il submit di queste transazioni è inoltre
 necessario conoscere $ S_i $, perché in questo modo si riesce a raggiungere
@@ -142,15 +142,17 @@ i possibili destinatari dei \textit{counterprize} devono essere decisi già nell
 fase di inizializzazione. Per il tipo di soluzione proposta non vi è un limite teorico
 per il numero di transazioni \textit{counterprize} che si possono emettere, ma chiaramente
 non è sostenibile l'emissione di transazioni verso tutti i potenziali account Stellar.
-Si è deciso quindi di emettere transazioni \textit{counterprize} riscattabili solo dai
-provider coinvolti.
+Si è deciso quindi di emettere transazioni \textit{counterprize} riscattabili solo dagli
+agenti coinvolti.
 
-Ciò comporta che solo i provider possano riscattare il \textit{counterprize}. Questo potrebbe
-essere un problema, perché comporta che un provider non avrebbe il disincentivo economico
-nel cedere il proprio share ad un soggetto esterno.
+Ciò comporta che solo gli agenti possono riscattare il \textit{counterprize}. Questo potrebbe
+essere un problema, perché significa che l'agente non avrebbe il disincentivo economico
+nel cedere il proprio share ad un soggetto esterno. Di seguito proponiamo un protocollo 
+in grado di risolvere questa situazione.
 
-Eve ottiene lo share dal provider Alice. Eve a questo punto può decidere di dividersi
-il \textit{counterprize} con il provider Bob. Per farlo Bob pre-autorizza due transazioni
+Immaginiamo che Eve ottenga lo share dall'agente Alice. 
+Qyello che può fare Eve è decidere di dividersi
+il \textit{counterprize} con l'agente Bob. Per farlo Bob pre-autorizza due transazioni
 
 \begin{itemize}
 	\item $ T_1 $

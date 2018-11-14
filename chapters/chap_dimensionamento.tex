@@ -12,7 +12,7 @@ si desidera che il segreto venga reso pubblico.
 Si tratta di un parametro deciso a priori, sul quale difficilmente si riesce ad
 intervenire. Ad ogni modo è bene sapere che più $ \tau $ è lontano, più aumentano
 le possibilità che qualcosa vada storto. La ragione è che più è lontana la deadline,
-più cresce la probabilità che i \textit{provider} smarriscano o vengano derubati
+più cresce la probabilità che gli \textit{agenti} smarriscano o vengano derubati
 del segreto.
 
 \subsection{La tolleranza $ \delta $}
@@ -30,7 +30,7 @@ la velocità di elaborazione delle transazioni
 del DLT sottostante.
 
 \subsection{Il \textit{prize}}
-Il \textit{prize} è la ricompensa da corrispondere al provider per il suo servizio
+Il \textit{prize} è la ricompensa da corrispondere all'agente per il suo servizio
 di detenzione del segreto. È una cifra che deve essere concordata tra le parti,
 ed è bene che sia proporzionale a quanto dista $ \tau $ dal momento
 dell'inizializzazione del protocollo
@@ -44,7 +44,7 @@ allo smart contract prima del tempo $ \tau $. È bene che
 \begin{center}
 	\textit{prize} $ \gg $ \textit{counterprize}
 \end{center}
-Il motivo di questo vincolo è che il provider potrebbe ottenere
+Il motivo di questo vincolo è che l'agente potrebbe ottenere
 il \textit{counterprize} in un qualsiasi istante
 prima di $ \tau $ (perché chiaramente conosce il segreto) e quindi
 rendere noto il segreto prima della deadline. Se però il
@@ -59,7 +59,7 @@ viene pubblicato nella finestra temporale $ \tau \leq t \leq \tau + \delta $.
 
 Il \textit{pawn} è necessario perché, ovviamente, anche il client conosce il segreto
 e quindi potrebbe ottenere il \textit{counterprize} (magari poco prima della deadline).
-Se lo facesse il provider non potrebbe più ottenere il \textit{prize} anche se si è
+Se lo facesse l'agente non potrebbe più ottenere il \textit{prize} anche se si è
 comportato in maniera corretta, venendo in un certo senso truffato dal client.
 Come nel caso del \hyperref[subsec:counterprize]{\textit{counterprize}}
 si vuole scoraggiare questo comportamento con il vincolo
@@ -71,7 +71,7 @@ si vuole scoraggiare questo comportamento con il vincolo
 Il numero di share $ n $ è uno dei parametri
 dell'algoritmo di secret sharing, utilizzato dalla versione
 avanzata del protocollo.
-La scelta di questo valore determina automaticamente anche il numero di provider
+La scelta di questo valore determina automaticamente anche il numero di agenti
 necessari.
 Facciamo notare che la versione base può essere vista come un caso particolare
 della versione avanzata, dove $ n = 1 $.
@@ -113,7 +113,7 @@ $$ c = d = \sum_{i=1}^{N} (prize_i + pawn_i + fee_i) $$
 
 \subsection{Resistenza a smarrimenti}
 La resistenza agli smarrimenti $ \theta $ rappresenta
-il numero di provider che possono non
+il numero di agenti che possono non
 rendere noto il proprio share senza compromettere la pubblicazione del messaggio
 originale.
 $$ \theta = n - t $$
@@ -125,7 +125,7 @@ $$ \theta_\% = 100 \cdot \theta_r = 100 \cdot \frac{n - t}{n} $$
 \subsection{Resistenza a furti}
 \label{subsec:resistenza-a-furti}
 La resistenza ai furti $ \gamma $ è il numero di share che un soggetto deve riuscire
-ad ottenere dai provider affinchè possa
+ad ottenere dai agenti affinchè possa
 ricostruire il segreto prima del tempo $ \tau $.
 Questo numero è ovviamente pari al threshold.
 \begin{center}
