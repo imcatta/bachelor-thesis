@@ -2,26 +2,26 @@
 \label{chap:protocollo}
 
 In questo capitolo verrà trattato il protocollo proposto per l'implementazione
-della Time-Lock Encryption sui DLT.
+della Timed-Release Encryption sui DLT.
 Cercheremo di spiegare
 l'idea che sta alla base con l'ausilio di un esempio.
 
 Rientra nella categoria degli approcci
-con \textit{trusted agents} [\ref{subsec:trusted-agents}].
+con \textit{trusted agents} (si veda \ref{subsec:trusted-agents}).
 L'idea è quella di distribuire agli agenti gli \textit{share} del segreto
 e sfruttare alcuni smart contract per
-fornire loro degli incentivi economici affinché pubblichino lo share 
+fornire loro degli incentivi economici affinché pubblichino lo share
 loro assegnato una volta raggiunta la deadline.
 \section{Versione base}
 \label{sec:versione-base}
-Immaginiamo che Carol abbia bisogno di Time-Lock Encryption su un certo messaggio $ x $.
+Immaginiamo che Carol abbia bisogno di Timed-Release Encryption su un certo messaggio $ x $.
 Per farlo decide farsi aiutare da Alice. Quest'ultima
 impegna a conservare il messaggio e a renderlo pubblico solo dopo un
 certo istante di tempo $ \tau $.
-Diremo che Carol è il \textit{client} e che Alice è l'\textit{agente}.
+Diremo che Carol è il \textit{client} e che Alice è l'\textit{agent}.
 
-Alice però vuole essere retribuita per la conservazione di $ x $. Viene quindi fissata
-una ricompensa \textit{prize}. Inoltre Alice vuole essere sicura di
+Alice vuole essere retribuita per la conservazione di $ x $. Viene quindi fissata
+una ricompensa \textit{prize}. Chiaramente Alice vuole essere sicura di
 ottenere la ricompensa se rispetta il suo impegno. Allo stesso tempo Carol
 vuole avere la certezza che Alice possa riscattare il premio solo se si comporta
 in maniera corretta.
@@ -30,19 +30,17 @@ che sia $ x $ sia l'accordo stesso rimangano segreti.
 Per ottenere ciò decidono di usare uno smart contract.
 
 \paragraph{Inizializzazione}
-Nella fase iniziale Carol cominuca il messaggio $ x $ ad Alice. Allo stesso tempo invia
+Nella fase iniziale Carol comunica il messaggio $ x $ ad Alice. Allo stesso tempo invia
 allo smart contract una certa cifra in criptomoneta
 che corrispone alla somma tra il \textit{prize} da corrispondere ad Alice e un
 \textit{pawn} che le verrà restituito al termine delle operazioni, un hash
 crittografico del messaggio $ x $, l'istante di tempo $ \tau $ e una tolleranza $ \delta $.
 
-TODO aggiungere \textit{fee}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.3\linewidth]{images/chap_protocollo/base-creazione.pdf}
 	\caption{Step 0}
 \end{figure}
-
 
 \paragraph{Pubblicazione}
 Alice conserva quindi $ x $ e lo rende noto al tempo $ t^{*} $
@@ -196,9 +194,22 @@ Per una analisi approfondita su come sfruttare la ridondanza per
 garantire un buon grado di robustezza rimandiamo al capitolo
 \ref{chap:dimensionamento}.
 
-% \section{Variante: inzio del msg esclusivamente a certi attori}
-% aggiungo un layer di cifratura.
-% cifro il messaggio con cifratura simmetrica, poi lo distribuisco con TLE. Nello stesso tempo fornisco
-% la chiave di cifratura agli attori a cui voglio inviare il msg, 
-% quindi solo loro potranno leggerlo una volta pubblicato
+\section{Varianti}
+\subsection{Invio del messaggio solo a determinati attori}
+Dopo il tempo $ t^* $ il messaggio diventa pubblico a chiunque abbia accesso
+allo smart contract. In alcuni contesti questo potrebbe essere un problema, perché
+potremmo volere che il messaggio possa essere letto solo da determinati attori.
+
+Una possibile soluzione è aggiungere un layer di cifratura simmetrica al messaggio.
+La procedura è la seguente.
+Per prima cosa si cripta il messaggio $ m $ con cifratura simmetrica e chiave $ k $
+ottenendo $ m^\prime $. Allo stesso tempo per ogni account destinatario designato
+$ A_1, ..., A_n $ si genera $ k_1, ..., k_n $, dove $ k_i $ è $ k $ cifrato con la
+chiave pubblica del portafoglio $ A_i $. A questo punto si genera un header
+$ h = (k_1, ..., k_n) $. Infine si crea $ x = (h, m^\prime) $ e lo si utilizza come
+segreto per il protocollo proposto.
+Una volta raggiunta la deadline $ x $ diventa pubblico, ma $ m $ no. I destinatari designati
+$ A_i $ possono leggere $ m $ estraendo $ k_i $ dall'header di $ x $, ottenere
+$ k $ decriptandolo con la propria chiave privata e quindi decriptare $ m^\prime $.
+
 
