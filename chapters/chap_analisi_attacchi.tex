@@ -1,64 +1,168 @@
-\chapter{Analisi delle criticità}
-\label{chap:analisi-attacchi}
-In questo capitolo analizzeremo le principali criticità a cui il protocollo
-proposto è esposto. Per chiarezza di esposizione presenteremo
-i diversi scenari divisi per punti, ma è bene
-sapere che alcune di queste situazioni potrebbero verificarsi anche contemporanemente.
+\chapter{Analisi di robustezza}
+\label{chap:analisi-robustezza}
+In questo capitolo presenteremo una tecnica per valutare della robustezza delle
+implementazioni del protocollo proposto. L'obiettivo è quello di trovare
+la probabilità che il segreto venga pubblicato una volta raggiunta la deadline
+(requisito di \hyperref[parag:certezza-pubblicazione]{\textit{certezza di pubblicazione}})
+e la probabilità che il messaggio rimanga segreto fino alla deadline
+(requisito di \hyperref[parag:segretezza-tre]{\textit{segretezza del messaggio}}).
 
-\section{Comportamenti negligenti dei singoli utenti}
-\subsection{Uno o più agenti perdono il segreto}
+\section{Terminologia}
+
+\paragraph{Numero di share}
+Il numero di share $ n $ è uno dei parametri
+dell'algoritmo di secret sharing, utilizzato dalla versione
+avanzata del protocollo.
+La scelta di questo valore determina automaticamente anche il numero di agenti
+necessari.
+Facciamo notare che la versione base può essere vista come un caso particolare
+della versione avanzata, dove $ n = 1 $.
+
+\paragraph{Threshold per la ricostruzione del segreto}
+Il threshold $ t $ rappresenta il numero minimo di share che
+sono necessari per la ricostruzione del segreto.
+Anche in questo caso la versione base può essere vista come un caso particolare
+della versione avanzata, dove $ t = 1 $.
+
+\paragraph{Resistenza a smarrimenti}
+La resistenza agli smarrimenti $ \theta $ rappresenta
+il numero di agenti che possono non
+rendere noto il proprio share senza compromettere la pubblicazione del messaggio
+originale.
+$$ \theta = n - t $$
+È interessante valutare questo valore in relazione
+al numero totale di share $ n $.
+$$ \theta_r = \frac{n - t}{n} $$
+$$ \theta_\% = 100 \cdot \theta_r = 100 \cdot \frac{n - t}{n} $$
+
+\paragraph{Resistenza a furti}
+La resistenza ai furti $ \gamma $ è il numero di share che un soggetto deve riuscire
+ad ottenere dai agenti affinchè possa
+ricostruire il segreto prima del tempo $ \tau $.
+Questo numero è ovviamente pari al threshold.
+\begin{center}
+	$ \gamma = t $
+\end{center}
 
 
-\subsection{L'agente si fa rubare il segreto}
+\section{Tecnica di analisi}
+Per prima cosa è necessario assegnare ad ogni agente tre attributi con un valore
+compreso tra 0 e 1.
+\begin{itemize}
+	\item \textit{Smarribilità} $ P_s $: la probabilità
+	      che l'agente smarrisca il segreto.
+	\item \textit{Corruttibilità} $ P_c $: la probabilità che l'agente ceda
+	      lo share a lui assegnato ad un altro soggetto.
+	\item \textit{Malignità} $ P_m $: la probabilità che l'agente cerchi di
+	      corrompere altri agenti per ottenere i loro share.
+\end{itemize}
 
-\subsection{Il client si fa rubare/pubblica il segreto prima di $ \tau $}
+A questo punto si rappresenta l'albero di distribuzione degli share.
+Partendo dai nodi foglia si calcolano gli attributi $ P_s $, $ P_c $ e $ P_m $
+per i rispettivi nodi padre. Si procede iterativamente in questo modo
+fino a quando non si raggiunge il nodo radice. Le $ P_s $, $ P_c $ e $ P_m $
+del nodo radice sono le $ P_s $, $ P_c $ e $ P_m $ dell'intera implementazione.
+
+Facciamo un esempio. Sia Carol il client e siano Alice, Bob e Dave i provider.
+Siano
+$ P_s^A = 0,2 $ \,
+$ P_c^A = 0,25 $ \,
+$ P_m^A = 0,001 $
+gli attributi di Alice;
+siano
+$ P_s^B = 0,35 $ \,
+$ P_c^B = 0,35 $ \,
+$ P_m^B = 0,0005 $
+gli attributi di Bob;
+e siano
+$ P_s^C = 0,005 $ \,
+$ P_c^C = 0,005 $ \,
+$ P_m^C = 0,12 $
+gli attributi di Dave.
+Ipotizziamo che Carol usi la versione avanzata del protocollo
+proposto con numero di share $ n = 3 $ e threshold $ t = 2 $.
+
+Procediamo. Abbiamo che la resistenza ai furti è $ \gamma = 1 $, quindi per calcolare $ P_s $ del nodo
+radice dobbiamo trovare la probabilità che vengano smarriti almeno $ \gamma + 1 $ share.
+$$ P_s = P_s^A \cdot P_s^B + P_s^A \cdot P_s^C + P_s^B \cdot P_s^C = 0,07275 $$
+
+La resistenza ai furti è $ \theta = 1 $. Analogamente a prima dobbiamo calcolare la probabilità che
+almeno $ \theta + 1 $ share vengano sottratti agli agenti.
+$$ P_c = P_c^A \cdot P_c^B + P_c^A \cdot P_c^C + P_c^B \cdot P_c^C = 0,0905 $$
+
+Ci resta da trovare $ P_m $. Per ogni agente dobbiamo trovare la probabilità che sia malintenzionato e che riesca
+a recuperare gli altri $ n - 1 $ share necessari per ottenere il segreto.
+$$ P_m =
+	P_m^A \cdot P_c^B + P_m^A \cdot P_c^C +
+	P_m^B \cdot P_c^A + P_m^B \cdot P_c^C +
+	P_m^C \cdot P_c^A + P_m^C \cdot P_c^B +
+	= 0,0724825 $$
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/chap_analisi_robustezza/robustezza-1.pdf}
+\end{figure}
 
 
-\section{Comportamenti malevoli dei singoli utenti}
-\subsection{Comportamento malevole del client}
+% In questo capitolo analizzeremo le principali criticità a cui il protocollo
+% proposto è esposto. Per chiarezza di esposizione presenteremo
+% i diversi scenari divisi per punti, ma è bene
+% sapere che alcune di queste situazioni potrebbero verificarsi anche contemporanemente.
 
-\subsection{Comportamento malevolo di un agente}
-
-
-\section{Coalizioni tra agenti}
-
-
-\section{Un singolo attore controlla più agenti}
-DLT PERMISSIONED
-Affinché il protocollo funzioni al meglio
-è bene che tutti gli $ N $ agenti
-siano entità ben distinte. Purtroppo non in tutti i contesti
-questa caratteristica è facile da verificare.
-Possono quindi venirsi a creare situazioni nelle quali un unico soggetto controlla
-più agenti. Fissato $ k $ il numero di agenti che controlla,
-individuiamo due casi:
-\paragraph{Un singolo soggetto controlla $ k < \gamma $ agenti}
-In questo caso il soggetto non dispone di un numero sufficiente di share per
-ricostruire il segreto. Bisogna considerare però che parte da una posizione di
-vantaggio, perché deve recuperare solo altri $ \gamma - k $ share.
-\paragraph{Un singolo soggetto controlla $ k \geq \gamma $ agenti}
-In questo caso il soggetto dispone di un numero sufficiente di share per
-ricostruire il segreto. Significa che sin dal momento dell'inizializzazione
-del protocollo viene meno il requisito di
-segretezza del messaggio [vedi \ref{subsec:segretezza-tre}].
+% \section{Comportamenti negligenti dei singoli utenti}
+% \subsection{Uno o più agenti perdono il segreto}
 
 
-\section{Un soggetto corrompe gli agenti}
-Un attaccante che vuole ottenere il messaggio prima del tempo $ \tau $ deve riuscire
-ad ottenere almeno $ \gamma $ share.
+% \subsection{L'agente si fa rubare il segreto}
 
-Un tecnica che può usare è quella di "corrompere" un numero $ \gamma $ di agenti.
-Per farlo deve offrire ad ogni agente una cifra maggiore di \textit{prize}.
-L'agente ha interesse nel tenere il proprio share segreto perché sa che se lo fa
-al tempo $ \tau $ può ottenere una ricompensa \textit{prize}.
-Se però un soggetto gli
-offre una cifra maggiore o uguale di \textit{prize} a quel punto l'azione
-più conviente diventa cedere il segreto.
+% \subsection{Il client si fa rubare/pubblica il segreto prima di $ \tau $}
 
-Come è possibile difendersi? Quello che può fare il client è fissare dei
-\textit{prize} adeguatamente alti rispetto al valore del segreto.
-Un'altra tecnica che può aiutare è quella di
-apportare un'ulteriore penalizzazione nel
-caso in cui l'agente ceda il segreto. Queste penalizzazioni possono essere
-legate al particolare dominio applicativo in cui il protocollo viene utilizzato.
-Un esempio è visibile nell'ultimo capitolo.
+
+% \section{Comportamenti malevoli dei singoli utenti}
+% \subsection{Comportamento malevole del client}
+
+% \subsection{Comportamento malevolo di un agente}
+
+
+% \section{Coalizioni tra agenti}
+
+
+% \section{Un singolo attore controlla più agenti}
+% DLT PERMISSIONED
+% Affinché il protocollo funzioni al meglio
+% è bene che tutti gli $ N $ agenti
+% siano entità ben distinte. Purtroppo non in tutti i contesti
+% questa caratteristica è facile da verificare.
+% Possono quindi venirsi a creare situazioni nelle quali un unico soggetto controlla
+% più agenti. Fissato $ k $ il numero di agenti che controlla,
+% individuiamo due casi:
+% \paragraph{Un singolo soggetto controlla $ k < \gamma $ agenti}
+% In questo caso il soggetto non dispone di un numero sufficiente di share per
+% ricostruire il segreto. Bisogna considerare però che parte da una posizione di
+% vantaggio, perché deve recuperare solo altri $ \gamma - k $ share.
+% \paragraph{Un singolo soggetto controlla $ k \geq \gamma $ agenti}
+% In questo caso il soggetto dispone di un numero sufficiente di share per
+% ricostruire il segreto. Significa che sin dal momento dell'inizializzazione
+% del protocollo viene meno il requisito di
+% segretezza del messaggio [vedi \ref{parag:segretezza-tre}].
+
+
+% \section{Un soggetto corrompe gli agenti}
+% Un attaccante che vuole ottenere il messaggio prima del tempo $ \tau $ deve riuscire
+% ad ottenere almeno $ \gamma $ share.
+
+% Un tecnica che può usare è quella di "corrompere" un numero $ \gamma $ di agenti.
+% Per farlo deve offrire ad ogni agente una cifra maggiore di \textit{prize}.
+% L'agente ha interesse nel tenere il proprio share segreto perché sa che se lo fa
+% al tempo $ \tau $ può ottenere una ricompensa \textit{prize}.
+% Se però un soggetto gli
+% offre una cifra maggiore o uguale di \textit{prize} a quel punto l'azione
+% più conviente diventa cedere il segreto.
+
+% Come è possibile difendersi? Quello che può fare il client è fissare dei
+% \textit{prize} adeguatamente alti rispetto al valore del segreto.
+% Un'altra tecnica che può aiutare è quella di
+% apportare un'ulteriore penalizzazione nel
+% caso in cui l'agente ceda il segreto. Queste penalizzazioni possono essere
+% legate al particolare dominio applicativo in cui il protocollo viene utilizzato.
+% Un esempio è visibile nell'ultimo capitolo. TODO
