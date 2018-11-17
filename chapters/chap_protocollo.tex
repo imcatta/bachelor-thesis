@@ -54,7 +54,7 @@ ed in cambio ottiene il suo \textit{prize}.
 Allo stesso tempo, Alice riottiene il \textit{pawn} che aveva versato in precedenza.
 \footnote{Ad una prima analisi può sembrare che il \textit{pawn} sia inutile,
 	ma in realtà è necessario per proteggersi da alcuni tipi di attacchi.
-	Le ragioni dettagliate verranno discusse nel capitolo \ref{chap:analisi-attacchi}.}
+	Le ragioni dettagliate verranno discusse nel capitolo \ref{chap:analisi-robustezza}.}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.3\linewidth]{images/chap_protocollo/base-pubblicazione.pdf}
@@ -85,7 +85,7 @@ E se Alice cede (volontariamente o a causa di un furto)
 il segreto ad Eve prima del tempo $ \tau $?
 In questo caso Eve può usare $ x $ per ottenere una ricompensa
 \textit{counterprize} \footnote{dove \textit{counterprize} $ \ll $ \textit{prize}.
-	Le ragioni di questo vincolo sono spiegate al capitolo \ref{chap:analisi-attacchi}.}
+	Le ragioni di questo vincolo sono spiegate al capitolo \ref{chap:analisi-robustezza}.}
 Il riscatto del \textit{counterprize} impedisce ad Alice di ottenere il suo premio.
 È evidente che l'interesse di Alice è quello di mantenere $ x $ segreto.
 \begin{figure}[H]
@@ -212,4 +212,26 @@ Una volta raggiunta la deadline $ x $ diventa pubblico, ma $ m $ no. I destinata
 $ A_i $ possono leggere $ m $ estraendo $ k_i $ dall'header di $ x $, ottenere
 $ k $ decriptandolo con la propria chiave privata e quindi decriptare $ m^\prime $.
 
+\subsection{Divisione di share in più livelli}
+La versione avanzata del protocollo proposto può essere estesa con una divisione su più livelli
+degli share distribuiti agli agenti.
+L'idea è quella di creare un \textit{albero di distribuzione degli share}.
+Partendo dal messaggio $ x $, che rappresenta il nodo radice, si ottengono gli share $ x_{1i} $,
+rappresentati come nodi figli.
+A queto punto su ogni share $ x_{1i} $ si opera nuovamente il protocollo proposto,
+utilizzando questa volta $ x_{1i} $ come segreto.
+Si ottengono così gli share di secondo livello $ x_{2i} $.
+Si può procedere iterativamente in questo modo fino a raggiungere la profondità desiderata.
+Gli share nei nodi foglia vengono poi assegnati agli agenti.
+Non è strettamente necessario creare un albero bilanciato.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.45\linewidth]{images/chap_protocollo/protocollo-gerarchia.pdf}
+	\caption{Esempio di un albero di distribuzione degli share}
+\end{figure}
+
+Le scelte progettuali riguardo la struttura dell'albero di distribuzione degli share hanno un
+impatto sulla robustezza dell'implementazione del protocollo proposto. Per una analisi più
+approfondita rimandiamo al capitolo \ref{chap:analisi-robustezza}.
 
