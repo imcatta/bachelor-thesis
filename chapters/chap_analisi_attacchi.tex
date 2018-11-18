@@ -47,13 +47,15 @@ Questo numero è ovviamente pari al threshold.
 
 \section{Tecnica di analisi}
 Per prima cosa è necessario assegnare ad ogni agente tre attributi con un valore
-compreso tra 0 e 1.
+compreso tra 0 e 1, assumendo che tutti gli agenti siano entità ben distinte e
+che non vi siano coalizioni tra agenti.
+
 \begin{itemize}
-	\item \textit{Smarribilità} $ P_s $: la probabilità
+	\item $ P_s $: la probabilità
 	      che l'agente smarrisca il segreto.
-	\item \textit{Corruttibilità} $ P_c $: la probabilità che l'agente ceda
+	\item $ P_c $: la probabilità che l'agente ceda
 	      lo share a lui assegnato ad un altro soggetto.
-	\item \textit{Malignità} $ P_m $: la probabilità che l'agente cerchi di
+	\item $ P_m $: la probabilità che l'agente cerchi di
 	      corrompere altri agenti per ottenere i loro share.
 \end{itemize}
 
@@ -63,7 +65,10 @@ per i rispettivi nodi padre. Si procede iterativamente in questo modo
 fino a quando non si raggiunge il nodo radice. Le $ P_s $, $ P_c $ e $ P_m $
 del nodo radice sono le $ P_s $, $ P_c $ e $ P_m $ dell'intera implementazione.
 
-Facciamo un esempio. Sia Carol il client e siano Alice, Bob e Dave i provider.
+Di seguito alcuni esempi.
+
+\paragraph{Albero di distribuzione con profondità 1}
+Sia Carol il client e siano Alice, Bob e Dave gli agenti.
 Siano
 $ P_s^A = 0,2 $ \,
 $ P_c^A = 0,25 $ \,
@@ -82,7 +87,7 @@ gli attributi di Dave.
 Ipotizziamo che Carol usi la versione avanzata del protocollo
 proposto con numero di share $ n = 3 $ e threshold $ t = 2 $.
 
-Procediamo. Abbiamo che la resistenza ai furti è $ \gamma = 1 $, quindi per calcolare $ P_s $ del nodo
+Procediamo. Abbiamo che la resistenza agli smarimenti è $ \gamma = 1 $, quindi per calcolare $ P_s $ del nodo
 radice dobbiamo trovare la probabilità che vengano smarriti almeno $ \gamma + 1 $ share.
 $$ P_s = P_s^A \cdot P_s^B + P_s^A \cdot P_s^C + P_s^B \cdot P_s^C = 0,07275 $$
 
@@ -100,26 +105,162 @@ $$ P_m =
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.75\linewidth]{images/chap_analisi_robustezza/robustezza-1.pdf}
+	\includegraphics[width=0.6\linewidth]{images/chap_analisi_robustezza/robustezza-1.pdf}
 \end{figure}
+
+\paragraph{Albero di distribuzione bilanciato di profondità 2}
+Immaginiamo di avere a disposizione quattro agenti. Per tre di questi
+vale
+$ P_s = 0,1 $ \,
+$ P_c = 0,3 $ \,
+$ P_m = 0,02 $
+mentre per il quarto abbiamo
+$ P_s = 0,02 $ \,
+$ P_c = 0,02 $ \,
+$ P_m = 0,005 $.
+Immaginiamo inoltre di utilizzare un albero di distribuzione simmetrico di profondità 2.
+La situazione è rappresentata in figura \ref{fig:robustezza-2-1}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\linewidth]{images/chap_analisi_robustezza/robustezza-2-1.pdf}
+	\includegraphics[width=0.55\linewidth]{images/chap_analisi_robustezza/robustezza-2-1.pdf}
+	\caption{Albero di distribuzione bilanciato di profondità 2}
+	\label{fig:robustezza-2-1}
 \end{figure}
+
+Calcoliamo gli attributi di $ x_{11} $. La resistenza agli smarimenti è $ \gamma = 0 $,
+di conseguenza la $ P_s $ di $ x_{11} $ è data dalla somma delle $ P_s $ dei nodi figli.
+$$ P_s = 0,1 + 0,1 = 0,2 $$
+
+Per poter ottenere lo share $ x_{11} $ un attaccante esterno deve riuscire ad ottenere
+sia $ x_{21} $ sia $ x_{22} $. Pertando $ P_c $ è dato dal prodotto dei $ P_c $ dei nodi figli.
+$$ P_c = 0,3 \cdot 0,3 = 0,09 $$
+
+Se invece è uno degli agenti a voler ottenere $ x_{11} $  è sufficiente che ottenga
+lo share dell'altro agente. Quindi $ P_m $ è data dalla somma delle probabilità
+che si abbia sia un agente scorretto sia un agente corrotto.
+$$ P_m = (0,02 \cdot 0,3) + (0,02 \cdot 0,3) = 0,0012 $$
+
+Per quanto riguarda gli attributi di $ x_{12} $, i ragionamenti sono analoghi. Ci limitiamo
+a riportare i calcoli.
+\begin{tightcenter}
+	$ P_s = 0,1 + 0,02 = 0,12 $      \\
+	$ P_c = 0,3 \cdot 0,02 = 0,006 $ \\
+	$ P_m = (0,02 \cdot 0,02) + (0,005 \cdot 0,3) = 0,0019 $
+\end{tightcenter}
+A questo punto dobbiamo trovare gli attributi di $ x $.
+Anche qui il ragionamento è analogo a prima.
+\begin{tightcenter}
+	$ P_s = 0,2 + 0,12 = 0,32 $\\
+	$ P_c = 0,09 \cdot 0,006 = 0,00054 $\\
+	$ P_m = (0,012 \cdot 0,006) + (0,0019 \cdot 0,09) = 0,000243 $
+\end{tightcenter}
+\paragraph{Albero di distribuzione con ridondanza}
+Analogamente al caso precedente immaginiamo di avere a disposizione quattro agenti. Per tre di questi
+vale
+$ P_s = 0,1 $ \,
+$ P_c = 0,3 $ \,
+$ P_m = 0,02 $
+mentre per il quarto abbiamo
+$ P_s = 0,02 $ \,
+$ P_c = 0,02 $ \,
+$ P_m = 0,005 $.
+Immaginiamo inoltre di utilizzare un albero di distribuzione simmetrico di profondità 2.
+A differenza del caso precedente però utilizziamo $ t = 1 $ come threshold per gli share di secondo livello.
+Facciamo notare che $ t = 1 $ significa che basta un solo share per ricostruire il messaggio originale,
+ossia lo share è il messaggio originale. Di fatto possiamo vedere questa situazione come una
+distribuzione degli share di primo livello ridondanti.
+La situazione è rappresentata in figura \ref{fig:robustezza-2-2}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\linewidth]{images/chap_analisi_robustezza/robustezza-2-2.pdf}
+	\includegraphics[width=0.55\linewidth]{images/chap_analisi_robustezza/robustezza-2-2.pdf}
+	\caption{Albero di distribuzione con ridondanza}
+	\label{fig:robustezza-2-2}
 \end{figure}
 
+Calcoliamo gli attributi di $ x_{11} $. Di fatto $ x_{11} $ è distribuito due volte, quindi
+$ x_{11} $ viene smarrito se e solo se entrambi $ x_{21} $ e $ x_{22} $ vengono smarriti.
+Di conseguenza per trovare
+$ P_s $ dobbiamo moltiplicare i $ P_s $ dei nodi figli.
+$$ P_s = 0,1 \cdot 0,1 = 0,01 $$
+
+
+Per poter ottenere lo share $ x_{11} $ un attaccante esterno deve riuscire ad ottenere
+o $ x_{21} $ o $ x_{22} $. Pertando $ P_c $ è dato dalla somma dei $ P_c $ dei nodi figli.
+\begin{tightcenter}
+	$ P_c = 0,3 + 0,3 = 0,6 $
+\end{tightcenter}
+
+Entrambi gli agenti di fatto conoscono $ x_{11} $, quindi per calcolare $ P_m $ si devono
+sommare le $ P_m $ dei nodi figli.
+\begin{tightcenter}
+	$ P_m = 0,02 \cdot 0,02 = 0,04$
+\end{tightcenter}
+
+Per quanto riguarda gli attributi di $ x_{12} $, i ragionamenti sono analoghi. Ci limitiamo
+a riportare i calcoli.
+\begin{tightcenter}
+	$ P_s = 0,1 \cdot 0,02 = 0,002 $\\
+	$ P_c = 0,3 + 0,02 = 0,32 $\\
+	$ P_m = 0,02 + 0,005 = 0,025 $
+\end{tightcenter}
+
+Non ci resta che trovare gli attributi di $ x $.
+Anche qui il ragionamento è analogo a prima.
+\begin{tightcenter}
+	$ P_s = 0,01 + 0,002 = 0,012 $\\
+	$ P_c = 0,6 \cdot 0,32 = 0,192 $\\
+	$ P_m = (0,04 \cdot 0,32) + (0,025 \cdot 0,6) = 0,0278 $\\
+\end{tightcenter}
+
+
+\paragraph{Albero di distribuzione sbilanciato di profondità 2}
+Ancora una volta immaginiamo di avere a disposizione quattro agenti. Per tre di questi
+vale
+$ P_s = 0,1 $ \,
+$ P_c = 0,3 $ \,
+$ P_m = 0,02 $
+mentre per il quarto abbiamo
+$ P_s = 0,02 $ \,
+$ P_c = 0,02 $ \,
+$ P_m = 0,005 $.
+Questa volta però immaginiamo di utilizzare l'albero di distribuzione degli share
+sbilanciato di profondità 2
+mostrato in figura \ref{fig:robustezza-2-3}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\linewidth]{images/chap_analisi_robustezza/robustezza-2-3.pdf}
+	\includegraphics[width=0.55\linewidth]{images/chap_analisi_robustezza/robustezza-2-3.pdf}
+	\caption{Albero di distribuzione sbilanciato di profondità 2}
+	\label{fig:robustezza-2-3}
 \end{figure}
+Per prima cosa cerchiamo gli attributi di $ x_{11} $.
+Abbiamo resistenza agli smarrimenti $ \gamma = 1 $, perciò $ P_s $
+è la somma delle probabilità delle tre combinazioni di avere $ \gamma + 1 = 2 $ smarrimenti.
+$ P_s = (0,1 \cdot 0,1) + (0,1 \cdot 0,1) + (0,1 \cdot 0,1) = 0,03 $
+
+La resistenza ai furti è $ \theta = 2 $. Un attaccante deve recuperare
+due share per ottenere $ x_{11} $. Quindi
+$ P_s = (0,3 \cdot 0,3) + (0,3 \cdot 0,3) + (0,3 \cdot 0,3) = 0,27 $
+
+Infine $ P_m $ è
+$$
+	P_m = (0,02 \cdot 0,3) + (0,02 \cdot 0,3) +
+	(0,02 \cdot 0,3) + (0,02 \cdot 0,3) +
+	(0,02 \cdot 0,3) + (0,02 \cdot 0,3) = 0,198
+$$
+Non ci resta che trovare gli attributi di $ x $.
+Ancora una volta
+\begin{tightcenter}
+	$ P_s = 0,03 + 0,02 = 0,05 $      \\
+	$ P_c = 0,27 \cdot 0,02 = 0,0054 $\\
+	$ P_m = (0,198 \cdot 0,02) + (0,005 \cdot 0,27) = 0,00531 $
+\end{tightcenter}
+
+
 
 \subsection{Considerazioni}
-Questo modello ci fornisce un comodo strumento in grado di fornirci
+Questo modello può essere usato come un comodo strumento in grado di fornire
 un'indicazione quantitativa sulla robustezza di una data implementazione.
 Si tratta però di una approssimazione,
 che non tiene conto di alcune dinamiche che si possono venire a creare. Infatti per poter
