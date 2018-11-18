@@ -12,6 +12,9 @@ L'idea è quella di distribuire agli agenti gli \textit{share} del segreto
 e sfruttare alcuni smart contract per
 fornire loro degli incentivi economici affinché pubblichino lo share
 loro assegnato una volta raggiunta la deadline.
+La blockchain stessa viene utilizzata come orologio di riferimento
+per capire se la deadline è stata raggiunta.
+
 \section{Versione base}
 \label{sec:versione-base}
 Immaginiamo che Carol abbia bisogno di Timed-Release Encryption su un certo messaggio $ x $.
@@ -102,18 +105,18 @@ Il riscatto del \textit{counterprize} impedisce ad Alice di ottenere il suo prem
 \end{figure}
 
 \section{Versione avanzata}
-Facciamo notare che nella versione base (\ref{sec:versione-base})
+Facciamo notare che nella versione base
 Alice conosce sin
 dall'inizio il messaggio
 $ x $, perché le è stato affidato nella prima fase del processo.
 Ma se Carol volesse che il messaggio rimanga segreto anche ad Alice?
 Per soddisfare questa condizione Alice ha bisogno di (almeno) un altro agente,
 Bob, e di un
-algoritmo di \textbf{secret sharing}. \footnote{Un algoritmo di secret sharing
+algoritmo di \textit{secret sharing}\footnote{Un algoritmo di secret sharing
 	è un algoritmo che permette di
 	distribuire un certo segreto tra un gruppo di partecipanti, ad ognuno dei quali viene
 	assegnato uno \textit{share}. Il segreto può essere ricostruito solo unendo un certo
-	numero di share.}
+	numero di share.}.
 
 \paragraph{Inizializzazione}
 Alice, utilizzando un algoritmo di secret sharing, ottiene due share
@@ -218,7 +221,7 @@ degli share distribuiti agli agenti.
 L'idea è quella di creare un \textit{albero di distribuzione degli share}.
 Partendo dal messaggio $ x $, che rappresenta il nodo radice, si ottengono gli share $ x_{1i} $,
 rappresentati come nodi figli.
-A queto punto su ogni share $ x_{1i} $ si opera nuovamente il protocollo proposto,
+A questo punto su ogni share $ x_{1i} $ si opera nuovamente il protocollo proposto,
 utilizzando questa volta $ x_{1i} $ come segreto.
 Si ottengono così gli share di secondo livello $ x_{2i} $.
 Si può procedere iterativamente in questo modo fino a raggiungere la profondità desiderata.
