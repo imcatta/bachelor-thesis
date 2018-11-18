@@ -1,4 +1,87 @@
 \chapter{Possibili usi}
+\label{chap:possibili-usi}
 
-\section{Gara d'appalto a buste chiuse}
-\label{sec:gara-buste-chiuse}
+\section{Offerte in aste a buste chiuse}
+
+\section{Insider stock trades}
+Un insider, ossia una persona che può avere accesso in anticipo a informazioni
+riservate sull’attività economica di una società quotata in borsa,
+potrebbe essere legalmente obbligato a
+prendere impegni in anticipo sull'acquisto di quote della società
+sia per mitigare potenziali
+abusi di informazioni interne, sia per proteggere l'insider da false
+accuse di utilizzo sleale delle informazioni.
+In certe circostanze
+si può volere che questi impegni rimangano segreti sino a poco prima
+della loro esecuzione. Chiaramente un impegno che non garantisce la non ripudiabilità
+non è sufficiente in quanto un insider può creare in anticipo un impegno nascosto
+e poi rifiutarsi di renderlo pubblico nel caso in cui l'evento non sia per lui conveniente.
+
+Se un insider cifra in anticipo la sua transazione con la Timed-Release Encryption
+può sempre essere legalmente obbligato a eseguire la transazione e allo stesso tempo
+i dettagli della transazione rimangono segreti fino al tempo desiderato.
+In \cite{rabin2006time} Rabin e Thorpe propongono un protocollo nel quale gli insider
+cifrano le loro transazioni in anticipo usando la Timed-Release Encryption.
+Queste direttive possono essere per l'acquisto, per la vendita o non fare nulla. In questo
+modo l'insider non rivela informazioni al mercato.
+
+\section{Raccolta dati in trial clinici}
+Al fine di preservare l'integrità dei trial clinici, le informazioni raccolte durante il trial
+posso essere cifrate con la Timed-Release Encryption.
+Poiché molti di questi studi sono finanziati da società che sono in grado di guadagnare
+o perdere ingenti somme di denaro a seconda del loro esito,
+potenzialmente vi possono essere pressioni per ottenere un risultato positivo.
+L'uso della Timed-Release Encryption può mitigare bias senza rendere note informazioni
+confidenziali riguardo lo studio prima che sia completato. La Timed-Release Encryption
+previene le frodi da parte di scienziati non etici, e protegge gli scienziati onesti
+da false accuse di frode o pressioni da parte dei loro finanziatori per ottenere un certo risultato.
+
+In un contesto, i dati raccolti dagli scienziati verrebbero cifrati
+immediatamente mentre vengono raccolti dai dispositivi medici. In questo modo gli scienziati
+non sarebbero in grado di conoscere i dati prima della conclusione di una certa fase dello studio;
+ciò previene che i trend che si verificano nelle prime fasi dello studio influenzino
+le successive operazioni di raccolta dati.
+In un altro contesto, i dati clinici verrebbero forniti immediatamente agli scienziati
+e successivamente ad una commissione di auditing tramite Timed-Release Encryption.
+In questo modo gli scienziati non comunicano immediatamente alla commissione i dati raccolti
+e allo stesso tempo al termine della sperimentazione
+la commissione di auditing ha la garanzia che i dati non siano stati alterati.
+
+\subsection{Voto elettronico}
+In alcune forme di votazioni si desidera che non vi siano pubblicazioni di risultati intermedi,
+perché potrebbero influenzare gli altri elettori. Se i voti vengono cifrati con
+la Timed-Release Encryption durante la votazione, i risultati possono rimanere interamente segreti
+fino alla chiusura delle urne.
+
+% In one setting, scientists’ data collection process uses our Service to encrypt
+% data directly as they are being collected, for example, by diagnostic devices
+% or computer user interfaces. The scientists would not be able to see the data
+% collected until the conclusion of a phase of the study; this prevents observations
+% of trends in early data collection from affecting future data collection practices.
+% In another setting, clinical data would be provided to the scientists in raw
+% form immediately and to an auditing board encrypted via time-lapse cryptography.
+% The scientists would preserve the confidentiality of their data during the
+% study to prevent leaking of information by the auditing board, but would know
+% that any tampering with results would be discovered after the expiration of the
+% time-lapse.
+
+% \cite{Rivest96time-lockpuzzles}
+% What are the applications of timed-release crypto"? Here are a few possibilities (some
+% due to May):
+% A bidder in an auction wants to seal his bid so that it can only be opened after the
+% bidding period is closed.
+% A homeowner wants to give his mortgage holder a series of encrypted mortgage payments.
+% These might be encrypted digital cash with different decryption dates, so that
+% one payment becomes decryptable (and thus usable by the bank) at the beginning of
+% each successive month.
+% An individual wants to encrypt his diaries so that they are only decryptable after fty
+% years.
+
+
+% % altro paper
+% Bids in sealed-bid auctions. Our original motivation for this work came
+% from joint work with David Parkes and Stuart Shieber on cryptographic auctions
+% 	[17]. In our auction protocol, we realized the need for bidders to issue
+
+% \section{Gara d'appalto a buste chiuse}
+% \label{sec:gara-buste-chiuse}
