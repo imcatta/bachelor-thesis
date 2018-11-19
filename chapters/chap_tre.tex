@@ -26,7 +26,7 @@ La Timed-Release Encryption ha diverse applicazioni nel mondo reale. Queste verr
 discusse nel dettaglio nel capitolo \ref{chap:possibili-usi}.
 
 \section{Requisiti}
-In sintesi, un buon sistema di TRE deve soddisfare i seguenti requisiti:
+Un buon sistema di TRE deve soddisfare i seguenti requisiti:
 
 \paragraph{Certezza di pubblicazione}
 \label{parag:certezza-pubblicazione}
@@ -48,7 +48,7 @@ I Time-Locked puzzle sono stati introdotti per la prima volta
 da Merkle \cite{Merkle:1978:SCO:359460.359473} e approfonditi
 da Bellare et. al. \cite{Bellare:1996:EKE:888619}
 e da Rivest et. al. \cite{Rivest96time-lockpuzzles}.
-L'idea che sta alla base è quella di trasformare il messaggio ad un certo istante di tempo $ t_0 $
+L'idea che sta alla base è quella di cifrare il messaggio ad un certo istante di tempo $ t_0 $
 in modo tale che ogni macchina
 (seriale o parallela) debba lavorare per un certo quantitativo di tempo $ \Delta $ per risolvere
 il problema computazionale sottostante (puzzle). La somma tra $ t_0 $ e $ \Delta $ è la deadline.
@@ -61,9 +61,9 @@ precisione la potenza di calcolo a disposizione del risolutore per poter
 dimensionare la difficoltà del puzzle. Generalmente è possibile ottenere
 una buona stima di questo valore se ci si basa sull'hardware contemporaneo. È impossibile
 invece trovare una stima \textit{future-proof}, poiché non sappiamo quali nuovi strumenti di
-calcolo verranno creati nel futuro (es. computer quantistici).
-Ad ogni modo, anche se si avesse una stima affidabile a dispozione,
-sarebbe possibile garantire solo un limite inferiore
+calcolo verranno creati nel futuro.
+Ad ogni modo, anche se si avesse una stima affidabile a disposizione,
+con questo approccio sarebbe possibile garantire solo un limite inferiore
 sull'istante di pubblicazione del messaggio, dato che la macchina risolutrice potrebbe per vari motivi
 non iniziare immediatamente a lavorare all'istante $ t_0 $,
 potrebbe effettuare delle pause durante l'elaborazione

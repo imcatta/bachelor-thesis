@@ -8,11 +8,11 @@ l'idea che sta alla base con l'ausilio di un esempio.
 
 Rientra nella categoria degli approcci
 con \textit{trusted agents} (si veda \ref{subsec:trusted-agents}).
-L'idea è quella di distribuire agli agenti gli \textit{share} del segreto
+L'idea è quella di distribuire agli agenti gli \textit{share} del messaggio
 e sfruttare alcuni smart contract per
 fornire loro degli incentivi economici affinché pubblichino lo share
 loro assegnato una volta raggiunta la deadline.
-La blockchain stessa viene utilizzata come orologio di riferimento
+La blockchain viene utilizzata come orologio di riferimento
 per capire se la deadline è stata raggiunta.
 
 \section{Versione base}
@@ -42,7 +42,7 @@ crittografico del messaggio $ x $, l'istante di tempo $ \tau $ e una tolleranza 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.3\linewidth]{images/chap_protocollo/base-creazione.pdf}
-	\caption{Step 0}
+	\caption{Inizializzazione (versione base)}
 \end{figure}
 
 \paragraph{Pubblicazione}
@@ -57,21 +57,22 @@ ed in cambio ottiene il suo \textit{prize}.
 Allo stesso tempo, Alice riottiene il \textit{pawn} che aveva versato in precedenza.
 \footnote{Ad una prima analisi può sembrare che il \textit{pawn} sia inutile,
 	ma in realtà è necessario per proteggersi da alcuni tipi di attacchi.
-	Le ragioni dettagliate verranno discusse nel capitolo \ref{chap:analisi-robustezza}.}
+	Le ragioni dettagliate verranno discusse nel capitolo \ref{chap:analisi-robustezza}.
+	TODO sistemare}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.3\linewidth]{images/chap_protocollo/base-pubblicazione.pdf}
-	\caption{Step ok}
+	\caption{Pubblicazione del messaggio (versione base)}
 \end{figure}
 
-\paragraph{Accesso al messaggio}
+\paragraph{Lettura del messaggio}
 Dopo il tempo $ t^{*} $, ossia dopo che Alice ha inviato $ x $ allo smart contract,
 il messaggio diventa pubblico e
 chiunque può leggerlo.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.27\linewidth]{images/chap_protocollo/base-leggi.pdf}
-	\caption{Step leggi}
+	\caption{Lettura del messaggio (versione base)}
 \end{figure}
 
 \paragraph{Pubblicazione anticipata}
@@ -80,7 +81,7 @@ Semplicemente lo smart contract rifiuta la sua richiesta.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.3\linewidth]{images/chap_protocollo/base-anticipo.pdf}
-	\caption{Step anticipo}
+	\caption{Tentativo di pubblicazione anticipata (versione base)}
 \end{figure}
 
 \paragraph{Leak}
@@ -95,12 +96,12 @@ Il riscatto del \textit{counterprize} impedisce ad Alice di ottenere il suo prem
 	\begin{minipage}{0.4\textwidth}
 		\centering
 		\includegraphics[width=.7\linewidth]{images/chap_protocollo/base-leak-1.pdf}
-		\caption{Leak 1}
+		\caption{Riscatto del counterprize (versione base)}
 	\end{minipage}\hfill
 	\begin{minipage}{0.4\textwidth}
 		\centering
 		\includegraphics[width=.7\linewidth]{images/chap_protocollo/base-leak-2.pdf}
-		\caption{Leak 2}
+		\caption{Impossibilità di riscatto del prize (versione base)}
 	\end{minipage}
 \end{figure}
 
@@ -114,9 +115,9 @@ Per soddisfare questa condizione Alice ha bisogno di (almeno) un altro agente,
 Bob, e di un
 algoritmo di \textit{secret sharing}\footnote{Un algoritmo di secret sharing
 	è un algoritmo che permette di
-	distribuire un certo segreto tra un gruppo di partecipanti, ad ognuno dei quali viene
-	assegnato uno \textit{share}. Il segreto può essere ricostruito solo unendo un certo
-	numero di share.}.
+	distribuire un certo segreto tra un gruppo di $ n $ partecipanti, ad ognuno dei quali viene
+	assegnato uno \textit{share}. Il segreto può essere ricostruito solo unendo un numero di share
+	pari ad un fissato threshold $ t $.}.
 
 \paragraph{Inizializzazione}
 Alice, utilizzando un algoritmo di secret sharing, ottiene due share
@@ -127,7 +128,7 @@ degli share, il tempo $ \tau $ e la tolleranza $ \delta $.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\linewidth]{images/chap_protocollo/avanzato-creazione.pdf}
-	\caption{Avanzato - Inizializzazione}
+	\caption{Inizializzazione (Versione avanzata)}
 \end{figure}
 
 
@@ -140,15 +141,15 @@ In cambio ottengono i loro
 Allo stesso tempo Alice riottiene i rispettivi \textit{pawn} che aveva versato
 in precedenza.
 \begin{figure}[H]
-	\begin{minipage}{0.5\textwidth}
+	\begin{minipage}{0.45\textwidth}
 		\centering
 		\includegraphics[width=.7\linewidth]{images/chap_protocollo/avanzato-pubblicazione-a.pdf}
-		\caption{Leak 1}
+		\caption{Pubblicazione dello share $ x_A $ (versione avanzata)}
 	\end{minipage}\hfill
-	\begin{minipage}{0.5\textwidth}
+	\begin{minipage}{0.45\textwidth}
 		\centering
 		\includegraphics[width=.7\linewidth]{images/chap_protocollo/avanzato-pubblicazione-b.pdf}
-		\caption{Leak 2}
+		\caption{Pubblicazione dello share $ x_B $ (versione avanzata)}
 	\end{minipage}
 \end{figure}
 
@@ -160,42 +161,40 @@ ricostruire il messaggio $ x $.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{images/chap_protocollo/avanzato-leggi.pdf}
-	\caption{Step leggi}
+	\caption{Lettura del messaggio (versione avanzata)}
 \end{figure}
 
 \paragraph{Leak}
 Cosa succede se Bob cede il suo share ad Eve prima del tempo $ \tau $?
 Anche in questo caso Eve può usare $ x_B $ per ottenere una ricompensa
 \textit{counterprize}.
-Il riscatto del \textit{counterprize} impedirebbe a Bob di ottenere il suo premio.
+Il riscatto del \textit{counterprize} impedisce a Bob di ottenere il suo premio.
 Da notare che se Alice si comporta in maniera corretta, ossia se tiene segreto il
 suo share, è in grado di ottenere la sua ricompensa indipendentemente dal comportamento
 di Bob.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.4\linewidth]{images/chap_protocollo/avanzato-leak-1.pdf}
-	\caption{Step leggi}
+	\caption{Riscatto del counterprize (versione avanzata)}
 \end{figure}
 
 \begin{figure}[H]
-	\begin{minipage}{0.5\textwidth}
+	\begin{minipage}{0.45\textwidth}
 		\centering
 		\includegraphics[width=.8\linewidth]{images/chap_protocollo/avanzato-leak-2-a.pdf}
-		\caption{Leak 1}
+		\caption{Riscatto di $ \text{prize}_A $ (versione avanzata)}
 	\end{minipage}\hfill
-	\begin{minipage}{0.5\textwidth}
+	\begin{minipage}{0.45\textwidth}
 		\centering
 		\includegraphics[width=.71\linewidth]{images/chap_protocollo/avanzato-leak-2-b.pdf}
-		\caption{Leak 2}
+		\caption{Impossibilità di riscatto di $ \text{prize}_B $ (versione avanzata)}
 	\end{minipage}
 \end{figure}
 
 Abbiamo visto un esempio con la partecipazione di due agenti,
 ma il protocollo
-può essere analogamente implementato con $ N $ partecipanti, dove $ N \geq 3 $.
-Per una analisi approfondita su come sfruttare la ridondanza per
-garantire un buon grado di robustezza rimandiamo al capitolo
-\ref{chap:dimensionamento}.
+può essere analogamente implementato con un numero qualsiasi $ N $ di agenti.
+
 
 \section{Varianti}
 \subsection{Invio del messaggio solo a determinati attori}
@@ -203,11 +202,12 @@ Dopo il tempo $ t^* $ il messaggio diventa pubblico a chiunque abbia accesso
 allo smart contract. In alcuni contesti questo potrebbe essere un problema, perché
 potremmo volere che il messaggio possa essere letto solo da determinati attori.
 
-Una possibile soluzione è aggiungere un layer di cifratura simmetrica al messaggio.
+Una possibile soluzione è aggiungere un layer di cifratura simmetrica al messaggio
+prima di criptarlo con la TRE.
 La procedura è la seguente.
 Per prima cosa si cripta il messaggio $ m $ con cifratura simmetrica e chiave $ k $
 ottenendo $ m^\prime $. Allo stesso tempo per ogni account destinatario designato
-$ A_1, ..., A_n $ si genera $ k_1, ..., k_n $, dove $ k_i $ è $ k $ cifrato con la
+$ A_1, ..., A_n $ si generano $ k_1, ..., k_n $, dove ogni $ k_i $ è $ k $ cifrato con la
 chiave pubblica del portafoglio $ A_i $. A questo punto si genera un header
 $ h = (k_1, ..., k_n) $. Infine si crea $ x = (h, m^\prime) $ e lo si utilizza come
 segreto per il protocollo proposto.
@@ -244,7 +244,7 @@ che la deadline $ \tau $ sia molto avanti nel tempo.
 Immaginiamo inoltre che, fissata una ricompensa \textit{prize},
 l'agente Alice dia la sua disponibilità, ma a patto di non dover attendere fino al tempo $ \tau $
 per riceve l'intera
-ricompensa. Una soluzione è quella di prevedere delle ricompense intermedie. 
+ricompensa. Una soluzione è quella di prevedere delle ricompense intermedie.
 Per realizzarle si procede nel modo seguente.
 
 Il messaggio $ x $ viene diviso in $ n $ share con threshold $ t = n $.
