@@ -187,7 +187,7 @@ chapters/chap_possibili_usi,%
 
 % \frontespizio
 \includepdf{frontespizio/fronteingegnerialt.pdf}
-\shipout\null
+\paginavuota
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -222,25 +222,7 @@ chapters/chap_possibili_usi,%
 	\textit{Alfred Nobel}
 \end{flushright}
 \vspace*{\stretch{6}}
-\cleardoublepage
-\shipout\null
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% RINGRAZIAMENTI - PERSONALIZZARE
-\ringraziamenti
-Desidero innanzitutto ringraziare il professor Stefano Paraboschi per aver accettato
-l’incarico di relatore per la mia tesi.
-Inoltre, ringrazio sentitamente l'ing. Enrico Bacis, l'ing. Dario Facchinetti
-e l'ing. Marco Rosa per il tempo dedicatomi e per la disponibilità
-dimostrata nel redimere i miei dubbi durante la stesura del lavoro.
-Infine, ho
-desiderio di ringraziare con affetto i miei genitori ed i miei amici per il sostegno dato
-e per essermi stati vicino ogni momento durante tutto il percorso universitario.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\cleardoublepage
-\shipout\null
+\paginavuota
 
 
 % ABSTRACT - PERSONALIZZARE
@@ -261,8 +243,7 @@ Inoltre ne realizzeremo una \textit{proof of concept} sullo Stellar Network.
 Successivamente proporremo un modello per un analisi quantitativa della robustezza
 delle implementazioni del protocollo.
 Nella parte finale vedremo alcuni possibili usi della Timed-Release Encryption.
-\cleardoublepage
-\shipout\null
+\paginavuota
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -294,7 +275,7 @@ Nella parte finale vedremo alcuni possibili usi della Timed-Release Encryption.
 \include{chapters/chap_dimensionamento}
 \include{chapters/chap_possibili_usi}
 
-\appendix
+% \appendix
 % % INCLUSIONE APPENDICI - - PERSONALIZZARE - TENERE COERENTE CON LISTA IN ALTO
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -304,5 +285,22 @@ Nella parte finale vedremo alcuni possibili usi della Timed-Release Encryption.
 \addcontentsline{toc}{chapter}{\refname}
 \nocite{*}
 \printbibliography
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% RINGRAZIAMENTI - PERSONALIZZARE
+\begin{titlepage}
+	\thispagestyle{empty}
+	\ringraziamenti
+	Desidero innanzitutto ringraziare il professor Stefano Paraboschi per aver accettato
+	l’incarico di relatore per la mia tesi.
+	Inoltre, ringrazio sentitamente l'ing. Enrico Bacis, l'ing. Dario Facchinetti
+	e l'ing. Marco Rosa per il tempo dedicatomi e per la disponibilità
+	dimostrata nel redimere i miei dubbi durante la stesura del lavoro.
+	Infine, ho
+	desiderio di ringraziare con affetto i miei genitori ed i miei amici per il sostegno dato
+	e per essermi stati vicino ogni momento durante tutto il percorso universitario.
+\end{titlepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
