@@ -238,3 +238,22 @@ Le scelte progettuali riguardo la struttura dell'albero di distribuzione degli s
 impatto sulla robustezza dell'implementazione del protocollo proposto. Per una analisi più
 approfondita rimandiamo al capitolo \ref{chap:analisi-robustezza}.
 
+\subsection{Ricompense intermedie}
+Immaginiamo che Carol abbia bisogno di Timed-Release Encryption su un certo messaggio $ x $, e
+che la deadline $ \tau $ sia molto avanti nel tempo.
+Immaginiamo inoltre che, fissata una ricompensa \textit{prize},
+l'agente Alice dia la sua disponibilità, ma a patto di non dover attendere fino al tempo $ \tau $
+per riceve l'intera
+ricompensa. Una soluzione è quella di prevedere delle ricompense intermedie. 
+Per realizzarle si procede nel modo seguente.
+
+Il messaggio $ x $ viene diviso in $ n $ share con threshold $ t = n $.
+Per ogni share si applica la versione base del protocollo
+con deadline $ \tau_1, \tau_2, ... , \tau_n = \tau $
+tali che $ \tau_1 < \tau_2 < ... < \tau_n = \tau $ e con rispettive ricompense
+$ \textit{prize}_1, \textit{prize}_2, ..., \textit{prize}_n $ tali che
+$ \textit{prize}_1 + \textit{prize}_2 +, ... + \textit{prize}_n = \textit{prize} $.
+In questo modo l'agente Alice può eseguire delle pubblicazioni intermedie e ricevere le relative
+ricompense; allo stesso tempo il messaggio rimarrebbe segreto fino a quando non viene pubblicato
+l'ultimo share, ossia fino alla deadline $ \tau $.
+Questa metodologia può essere applicata analogamente anche alla versione avanzata.
