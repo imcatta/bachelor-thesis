@@ -23,8 +23,8 @@ siano rispettivamente $ S_1, ...\, , S_N $ i segreti assegnati agli agenti
 Per prima cosa $ U_0 $ crea gli account $ A_1, ...\, , A_N $ e
 versa su questi account una cifra pari alla somma tra
 il \textit{prize}, il \textit{pawn} e il costo che dovrà sostenere per le commissioni
-delle transazioni che dovrà effettuare.
-TODO SPIEGARE COME CALCOLARE IL COSTO DELLE COMMISSIONI.
+delle transazioni che dovrà effettuare. Per il calcolo delle commissioni si rimanda
+alla sezione \ref{sec:calcolo-commissioni}
 
 A questo punto per ogni account $ A_i $ il client crea $ N $ transazioni
 ognuna delle quali rivolta ad uno degli utenti $ U_1,\ ...\ , U_N $, per un totale
@@ -121,6 +121,15 @@ autorizzate sono le $ T_{ij} $, ossia le transazioni per ottenere il \textit{pri
 o il \textit{counterprize}. Per fare il submit di queste transazioni è inoltre
 necessario conoscere $ S_i $, perché in questo modo si riesce a raggiungere
 il med threshold.
+\section{Calcolo delle commissioni}
+\label{sec:calcolo-commissioni}
+Per il calcolo delle commissioni dobbiamo tenere in considerazione due aspetti.
+\paragraph{Transaction Fee} Le commissioni per transazione si calcolano con la formula
+\begin{center}
+	\textit{\# of operations} $ \times $ \textit{base fee}
+\end{center}
+La \textit{base fee} è di 100 stroops (0.00001 XLM).
+
 
 \section{Limitazioni della soluzione proposta}
 
@@ -147,10 +156,10 @@ agenti coinvolti.
 
 Ciò comporta che solo gli agenti possono riscattare il \textit{counterprize}. Questo potrebbe
 essere un problema, perché significa che l'agente non avrebbe il disincentivo economico
-nel cedere il proprio share ad un soggetto esterno. Di seguito proponiamo un protocollo 
+nel cedere il proprio share ad un soggetto esterno. Di seguito proponiamo un protocollo
 in grado di risolvere questa situazione.
 
-Immaginiamo che Eve ottenga lo share dall'agente Alice. 
+Immaginiamo che Eve ottenga lo share dall'agente Alice.
 Qyello che può fare Eve è decidere di dividersi
 il \textit{counterprize} con l'agente Bob. Per farlo Bob pre-autorizza due transazioni
 
