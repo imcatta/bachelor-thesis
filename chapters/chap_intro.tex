@@ -4,7 +4,7 @@ La Blockchain è uno degli argomenti più caldi nell'industria dell'IT. In quest
 capitolo cercheremo di fare chiarezza, partendo dalle origini di questa tecnologia
 sino ad arrivare allo stato dell'arte odierno.
 Il contenuto delle sezioni seguenti è basato sull'articolo
-\textit{Blockchain technology overview} del \textit{NISTIR} \cite{yaga2018blockchain}.
+\textit{Blockchain technology overview} del \textit{NIST} \cite{yaga2018blockchain}.
 
 \section{Cosa sono le blockchain}
 Le blockchain sono registri digitali
@@ -14,7 +14,7 @@ implementati in un ambiente distribuito.
 Solitamente non vi è la presenza di autorita centrali come banche, società o governi.
 Al loro livello base consentono a una community di utenti di registrare
 transazioni in un \textit{ledger} condiviso.
-Le blockchain (in condizioni di normale funzionamento) garantiscono che
+Inoltre le blockchain (in condizioni di normale funzionamento) garantiscono che
 nessuna transazione possa essere manomessa dopo essere stata pubblicata.
 
 Nel 2008 l'idea di blockchain
@@ -30,7 +30,7 @@ Nel 1989 Lamport sviluppò il protocollo Paxos. Si tratta di
 un protocollo per il raggiungimento di un consenso in una rete di computer
 dove i computer o la rete stessa posso essere inaffidabili. Lo descrisse nel paper
 \textit{The Part-Time Parliament} \cite{lamport1998part},
-che però venne pubblicato solo nel 1998.
+che venne pubblicato solo nel 1998.
 
 Nel 1991 Haber e Stornetta proposero l'uso di una catena di hash
 per risolvere il problema del \textit{time-stamping} di documenti,
@@ -50,7 +50,6 @@ La grande innovazione di Bitcoin rispetto ai precessori è stata la blockchain;
 questa ha consentito un'implementazione distribuita in grado
 di evitare un \textit{single point of failure} e di garantire che nessun utente singolo
 sia in grado di controllare denaro elettronico.
-...
 
 In Bitcoin gli utenti sono anonimi, ma l'identificativo
 del loro account non lo è. Questa caratteristica prende il nome di \textit{pseudo-anonimità}.
@@ -69,7 +68,7 @@ le seguenti caratteristiche:
 	      trasparenza tra i nodi della blockchain.
 	\item \textbf{Distruzione}: le blockchain possono essere distribuite. Ciò permette di scalare
 	      il numero di nodi della rete blockchain in modo da renderla più resistente agli attacchi.
-	      In generale all'aumentare del numero di nodi la capacità di un attaccante di destabilizzare il
+	      In generale, all'aumentare del numero di nodi la capacità di un attaccante di destabilizzare il
 	      protocollo di consenso diminuisce.
 \end{itemize}
 
@@ -83,22 +82,22 @@ Le reti blockchain \textit{permissionless} sono ledger decentralizzati che danno
 a chiunque di scrivere blocchi, senza il bisogno del permesso esplicito di una autorità.
 Spesso le piattaforme blockchain permissionless sono software open source, liberamente
 disponibili a chiunque per poter essere scaricati. Una conseguenza del fatto che
-chiunque ha il diritto di aggiungere blocchi è che la blockchain può essere letta da chiunque
-così come effettuare transazioni sulla blockchain.
+chiunque abbia la possibilità di aggiungere blocchi è che la blockchain può essere letta da chiunque,
+così come chiunque può effettuare transazioni sulla blockchain.
 
 Qualsiasi utente di una blockchain permissionless può leggere e scrivere sul ledger.
 Poiché chiunque può partecipare alle reti blockchain permissionless, utenti malintenzionati
 potrebbero tentare di aggiungere blocchi malevoli al fine di sovvertire il sistema.
 Per prevenire ciò solitamente le blockchain usano algoritmi di consenso
-(vedi \ref{intro:modelli-consenso}) basati sul consumo o sul possesso di risorse.
+basati sul consumo o sul possesso di risorse (si veda la sezione \ref{intro:modelli-consenso}) .
 Solitamente i meccanismi di consenso nelle blockchain
 permissionless promuovono i comportamenti non-malevoli attraverso ricompense in criptovaluta
 attribuite a chi pubblica blocchi conformi al protocollo.
 
 \subsection{Permissioned}
 Nelle blockchain permissioned gli utenti che pubblicano blocchi devono essere autorizzati da una
-qualche autorità (centralizzata o decentralizzata). Poiché solo gli utenti autorizzati are maintaining
-the blockchain, è possibile atturare delle restrizioni sui permessi di lettura e scrittura.
+qualche autorità (centralizzata o decentralizzata). Poiché solo gli utenti autorizzati possono operare
+sulla blockchain, è possibile atturare delle restrizioni sui permessi di lettura e scrittura.
 Le blockchain permissioned possono essere concepite in modo da permettere a chiunque di
 leggere la blockchain o possono fornire l'accesso in lettura solo ad alcuni utenti.
 Possono anche consentire a chiunque di effettuare transazioni sulla blockchain o, ancora,
@@ -110,17 +109,18 @@ scambiati come nel caso delle blockchain permissionless,
 così come la stessa struttura distribuita, resiliente e ridondante.
 Usano inoltre un meccanismo di consenso per la pubblicazione dei blocchi, ma spesso in questi casi
 non richiedono il consumo o il possesso di risorse (a differenza delle blockchain permissionless).
-Questo perché l'identità dei partecipanti è nota; gli attori che mantengono la blockchain hanno
+Questo perché l'identità dei partecipanti è nota; gli attori che operano sulla blockchain hanno
 un certo grado di fiducia l'uno con l'altro e quindi i meccanismi di consenso possono essere
 meno dispendiosi computazionalmente e più veloci.
 
 Alcune reti blockchain permissioned supportano la capacità di rendere note
 le informazioni contenute in alcune transazioni solo a specifici utenti.
-Con questa feature si può ottenere un certo livello di privacy nelle transazioni. Per esempio,
+Con questa funzionalità si può ottenere un certo livello di privacy nelle transazioni. Per esempio,
 sulla blockchain può rimanere una traccia pubblica del fatto che una certa transazione è avvenuta tra
-due utenti, ma il contenuto della transazione è accessibile solo dalle parti coinvolte.
+due utenti,  e allo stesso tempo far si che il contenuto della transazione
+sia accessibile solo dalle parti coinvolte.
 Alcune blockchain permissionless richiedono che tutti gli utenti autorizzino l'invio e il
-ricevimento di transazioni (gli utenti né anonimi né pseudoanonimi).
+ricevimento di transazioni.
 In questi sistemi le parti lavorano insieme per raggiungere un obiettivo
 di business condiviso con disincentivi naturali nel commettere frodi (visto che possono poi essere identificati).
 Se vengono effettuati comportamenti scorretti è possibile individuare le organizzazioni coinvolte e quali
@@ -132,9 +132,9 @@ strumenti legali sono a disposizione per punire i colpevoli.
 Una feature fondamentale per la tecnologia blockchain è che non vi è bisogno di una terza parte fidata
 per conoscere lo stato del sistema, infatti ogni utente può verificare l'integrità della blockchain.
 Per aggiungere un nuovo blocco tutti i nodi devono raggiungere un consenso condiviso, anche se un
-disaccordo temporaneo è permesso. Per raggiungere questo obietivo è necessario implementare un meccanismo
+disaccordo temporaneo è permesso. Per raggiungere questo obiettivo è necessario implementare un meccanismo
 di consenso. Nelle blockchain permissionless ci sono in genere diversi nodi che competono per pubblicare
-il prossimo blocco. Solitamente lo fanno per ottenere una ricompensa e/o commissioni sulle transazioni.
+il prossimo blocco. Solitamente lo fanno per ottenere ricompense e/o commissioni sulle transazioni.
 Ogni nodo è motivato dall'ottenere un guadagno economico; non è interessato agli obiettivi degli altri
 nodi. In questa situazione, perché un nodo dovrebbe propagare un blocco che un altro
 nodo sta cercando di pubblicare? La blockchain risolve questo problema attraverso un meccanismo di
@@ -148,8 +148,8 @@ Nel modello \textit{proof of work} l'utente che pubblica un blocco è il primo c
 un puzzle computazionalmente oneroso. La soluzione di questo puzzle è la "prova" del lavoro effettuato.
 Il puzzle è progettato in modo tale sia difficile trovare una soluzione, ma semplice verificare che la soluzione
 sia valida. Questo permette a tutti gli altri nodi di verificare facilmente la validità dei blocchi proposti.
-Un tipico puzzle utilizzato è cercare un nonce da scrivere nell'header del blocco
-tale per cui l'hash digest del blocco sia minore di un certo valore target. ...
+Un tipico puzzle utilizzato è cercare un \textit{nonce} da scrivere nell'header del blocco
+tale per cui l'hash digest del blocco sia minore di un certo valore target.
 Il valore target può essere modificato nel tempo per modificare la difficoltà del problema al fine di
 influenzare la velocità di pubblicazione di nuovi blocchi.
 
@@ -157,19 +157,20 @@ Ad esempio Bitcoin, che usa la proof of work, regola la difficoltà del puzzle o
 con l'obiettivo di ottenere una velocità pari a circa un blocco ogni 10 minuti. La regolazione
 avviene essenzialemente aumentando o diminuendo il numero di zeri necessari come prefisso dell'hash digest.
 All'aumentare del numero di zeri richiesti la difficoltà aumenta, poiché diminuiscono le possibili soluzioni.
-Viceversa, diminuendo il numero di zeri la difficolà si riduce, perché lo spazio di soluzioni diventa più grande.
+Viceversa, diminuendo il numero di zeri la difficoltà si riduce, perché lo spazio di soluzioni diventa più grande.
 Questa regolazione ha lo scopo di mantenere relativamente costante la difficoltà del puzzle al variare della
 potenza di calcolo a disposizione, e quindi garantire la sicurezza dell'intera rete Bitcoin.
 
 La proof of work è una tecnica computazionalmente onerosa per progettazione. Una conseguenza è che richiede
-l'uso di grandi quantità di energia elettrica. Per questo motivo molti miner tendono di poosizionare
-i nodi in area geografiche dove l'energia elettrica è economica.
+l'uso di grandi quantità di energia elettrica. Per questo motivo
+i nodi tendono ad esser posizionati
+in area geografiche dove l'energia elettrica è economica.
 
 Un importante aspetto di questo modello è che i puzzle devono essere indipendenti tra di loro; in
 altre parole, il lavoro compiuto per risolvere un puzzle non deve in alcun modo influenzare la facilità di
 risoluzione dei puzzle successivi. Ciò comporta che quando un utente riceve un blocco completo
 e valido da un altro utente è incentivato a scartare immediatamente il puzzle a cui sta lavorando e
-iniziare a lavorare al immediatamente al blocco successivo perché sa che gli altri nodi
+iniziare a lavorare al immediatamente al blocco successivo, perché sa che gli altri nodi
 inizieranno a costruire sul blocco appena ricevuto.
 
 
@@ -196,8 +197,8 @@ solo dalle commissioni sulle transazioni.
 
 \subsection{Practical Byzantine Fault Tolerance (pBFT)}
 Il modello \textit{practical byzantine fault tolerance} fornisce una pratica replica della macchina a stati
-bizantina in grado di tollerare difetti (es. nodi malevoli) presupponendo la presenza di difetti
-di nodi indipendenti e messaggi manipolati propagati da nodi specifici e indipendenti.
+bizantina in grado di funzioanre anche in presenza di difetti
+in nodi (malevoli) indipendent e messaggi manipolati propagati da nodi specifici e indipendenti.
 I nodi nel modello pBFT sono ordinati sequenzialmente, dove uno di questi assume il ruolo di leader
 e gli il ruolo di nodi di backup. Tutti i nodi del sistema comunicano tra loro
 con l'obiettivo che tutti i nodi onesti riescano a raggiungere un consenso sullo stato del sistema.
@@ -225,12 +226,12 @@ se questo è malevolo con il nodo successivo nella lista.
 Il modello \textit{federated byzantine agreement} si basa sull'uso di \textit{quorum}
 e di \textit{quorum slice}.
 Un quorum è un insieme di nodi sufficiente per raggiungere un consenso.
-Il modello federated byzantine agreement introduce il concetto di quorum slice, ossia
+Un quorum slice è
 un sottoinsieme di un quorum in grado di convincere un particolare nodo ad un consenso.
 Ogni nodo può decidere autonomamente a quale quorum slice partecipare. Inoltre, può anche partecipare a
 più quorum slice contemporaneamente.
 L'obiettivo è quello di avere sovrapposizioni tra quorum, in modo che l'unione dei diversi quorum
-copra l'intero sistema. Quando i quorum non si intersecano, nel sistema si vengono a nsazioniformare
+copra l'intero sistema. Quando i quorum non si intersecano, nel sistema si vengono a formare
 "quorum disgiunti". Questa è una situazione da evitare, poiché quorum disgiunti
 possono indipendentemente e simultaneamente raggiungere un accordo su transazioni contraddittorie,
 minando il consenso generale del sistema.
@@ -257,7 +258,7 @@ minando il consenso generale del sistema.
 
 \subsection{Round Robin}
 Il modello Round Robin è usato da alcune blockchain permissioned.
-In questo modello i ndoi a turno acquisiscono il diritto di pubblicare blocchi. Il consenso
+In questo modello i nodi a turno acquisiscono il diritto di pubblicare blocchi. Il consenso
 Round Robin ha una lunga storia nelle architettura distribuite. Per gestire le situazioni
 dove un nodo non può pubblicare un blocco quando è il suo turno, questi sistemi possono
 usare un tempo limite al diritto di pubblicazione. Questo modello garantisce che nessun nodo possa
@@ -265,9 +266,9 @@ pubblicare la maggior parte dei blocchi.
 
 I vantaggi sono l'approccio diretto, l'assenza di puzzle crittografici e il ridotto consumo di energia.
 Visto che è richiesta una fiducia tra i nodi, il modello Round Robin non funziona bene
-nelle blockchain permissionless. Questo perché attori malevoli possono contunuamente aggiungere
-nodi per aumentare la probabilità di pubblicare blocchi. Nel caso peggiore possono
-sovvertire il corretto funzionamento della rete blockchain.
+nelle blockchain permissionless. Questo perché attori malevoli possono continuamente aggiungere
+nodi per aumentare la probabilità di pubblicare blocchi, fino ad arrivare a
+sovvertire il corretto funzionamento della rete blockchain (\textit{sybil attack}).
 
 \subsection{Proof of Authority/Proof of Identity}
 Il modello di consenso \textit{Proof of Authority} (anche noto come \textit{Proof of Identity})
@@ -282,9 +283,9 @@ Di conseguenza è nell'interesse del nodo mantenere una reputazione alta. Questo
 è applicabile esclusivamente alla blockchain permissioned con un alto livello di fiducia.
 
 \subsection{Proof of Elapsed Time (PoET)}
-Nel modello \textit{Proof of Elapsed Time} ogni nodo richiede un tempo di attesa da una
-sorgente sicura di hardware presente all'interno del proprio elaboratore. La sorgente hardware
-sicura di tempo genera un tempo casuale e lo restitusice al software che opera sul nodo.
+Nel modello \textit{Proof of Elapsed Time} ogni nodo, qunaod vuole pubblicare un blocco,
+richiede un tempo di attesa casuale da una
+sorgente sicura hardware presente all'interno del proprio elaboratore.
 Il nodo ottiene il tempo casuale e va in idle per quella durata. Dopo essersi risvegliato,
 il nodo generà un blocco e informa gli altri nodi del nuovo blocco; tutti gli altri nodi ancora
 in idle smettono di aspettare e l'intero processo riparte.
@@ -302,9 +303,6 @@ AMD Platform Security Processor
 \footnote{\href{https://www.amd.com/en/technologies/security}{https://www.amd.com/en/technologies/security}}
 ).
 
-Software verificati e affidabili possono venir eseguiti in questi ambienti sicuri e non possono venir
-alterati da programmi esterni.
-
 \begin{landscape}
 	\subsection{Tabella di comparazione}
 
@@ -318,15 +316,15 @@ alterati da programmi esterni.
 		Proof of Stake             & \begin{tabular}[c]{@{}l@{}}Consentire una barriera meno\\ onerosa computazionalmente\\ alla pubblicazione dei blocchi,\\ ma consentire comunque\\ transazioni tra partecipanti\\ non fidati.\end{tabular}
 		                           & \begin{tabular}[c]{@{}l@{}}Meno computazionalmente onerosa \\ della PoW.\\ \\ Aperta a chiunque voglia ottenere stake.\\ \\ Gli stakeholder controllano il sistema.\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Nulla impedisce la formazione di \\ un pool di stakeholder per la \\ creazione di un potere centralizzato.\\ \\ Potenziale attacco 51\% se si \\ ottiene abbastanza stake.\\ \\ Gli stakeholder controllano il sistema.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Criptovalute\\ permissionless.\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Ethereum\\ Casper,\\ Krypton\end{tabular}                              \\ \hline
 		% Delegated PoS              & \begin{tabular}[c]{@{}l@{}}Consentire un modello di\\ consenso più efficiente \\ attraverso una "democrazia\\ liquida" dove i partecipanti\\ votano (usando messaggi\\ firmati crittograficamente)\\ per eleggere e revocare il\\ diritto di validazione\\ nei confronti di un delegato.\end{tabular} & \begin{tabular}[c]{@{}l@{}}I delegati eletti sono economicamente \\ incentivati a rimanere onesti.\\ \\ Più computazionalmente efficiente di\\ Pow.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Minor diversità tra nodi di Pow o \\ PoS pura.\\ \\ Maggior rischi di sicurezza\\ \\ Poiché tutti i delegati sono "noti", \\ potrebbe esserci un incentivo i nodi\\ nel colludere e accettare tangenti, \\ compromettendo la\\ sicurezza del sistema.\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Criptovalute\\ permissionless.\\ \\ Sistemi\\ permissioned.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Bitshares,\\ Steem, \\ Cardano,\\ EOS\end{tabular} \\ \hline
-		pBFT                       & \begin{tabular}[c]{@{}l@{}} \end{tabular}
-		                           & \begin{tabular}[c]{@{}l@{}}Efficienza energetica\\\\Velocità\\\\Uniformità di ricompensa per i nodi\end{tabular}
-		                           & \begin{tabular}[c]{@{}l@{}}Sybil attack\\\\Scalabilità\end{tabular}
-		                           & \begin{tabular}[c]{@{}l@{}} \end{tabular}
+		pBFT                       & \begin{tabular}[c]{@{}l@{}}Replicare la macchina\\a stati bizantina\\distribuita per\\contrastare attacchi.\end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}}Efficienza energetica.\\\\Velocità.\\\\Uniformità di ricompensa per i nodi.\end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}}Sybil attack.\\\\Scalabilità\end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}}Sistemi\\permissioned.\end{tabular}
 		                           & \begin{tabular}[c]{@{}l@{}}Hyperledger Fabric,\\ Zilliqa\end{tabular}                                                                                                                             \\ \hline
-		FBA                        & \begin{tabular}[c]{@{}l@{}} \end{tabular}
-		                           & \begin{tabular}[c]{@{}l@{}}Sicurezza asintotica\end{tabular}
-		                           & \begin{tabular}[c]{@{}l@{}}\\\end{tabular}
-		                           & \begin{tabular}[c]{@{}l@{}} \end{tabular}
+		FBA                        & \begin{tabular}[c]{@{}l@{}}Coprire l'intera rete\\con quorum sovrapposti\\per ridurre le interazioni\\necessarie per raggiungere\\il consenso.\end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}}Sicurezza asintotica\\\\Velocità\end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}}Possibili partizionamenti\\della rete.\end{tabular}
+		                           & \begin{tabular}[c]{@{}l@{}}Criptovalute\\permissionless.\end{tabular}
 		                           & \begin{tabular}[c]{@{}l@{}}Stellar,\\ Ripple\end{tabular}                                                                                                                             \\ \hline
 		Round Robin                & \begin{tabular}[c]{@{}l@{}}Fornire un sistema per la\\ pubblicazione di blocchi\\ tra nodi approvati/fidati.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Computazionalmente non oneroso.\\ \\ Immediato da comprendere.\end{tabular} & Richiede molta fiducia tra i nodi. & \begin{tabular}[c]{@{}l@{}}Sistemi\\ permissioned.\end{tabular} & MultiChain                 \\ \hline
 		\begin{tabular}[c]{@{}l@{}}Proof of \\ Authority/Identity\end{tabular} & \begin{tabular}[c]{@{}l@{}}Creare un processo di \\ consenso centralizzato\\ per minimizzare la\\ velocità di creazione e\\ validazione dei blocchi.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Tempi di conferma ridotti.\\ \\ Consente una velocità di produzione\\ di blocchi dinamica.\\ \\ Può essere usato in sidechain a\\ blockchain che usano altri\\ modelli di consenso.\end{tabular} & \begin{tabular}[c]{@{}l@{}}Si basa sull'assunzione che\\ il nodo di validazione corrente non\\ sia stato compromesso.\\ \\ Porta a un point of failure centralizzato.\\ \\ La reputazione di un nodo può essere \\ compromessa in qualsiasi momento.\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Sistemi\\ permissioned.\\ \\ Sistemi \\ ibridi\\ (sidechain).\end{tabular} & \begin{tabular}[c]{@{}l@{}}Ethereum\\ Kovan testnet,\\ POA Chain\end{tabular} \\ \hline
@@ -336,6 +334,8 @@ alterati da programmi esterni.
 
 
 \section{Smart Contract}
+TODO rivedere
+
 Lo Smart Contract è uno strumento che ha un forte legame con la blockchain e che ha un ruolo chiave
 nelle applicazioni enterprise e non solo.
 Ciò nonostante, non vi è ancora un chiaro consenso sulla definizione di Smart Contract.
@@ -397,6 +397,8 @@ ma che comunque viene eseguito automaticamente).
 
 
 \section{Vulnerabilità negli Smart Contract}
+TODO togliere (?)
+
 Come abbiamo visto gli Smart Contract permettono l'esecuzione di codice arbitrario
 sulle blockchain, permettendo interazioni automatizzate tra diversi attori in un contesto
 \textit{trustless} senza ricorrere all'utilizzo di terze parti fidate.
@@ -551,7 +553,7 @@ ha attirato molti utenti ad interessarsi e ad investire nel mondo blockchain \ci
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.75\linewidth]{images/chap_intro/number-of-blockchain-wallet.pdf}
+	\includegraphics[width=.5\linewidth]{images/chap_intro/number-of-blockchain-wallet.pdf}
 	\caption{Numero di portafogli blockchain nel mondo \cite{number-of-blockchain-wallet}}
 	\label{fig:number-of-blockchain-wallet}
 \end{figure}
@@ -563,7 +565,7 @@ il 52\% delle organizzazioni intervistate stanno concentrando i propri sforzi ha
 \textit{blockchain permissioned} \cite{model-focus-for-blockchain}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.75\linewidth]{images/chap_intro/model-focus-for-blockchain.pdf}
+	\includegraphics[width=.5\linewidth]{images/chap_intro/model-focus-for-blockchain.pdf}
 	\caption{Modelli blockchain utilizzati dalla organizzazioni \cite{model-focus-for-blockchain}}
 	\label{fig:model-focus-for-blockchain}
 \end{figure}
@@ -604,7 +606,7 @@ Nel 2022 la spesa per soluzioni blockchain a livello mondiale toccherà gli 11,6
 e nei soli U.S.A viene proiettata a 4,2 miliardi di dollari \cite{global-blockchain-solutions-spending}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.75\linewidth]{images/chap_intro/global-blockchain-solutions-spending.pdf}
+	\includegraphics[width=.6\linewidth]{images/chap_intro/global-blockchain-solutions-spending.pdf}
 	\caption{Spesa mondiale in soluzioni blockchain per regione (in miliardi di
 		dollari U.S.) \cite{global-blockchain-solutions-spending}}
 	\label{fig:global-blockchain-solutions-spending}
@@ -620,7 +622,7 @@ rispondono alla "Cina" è cresciuta al 30\% \cite{leading-territories-worldwide}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.75\linewidth]{images/chap_intro/leading-territories-worldwide.pdf}
+	\includegraphics[width=.6\linewidth]{images/chap_intro/leading-territories-worldwide.pdf}
 	\caption{Territori mondiali considerati leader nello sviluppo di tecnologie blockchain
 		nel 2018 e dal 2021 al 2023
 		\cite{leading-territories-worldwide}}
@@ -639,7 +641,7 @@ e il coordinamento necessario tra le parti coinvolte.
 I risultati del sondaggio sono visibili in figura \ref{fig:potential-blockchain-applications}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.75\linewidth]{images/chap_intro/potential-blockchain-applications.pdf}
+	\includegraphics[width=.6\linewidth]{images/chap_intro/potential-blockchain-applications.pdf}
 	\caption{Problemi che può potenzialmente risolvere l'uso della blockchain
 		nella catena di commercio \cite{potential-blockchain-applications}}
 	\label{fig:potential-blockchain-applications}
@@ -656,7 +658,7 @@ la tecnologia blockchain può essere utile nella gestione dell'identità digital
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.75\linewidth]{images/chap_intro/use-cases-among-businesses.pdf}
+	\includegraphics[width=.6\linewidth]{images/chap_intro/use-cases-among-businesses.pdf}
 	\caption{Casi d'uso commerciali per la blockchain
 		\cite{use-cases-among-businesses}}
 	\label{fig:use-cases-among-businesses}
@@ -672,7 +674,7 @@ Altre barriere rilevanti sono la mancanza di fiducia tra gli utenti e la capacit
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=.75\linewidth]{images/chap_intro/barriers-worldwide.pdf}
+	\includegraphics[width=.6\linewidth]{images/chap_intro/barriers-worldwide.pdf}
 	\caption{Barriere all'adozione della tecnologia blockchain
 		\cite{barriers-worldwide}}
 	\label{fig:barriers-worldwide}

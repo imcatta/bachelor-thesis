@@ -2,9 +2,9 @@
 \label{chap:analisi-robustezza}
 In questo capitolo presenteremo una tecnica per valutare della robustezza delle
 implementazioni del protocollo proposto. L'obiettivo è quello di trovare
-la probabilità che il segreto venga pubblicato una volta raggiunta la deadline
+la probabilità $ R_c $ che il segreto venga pubblicato una volta raggiunta la deadline
 (requisito di \hyperref[parag:certezza-pubblicazione]{\textit{certezza di pubblicazione}})
-e la probabilità che il messaggio rimanga segreto fino alla deadline
+e la probabilità $ R_s $ che il messaggio rimanga segreto fino alla deadline
 (requisito di \hyperref[parag:segretezza-tre]{\textit{segretezza del messaggio}}).
 
 \section{Terminologia}
@@ -13,8 +13,6 @@ e la probabilità che il messaggio rimanga segreto fino alla deadline
 Il numero di share $ n $ è uno dei parametri
 dell'algoritmo di secret sharing, utilizzato dalla versione
 avanzata del protocollo.
-La scelta di questo valore determina automaticamente anche il numero di agenti
-necessari.
 Facciamo notare che la versione base può essere vista come un caso particolare
 della versione avanzata, dove $ n = 1 $.
 
@@ -46,6 +44,8 @@ Questo numero è ovviamente pari al threshold.
 
 
 \section{Tecnica di analisi}
+TODO rivedere notazione
+
 Per prima cosa è necessario assegnare ad ogni agente tre attributi con un valore
 compreso tra 0 e 1, assumendo che tutti gli agenti siano entità ben distinte e
 che non vi siano coalizioni tra agenti.
@@ -62,8 +62,16 @@ che non vi siano coalizioni tra agenti.
 A questo punto si rappresenta l'albero di distribuzione degli share.
 Partendo dai nodi foglia si calcolano gli attributi $ P_s $, $ P_c $ e $ P_m $
 per i rispettivi nodi padre. Si procede iterativamente in questo modo
-fino a quando non si raggiunge il nodo radice. Le $ P_s $, $ P_c $ e $ P_m $
-del nodo radice sono le $ P_s $, $ P_c $ e $ P_m $ dell'intera implementazione.
+fino a quando non si raggiunge il nodo radice.
+
+$ R_c $ è la probabilità che il messaggio venga
+pubblicato una volta raggiunta la deadline, ossia l'evento opposto allo smarrimento
+$$ R_c = 1 - P_c $$
+
+$ R_s $ è la probabilità che il messaggio rimanga segreto, ossia uno meno la probabilità che venga compromesso
+da un attore esterno $ P_c $ sommata alla probabilità che venga compromesso da un agente $ P_m $.
+$$ R_s = 1 - (P_c + P_m) $$
+
 
 Di seguito alcuni esempi.
 
@@ -119,21 +127,23 @@ $ P_s = 0,02 $ \,
 $ P_c = 0,02 $ \,
 $ P_m = 0,005 $.
 Immaginiamo inoltre di utilizzare un albero di distribuzione simmetrico di profondità 2.
+Come parametri per l'algoritmo di secret sharing usiamo $ t = 2 $ e $ n = 2 $ in tutti i casi.
 La situazione è rappresentata in figura \ref{fig:robustezza-2-1}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.55\linewidth]{images/chap_analisi_robustezza/robustezza-2-1.pdf}
+	\includegraphics[width=0.6\linewidth]{images/chap_analisi_robustezza/robustezza-2-1.pdf}
 	\caption{Albero di distribuzione bilanciato di profondità 2}
 	\label{fig:robustezza-2-1}
 \end{figure}
 
-Calcoliamo gli attributi di $ x_{11} $. La resistenza agli smarimenti è $ \gamma = 0 $,
+Calcoliamo gli attributi di $ x_{11} $. Abbiamo $ t = 2 $ e $ n = 2 $.
+La resistenza agli smarimenti è $ \gamma = 0 $,
 di conseguenza la $ P_s $ di $ x_{11} $ è data dalla somma delle $ P_s $ dei nodi figli.
 $$ P_s = 0,1 + 0,1 = 0,2 $$
 
 Per poter ottenere lo share $ x_{11} $ un attaccante esterno deve riuscire ad ottenere
-sia $ x_{21} $ sia $ x_{22} $. Pertando $ P_c $ è dato dal prodotto dei $ P_c $ dei nodi figli.
+sia $ x_{21} $ sia $ x_{22} $. Pertanto $ P_c $ è dato dal prodotto dei $ P_c $ dei nodi figli.
 $$ P_c = 0,3 \cdot 0,3 = 0,09 $$
 
 Se invece è uno degli agenti a voler ottenere $ x_{11} $  è sufficiente che ottenga
@@ -141,7 +151,8 @@ lo share dell'altro agente. Quindi $ P_m $ è data dalla somma delle probabilit�
 che si abbia sia un agente scorretto sia un agente corrotto.
 $$ P_m = (0,02 \cdot 0,3) + (0,02 \cdot 0,3) = 0,0012 $$
 
-Per quanto riguarda gli attributi di $ x_{12} $, i ragionamenti sono analoghi. Ci limitiamo
+Per quanto riguarda gli attributi di $ x_{12} $ abbiamo anche qui $ t = 2 $ e $ n = 2 $.
+Il ragionamento è analogo a quello di cui sopra. Ci limitiamo
 a riportare i calcoli.
 \begin{tightcenter}
 	$ P_s = 0,1 + 0,02 = 0,12 $      \\
@@ -149,12 +160,13 @@ a riportare i calcoli.
 	$ P_m = (0,02 \cdot 0,02) + (0,005 \cdot 0,3) = 0,0019 $
 \end{tightcenter}
 A questo punto dobbiamo trovare gli attributi di $ x $.
-Anche qui il ragionamento è analogo a prima.
+Si ha $ t = 2 $ e $ n = 2 $, anche qui il ragionamento è analogo a prima.
 \begin{tightcenter}
 	$ P_s = 0,2 + 0,12 = 0,32 $\\
 	$ P_c = 0,09 \cdot 0,006 = 0,00054 $\\
 	$ P_m = (0,012 \cdot 0,006) + (0,0019 \cdot 0,09) = 0,000243 $
 \end{tightcenter}
+
 \paragraph{Albero di distribuzione con ridondanza}
 Analogamente al caso precedente immaginiamo di avere a disposizione quattro agenti. Per tre di questi
 vale
@@ -174,12 +186,13 @@ La situazione è rappresentata in figura \ref{fig:robustezza-2-2}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.55\linewidth]{images/chap_analisi_robustezza/robustezza-2-2.pdf}
+	\includegraphics[width=0.6\linewidth]{images/chap_analisi_robustezza/robustezza-2-2.pdf}
 	\caption{Albero di distribuzione con ridondanza}
 	\label{fig:robustezza-2-2}
 \end{figure}
 
-Calcoliamo gli attributi di $ x_{11} $. Di fatto $ x_{11} $ è distribuito due volte, quindi
+Calcoliamo gli attributi di $ x_{11} $. Abbiamo $ t = 1 $ e $ n = 2 $.
+Di fatto $ x_{11} $ è distribuito due volte, quindi
 $ x_{11} $ viene smarrito se e solo se entrambi $ x_{21} $ e $ x_{22} $ vengono smarriti.
 Di conseguenza per trovare
 $ P_s $ dobbiamo moltiplicare i $ P_s $ dei nodi figli.
@@ -198,8 +211,8 @@ sommare le $ P_m $ dei nodi figli.
 	$ P_m = 0,02 \cdot 0,02 = 0,04$
 \end{tightcenter}
 
-Per quanto riguarda gli attributi di $ x_{12} $, i ragionamenti sono analoghi. Ci limitiamo
-a riportare i calcoli.
+Per quanto riguarda gli attributi di $ x_{12} $ si ha $ t = 1 $ e $ n = 2 $,
+i ragionamenti sono analoghi.
 \begin{tightcenter}
 	$ P_s = 0,1 \cdot 0,02 = 0,002 $\\
 	$ P_c = 0,3 + 0,02 = 0,32 $\\
@@ -207,12 +220,13 @@ a riportare i calcoli.
 \end{tightcenter}
 
 Non ci resta che trovare gli attributi di $ x $.
-Anche qui il ragionamento è analogo a prima.
+Abbiamo $ t = 2 $ e $ n = 2 $, il ragionamento è analogo a quello presente nell'esempio precedente.
 \begin{tightcenter}
 	$ P_s = 0,01 + 0,002 = 0,012 $\\
 	$ P_c = 0,6 \cdot 0,32 = 0,192 $\\
 	$ P_m = (0,04 \cdot 0,32) + (0,025 \cdot 0,6) = 0,0278 $\\
 \end{tightcenter}
+TODO confrontare i risultati ottenuti col caso precedente
 
 
 \paragraph{Albero di distribuzione sbilanciato di profondità 2}
@@ -230,14 +244,16 @@ sbilanciato di profondità 2
 mostrato in figura \ref{fig:robustezza-2-3}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.55\linewidth]{images/chap_analisi_robustezza/robustezza-2-3.pdf}
+	\includegraphics[width=0.6\linewidth]{images/chap_analisi_robustezza/robustezza-2-3.pdf}
 	\caption{Albero di distribuzione sbilanciato di profondità 2}
 	\label{fig:robustezza-2-3}
 \end{figure}
 Per prima cosa cerchiamo gli attributi di $ x_{11} $.
-Abbiamo resistenza agli smarrimenti $ \gamma = 1 $, perciò $ P_s $
+Abbiamo $ t = 2 $ e $ n = 3 $. La resistenza agli smarrimenti è $ \gamma = 1 $, perciò $ P_s $
 è la somma delle probabilità delle tre combinazioni di avere $ \gamma + 1 = 2 $ smarrimenti.
-$ P_s = (0,1 \cdot 0,1) + (0,1 \cdot 0,1) + (0,1 \cdot 0,1) = 0,03 $
+\begin{tightcenter}
+	$ P_s = (0,1 \cdot 0,1) + (0,1 \cdot 0,1) + (0,1 \cdot 0,1) = 0,03 $
+\end{tightcenter}
 
 La resistenza ai furti è $ \theta = 2 $. Un attaccante deve recuperare
 due share per ottenere $ x_{11} $. Quindi
@@ -250,7 +266,7 @@ $$
 	(0,02 \cdot 0,3) + (0,02 \cdot 0,3) = 0,198
 $$
 Non ci resta che trovare gli attributi di $ x $.
-Ancora una volta
+Ancora una volta $ t = 2 $ e $ n = 2 $.
 \begin{tightcenter}
 	$ P_s = 0,03 + 0,02 = 0,05 $      \\
 	$ P_c = 0,27 \cdot 0,02 = 0,0054 $\\

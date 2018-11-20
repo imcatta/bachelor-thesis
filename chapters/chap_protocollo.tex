@@ -47,18 +47,17 @@ crittografico del messaggio $ x $, l'istante di tempo $ \tau $ e una tolleranza 
 
 \paragraph{Pubblicazione}
 Alice conserva quindi $ x $ e lo rende noto al tempo $ t^{*} $
-(con $ \tau \leq t^{*} \leq \tau + \delta $).\footnote{Il $ \delta $ serve a far si che
+(con $ \tau \leq t^{*} \leq \tau + \delta $)\footnote{Il $ \delta $ serve a far si che
 	Alice pubblichi puntualmente il messaggio. Se non ci fosse questo vincolo temporale
 	potrebbe rilasciare il messaggio anche con molto ritardo rispetto a
 	$ \tau $ ed ottenere comunque
-	la ricompensa.}
+	la ricompensa.}.
 Per farlo invia allo smart contract il messaggio $ x $,
 ed in cambio ottiene il suo \textit{prize}.
-Allo stesso tempo, Alice riottiene il \textit{pawn} che aveva versato in precedenza.
-\footnote{Ad una prima analisi può sembrare che il \textit{pawn} sia inutile,
-	ma in realtà è necessario per proteggersi da alcuni tipi di attacchi.
-	Le ragioni dettagliate verranno discusse nel capitolo \ref{chap:analisi-robustezza}.
-	TODO sistemare}
+Allo stesso tempo, Alice riottiene il \textit{pawn}
+che aveva versato in precedenza\footnote{
+	Il \textit{pawn} è necessario per evitare alcuni comportamenti sleali da parte del client.
+	La questione verrà approfondita nella sottosezione \ref{subsec:pawn}}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.3\linewidth]{images/chap_protocollo/base-pubblicazione.pdf}
@@ -231,7 +230,7 @@ Non è strettamente necessario creare un albero bilanciato.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.45\linewidth]{images/chap_protocollo/protocollo-gerarchia.pdf}
-	\caption{Esempio di un albero di distribuzione degli share}
+	\caption{Un albero di distribuzione degli share}
 \end{figure}
 
 Le scelte progettuali riguardo la struttura dell'albero di distribuzione degli share hanno un
