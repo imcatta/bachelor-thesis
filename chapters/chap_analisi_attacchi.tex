@@ -44,8 +44,6 @@ Questo numero è ovviamente pari al threshold.
 
 
 \section{Tecnica di analisi}
-TODO rivedere notazione
-
 Per prima cosa è necessario assegnare ad ogni agente tre attributi con un valore
 compreso tra 0 e 1, assumendo che tutti gli agenti siano entità ben distinte e
 che non vi siano coalizioni tra agenti.
@@ -116,6 +114,13 @@ $$ P_m =
 	\includegraphics[width=0.6\linewidth]{images/chap_analisi_robustezza/robustezza-1.pdf}
 \end{figure}
 
+Concludiamo trovando $ R_c $ e $ R_s $.
+\begin{tightcenter}
+	$ R_c = 1 - 0,07275 = 0,92725 $\\
+	$ R_s = 1 - 0,0905 - 0,0724825 = 0,8370175 $
+\end{tightcenter}
+
+
 \paragraph{Albero di distribuzione bilanciato di profondità 2}
 Immaginiamo di avere a disposizione quattro agenti. Per tre di questi
 vale
@@ -165,6 +170,12 @@ Si ha $ t = 2 $ e $ n = 2 $, anche qui il ragionamento è analogo a prima.
 	$ P_s = 0,2 + 0,12 = 0,32 $\\
 	$ P_c = 0,09 \cdot 0,006 = 0,00054 $\\
 	$ P_m = (0,012 \cdot 0,006) + (0,0019 \cdot 0,09) = 0,000243 $
+\end{tightcenter}
+
+Abbiamo quindi che
+\begin{tightcenter}
+	$ R_c = 1 - 0,32 = 0,68 $\\
+	$ R_s = 1 - 0,00054 - 0,000243 = 0,999217 $
 \end{tightcenter}
 
 \paragraph{Albero di distribuzione con ridondanza}
@@ -226,7 +237,18 @@ Abbiamo $ t = 2 $ e $ n = 2 $, il ragionamento è analogo a quello presente nell
 	$ P_c = 0,6 \cdot 0,32 = 0,192 $\\
 	$ P_m = (0,04 \cdot 0,32) + (0,025 \cdot 0,6) = 0,0278 $\\
 \end{tightcenter}
-TODO confrontare i risultati ottenuti col caso precedente
+
+Troviamo infine che
+\begin{tightcenter}
+	$ R_c = 1 - 0,012 = 0.988 $\\
+	$ R_s = 1 - 0,192 - 0,0278 = 0,7802 $
+\end{tightcenter}
+
+In questo caso siamo partiti avendo a disposizione gli stessi
+agenti del caso precedente, ma utilizzando
+un albero di distribuzione degli share differente abbiamo ottenuto risultati diversi.
+Nello specifico, abbiamo migliorato la $ R_c $ ($ 0,988 $ contro $ 0,68 $), ma
+allo stesso tempo abbiamo peggiorato la $ R_s $ ($ 0,7802 $ contro $ 0,999217 $).
 
 
 \paragraph{Albero di distribuzione sbilanciato di profondità 2}
@@ -273,9 +295,24 @@ Ancora una volta $ t = 2 $ e $ n = 2 $.
 	$ P_m = (0,198 \cdot 0,02) + (0,005 \cdot 0,27) = 0,00531 $
 \end{tightcenter}
 
+Troviamo infine che
+\begin{tightcenter}
+	$ R_c = 1 - 0,05 = 0,95 $\\
+	$ R_s = 1 - 0,0054 - 0,00531 = 0,98929 $
+\end{tightcenter}
 
+Ancora una volta siamo partiti avendo a disposizione gli stessi
+agenti dei casi precedenti. Con questa struttura di
+albero di distribuzione degli share differente abbiamo ottenuto un risultato che
+è un buon compromesso rispetto alle due soluzioni precedenti.
+$ R_c $ è $ 0,95 $ contro gli $ 0,68 $ e $ 0.988 $ precedenti;
+$ R_s $ è $ 0,98929 $ contro gli $ 0,999217 $ e $ 0,7802 $ precedenti.
 
-\subsection{Considerazioni}
+In generale, non vi è un albero di distribuzione degli share ottimo; data una certa
+situazione di agenti disponibili la progettazione dell'albero è il threshold su
+cui possiamo agire per la determinazione delle performance del sistema.
+
+\section{Considerazioni}
 Questo modello può essere usato come un comodo strumento in grado di fornire
 un'indicazione quantitativa sulla robustezza di una data implementazione.
 Si tratta però di una approssimazione,
