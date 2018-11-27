@@ -1,11 +1,32 @@
 \chapter{Applicazioni della Timed-Release Encryption}
 \label{chap:possibili-usi}
 
-In questo capitolo analizzeremo una serie di possibili 
+In questo capitolo analizzeremo una serie di possibili
 applicazioni della Timed-Release Encryption.
 
 \section{Offerte in aste a buste chiuse}
-TODO 
+Spesso per l'assegnazione di bandi pubblici si ricorre all'uso di
+offerte a buste chiuse. Il funzionamento è il seguente.
+Vengono fissati i requisiti minimi che devono essere soddisfatti
+dalle offerte, i criteri per l'attribuzione del punteggio alle offerte e una scadenza.
+A questo punto ogni partecipante presenta all'ente pubblico
+la propria offerta in forma cartacea
+all'interno di una busta sigillata, rimanendo
+completamente all'oscuro sulla presenza di eventuali altri partecipanti e sul
+contenuto delle offerte presentate. Una volta raggiunta la scadenza
+le buste vengono aperte, validate, vengono calcolati i punteggi
+e viene decretato il vincitore.
+I funzionari pubblici coinvolti hanno un ruolo chiave nel processo.
+Sono loro a garantire la segretezza e l'integrità
+delle offerte fino alla scadenza del bando.
+Inoltre devono garantire il rispetto della scadenza per la presentazione delle offerte.
+In questo processo talvolta si verificano casi di corruzione.
+
+Una possibile alternativa è l'uso della Timed-Release Encryption. Ogni partecipante
+cifra la propria offerta con la TRE, fissando come deadline la scadenza del bando.
+Raggiunta la scadenza le offerte vengono automaticamente rese pubbliche. A differenza
+del processo di cui sopra l'integrità
+e la segretezza delle offerte verrebbero garantite dalla crittografia e non dall'uomo.
 
 \section{Insider stock trades}
 Un insider, ossia una persona che può avere accesso in anticipo a informazioni
