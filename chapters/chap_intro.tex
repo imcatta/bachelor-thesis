@@ -236,26 +236,6 @@ copra l'intero sistema. Quando i quorum non si intersecano, nel sistema si vengo
 possono indipendentemente e simultaneamente raggiungere un accordo su transazioni contraddittorie,
 minando il consenso generale del sistema.
 
-% Stellar Consensus protocol algorithm [13] uses the concept of quorums and
-% quorum slices. Quorum is a set of nodes sufficient to reach agreement. A quorum slice is a subset of a quorum
-% that can convince one particular node about agreement. An individual node can appear on multiple quorum
-% slices. Stellar introduces quorum slices to allow each individual node to choose a set of nodes within its
-% slice thereby allowing open participation. These quorum slices and quorums are based on real life business
-% relationships between various entities thereby leveraging trust that already exists in business models. To reach
-% global consensus in the entire systems, quorums have to intersect. Overall consensus is reached globally from
-% decisions made by individual nodes.
-% The consensus protocol works as follows. Each node first performs initial voting on transactions, also generically 
-% considered as statements. This is the first step of the federated voting process. Each node performs its selection
-% of statements and will never vote for another statement contradicting its selection. It can however accept a
-% different statement if its quorum slice has accepted a different one. Second step is the acceptance step. A node
-% accepts a statement if it has never accepted a statement contradicting the current statement and each node in
-% its v-blocking set has accepted that statement. A v-blocking set is a set of nodes one each from a quorum slice
-% to which the current node belongs to. Quorum slices influence one another leading to quorums that agree on
-% a certain statements. This step is known as ratification when all members of a quorum agree on a statement.
-% Confirmation is the final step of the voting process and signifies system level agreement. This step ensures that
-% nodes send each other confirmation messages so that all agree upon the final value of the state in the system.
-
-
 \subsection{Round Robin}
 Il modello Round Robin è usato da alcune blockchain permissioned.
 In questo modello i nodi a turno acquisiscono il diritto di pubblicare blocchi. Il consenso
@@ -365,14 +345,13 @@ Stark afferma che il termine Smart Contract ha assunto due diversi significati:
 	      coinvolgendo l'uso di agenti software che tipicamente,
 	      ma non necessariamente, operano su un ledger condiviso. La parola contratto in questo senso
 	      indica che gli agenti software devono sottostare ad alcuni vincoli e possono prendere il controllo
-	      di alcuni asset in un ledger condiviso. Non vi è un chiaro consenso  There is no clear consensus on the
-	      definition of this use of the term “smart contract” — each definition is different in subtle
-	      ways [18, 17, 16, 3]. Stark renames these agents as smart contract code.
-	\item \textit{Smart Legal Contract}: The second focuses on how legal contracts can be expressed and executed in software.
-	      This therefore encompasses operational aspects, issues relating to how legal contracts
-	      are written and how the legal prose should be interpreted. There are several ideas and
-	      projects which focus on these aspects such as the Ricardian Contract [7], CommonAccord
-		      [4] and Legalese [13]. Stark renames these as smart legal contracts.
+	      di alcuni asset in un ledger condiviso.
+	\item \textit{Smart Legal Contract}:
+	      Il secondo significato si focalizza su come i contratti legali possono essere espressi ed eseguiti nel software.
+	      Ciò comprende quindi aspetti operativi, questioni relative a come i contratti legali
+	      sono scritti e come la prosa legale deve essere interpretata. Ci sono diverse idee e
+		  progetti incentrati su questi aspetti come il \textit{Ricardian Contract} \cite{ricardian-contract},
+		   \textit{CommonAccord} \cite{commonaccord} e \textit{Legalese} \cite{legalese}.
 \end{enumerate}
 Partendo dall'analisi di Spark, Clack et al. in \cite{Clack2016SmartCT} propongono una definizione
 di più alto livello che include entrambi i significati di cui sopra, basata sui temi
