@@ -42,7 +42,7 @@ crittografico del messaggio $ x $, l'istante di tempo $ \tau $ e una tolleranza 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.3\linewidth]{images/chap_protocollo/base-creazione.pdf}
-	\caption{Inizializzazione (versione base)}
+	\caption{Inizializzazione (versione base).}
 \end{figure}
 
 \paragraph{Pubblicazione}
@@ -61,7 +61,7 @@ che aveva versato in precedenza\footnote{
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.3\linewidth]{images/chap_protocollo/base-pubblicazione.pdf}
-	\caption{Pubblicazione del messaggio (versione base)}
+	\caption{Pubblicazione del messaggio (versione base).}
 \end{figure}
 
 \paragraph{Lettura del messaggio}
@@ -71,7 +71,7 @@ chiunque può leggerlo.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.27\linewidth]{images/chap_protocollo/base-leggi.pdf}
-	\caption{Lettura del messaggio (versione base)}
+	\caption{Lettura del messaggio (versione base).}
 \end{figure}
 
 \paragraph{Pubblicazione anticipata}
@@ -80,7 +80,7 @@ Semplicemente lo smart contract rifiuta la sua richiesta.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.3\linewidth]{images/chap_protocollo/base-anticipo.pdf}
-	\caption{Tentativo di pubblicazione anticipata (versione base)}
+	\caption{Tentativo di pubblicazione anticipata (versione base).}
 \end{figure}
 
 \paragraph{Leak}
@@ -100,7 +100,7 @@ Il riscatto del \textit{counterprize} impedisce ad Alice di ottenere il suo prem
 	\begin{minipage}{0.4\textwidth}
 		\centering
 		\includegraphics[width=.7\linewidth]{images/chap_protocollo/base-leak-2.pdf}
-		\caption{Impossibilità di riscatto del prize (versione base)}
+		\caption{Impossibilità di riscatto del prize (versione base).}
 	\end{minipage}
 \end{figure}
 
@@ -127,7 +127,7 @@ degli share, il tempo $ \tau $ e la tolleranza $ \delta $.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\linewidth]{images/chap_protocollo/avanzato-creazione.pdf}
-	\caption{Inizializzazione (Versione avanzata)}
+	\caption{Inizializzazione (Versione avanzata).}
 \end{figure}
 
 
@@ -143,12 +143,12 @@ in precedenza.
 	\begin{minipage}{0.45\textwidth}
 		\centering
 		\includegraphics[width=.7\linewidth]{images/chap_protocollo/avanzato-pubblicazione-a.pdf}
-		\caption{Pubblicazione dello share $ x_A $ (versione avanzata)}
+		\caption{Pubblicazione dello share $ x_A $ (versione avanzata).}
 	\end{minipage}\hfill
 	\begin{minipage}{0.45\textwidth}
 		\centering
 		\includegraphics[width=.7\linewidth]{images/chap_protocollo/avanzato-pubblicazione-b.pdf}
-		\caption{Pubblicazione dello share $ x_B $ (versione avanzata)}
+		\caption{Pubblicazione dello share $ x_B $ (versione avanzata).}
 	\end{minipage}
 \end{figure}
 
@@ -160,7 +160,7 @@ ricostruire il messaggio $ x $.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{images/chap_protocollo/avanzato-leggi.pdf}
-	\caption{Lettura del messaggio (versione avanzata)}
+	\caption{Lettura del messaggio (versione avanzata).}
 \end{figure}
 
 \paragraph{Leak}
@@ -174,19 +174,19 @@ di Bob.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.4\linewidth]{images/chap_protocollo/avanzato-leak-1.pdf}
-	\caption{Riscatto del counterprize (versione avanzata)}
+	\caption{Riscatto del counterprize (versione avanzata).}
 \end{figure}
 
 \begin{figure}[H]
 	\begin{minipage}{0.45\textwidth}
 		\centering
 		\includegraphics[width=.8\linewidth]{images/chap_protocollo/avanzato-leak-2-a.pdf}
-		\caption{Riscatto di $ \text{prize}_A $ (versione avanzata)}
+		\caption{Riscatto di $ \text{prize}_A $ (versione avanzata).}
 	\end{minipage}\hfill
 	\begin{minipage}{0.45\textwidth}
 		\centering
 		\includegraphics[width=.71\linewidth]{images/chap_protocollo/avanzato-leak-2-b.pdf}
-		\caption{Impossibilità di riscatto di $ \text{prize}_B $ (versione avanzata)}
+		\caption{Impossibilità di riscatto di $ \text{prize}_B $ (versione avanzata).}
 	\end{minipage}
 \end{figure}
 
@@ -230,7 +230,7 @@ Non è strettamente necessario creare un albero bilanciato.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.45\linewidth]{images/chap_protocollo/protocollo-gerarchia.pdf}
-	\caption{Un albero di distribuzione degli share}
+	\caption{Un albero di distribuzione degli share.}
 \end{figure}
 
 Le scelte progettuali riguardo la struttura dell'albero di distribuzione degli share hanno un
@@ -256,3 +256,13 @@ In questo modo l'agente Alice può eseguire delle pubblicazioni intermedie e ric
 ricompense; allo stesso tempo il messaggio rimarrebbe segreto fino a quando non viene pubblicato
 l'ultimo share, ossia fino alla deadline $ \tau $.
 Questa metodologia può essere applicata analogamente anche alla versione avanzata.
+
+\subsection{Bonus per pubblicazione veloce dello share}
+Per come è progettato il protocollo, gli agenti possono pubblicare il loro share in un qualsiasi istante
+$ t^* $ compreso tra 
+$ \tau $ e $ \tau + \delta $ per ricevere il \textit{prize}. In alcuni casi si potrebbe desiderare avere  un buon grado di confidenza sul fatto che la pubblicazione del messaggio avvenga in un istante $ t^* $ vicino alla deadline $ \tau $ e, allo stesso tempo, avere un $ \delta $ non troppo piccolo per permettere la pubblicazione del messaggio anche nel caso di agenti non puntuali. Per ottenere ciò, si possono fornire degli bonus agli agenti se rilasciano lo share ad un tempo vicino alla
+deadline $ \tau $. Si può procedere in due modi.
+\paragraph{Bonus a slot temporali} Questa modalità consiste nel suddividere l'intervallo di tempo compreso tra $ \tau $ e $ \tau + \delta $ in $ N $ slot. Per ognuno di questi slot si assegna un bonus. Più lo slot
+è vicino alla deadline $ \tau $, più il bonus è elevato. Sulla base dello slot temporale in cui viene effettuato il rilascio dello share l'agente, oltre che al \textit{prize}, riceve anche il bonus corrispondente.
+\paragraph{Competizione per i bonus} In questa modalità gli agenti competono per ottenere i bonus, in modo da ottenere pubblicazioni del messaggio più puntuali. A priori si stabilisce un bonus per il primo agente ad effettuare la pubblicazione dello share, un bonus uguale o inferiore per il secondo agente e così via.
+Non è necessario che il numero dei bonus sia pari al numero degli agenti.

@@ -13,9 +13,9 @@ con altri destinatari o con terze parti fidate.
 
 Questo tipo di crittografia è molto difficile da ottenere con un modelli
 di computazione standard (come la macchina di Turing), perché questi non mettono
-a disposizione un "orologio del mondo reale" affidabile.
+a disposizione un ``orologio del mondo reale'' affidabile.
 Nel capitolo \ref{chap:protocollo} proponiamo una soluzione che si appoggia sui DLT,
-i quali mettono a disposizione
+i quali forniscono
 le buone proprietà di cui necessita la Timed-Release Encryption.
 
 Il problema dell'\textit{invio di un messaggio nel futuro} è stato proposto per la prima volta
@@ -75,11 +75,11 @@ o peggio ancora potrebbe non completare la risoluzione del problema.
 Questo approccio si basa su uno o più \textit{agenti fidati} che rilasciano
 delle informazioni una volta che si è raggiunta la deadline. Questo può avvenire in
 maniera interattiva o non interattiva. Alcuni riferimenti
-\cite{time-capsule-signature}, \cite{10.1007/11602897_25}, \cite{10.1007/3-540-48910-X_6},
-\cite{10.1007/11889663_17}, \cite{10.1007/978-3-642-15317-4_1}, \cite{10.1145/1330332.1330336}.
+\cite{time-capsule-signature, 10.1007/11602897_25, 10.1007/3-540-48910-X_6,
+	10.1007/11889663_17, 10.1007/978-3-642-15317-4_1, 10.1145/1330332.1330336}.
 
 I vantaggi di questa strategia sono che non è richiesto che venga effettuata una computazione non-stop,
-è possibile di rispettare con precisione la deadline e non è richiesta una stima precisa
+il fatto che è possibile di rispettare con precisione la deadline e il fatto che non è richiesta una stima precisa
 della capacità di calcolo dei soggetti coinvolti. Tutto ciò ha un prezzo: gli agenti devono
 essere affidabili e devono essere attivi allo scoccare della deadline.
 

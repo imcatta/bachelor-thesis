@@ -2,7 +2,7 @@
 \label{chap:dimensionamento}
 
 In questo capitolo vedremo quali sono i parametri del protocollo
-e analizzaremo alcuni criteri per il dimensionamento.
+e analizzeremo alcuni criteri per il dimensionamento.
 
 \section{I Parametri}
 
@@ -87,9 +87,10 @@ richiesto. Il costo non è fissato a priori,
 perché dipende da quanti \textit{pawn} verranno
 restituiti.
 $$ c = \sum_{i=1}^{N} (\textit{prize}_i + \textit{fee}_i) + \sum \textit{pawn}_j $$
-\begin{flushright}
+\begin{center}
 	dove $ \sum \textit{pawn}_j $ è la somma dei \textit{pawn} restituiti.
-\end{flushright}
+\end{center}
+
 Nel caso migliore, ossia quando tutti i \textit{pawn} ritornano al client diventa
 $$ c = \sum_{i=1}^{N} (prize_i + fee_i) $$
 Mentre nel caso peggiore, ossia quando nessun \textit{pawn}

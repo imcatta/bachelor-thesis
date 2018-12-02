@@ -93,7 +93,7 @@ gli attributi di Dave.
 Ipotizziamo che Carol usi la versione avanzata del protocollo
 proposto con numero di share $ n = 3 $ e threshold $ t = 2 $.
 
-Procediamo. Abbiamo che la resistenza agli smarimenti è $ \gamma = 1 $, quindi per calcolare $ P_s $ del nodo
+Abbiamo che la resistenza agli smarrimenti è $ \gamma = 1 $, quindi per calcolare $ P_s $ del nodo
 radice dobbiamo trovare la probabilità che vengano smarriti almeno $ \gamma + 1 $ share.
 $$ P_s = P_s^A \cdot P_s^B + P_s^A \cdot P_s^C + P_s^B \cdot P_s^C = 0,07275 $$
 
@@ -101,7 +101,7 @@ La resistenza ai furti è $ \theta = 1 $. Analogamente a prima dobbiamo calcolar
 almeno $ \theta + 1 $ share vengano sottratti agli agenti.
 $$ P_c = P_c^A \cdot P_c^B + P_c^A \cdot P_c^C + P_c^B \cdot P_c^C = 0,0905 $$
 
-Ci resta da trovare $ P_m $. Per ogni agente dobbiamo trovare la probabilità che sia malintenzionato e che riesca
+Ci resta da trovare $ P_m $. Per ogni agente dobbiamo calcolare la probabilità che sia malintenzionato e che riesca
 a recuperare gli altri $ n - 1 $ share necessari per ottenere il segreto.
 $$ P_m =
 	P_m^A \cdot P_c^B + P_m^A \cdot P_c^C +
@@ -143,7 +143,7 @@ La situazione è rappresentata in figura \ref{fig:robustezza-2-1}.
 \end{figure}
 
 Calcoliamo gli attributi di $ x_{11} $. Abbiamo $ t = 2 $ e $ n = 2 $.
-La resistenza agli smarimenti è $ \gamma = 0 $,
+La resistenza agli smarrimenti è $ \gamma = 0 $,
 di conseguenza la $ P_s $ di $ x_{11} $ è data dalla somma delle $ P_s $ dei nodi figli.
 $$ P_s = 0,1 + 0,1 = 0,2 $$
 
@@ -151,7 +151,7 @@ Per poter ottenere lo share $ x_{11} $ un attaccante esterno deve riuscire ad ot
 sia $ x_{21} $ sia $ x_{22} $. Pertanto $ P_c $ è dato dal prodotto dei $ P_c $ dei nodi figli.
 $$ P_c = 0,3 \cdot 0,3 = 0,09 $$
 
-Se invece è uno degli agenti a voler ottenere $ x_{11} $  è sufficiente che ottenga
+Se invece è uno degli agenti a voler ottenere $ x_{11} $ è sufficiente che ottenga
 lo share dell'altro agente. Quindi $ P_m $ è data dalla somma delle probabilità
 che si abbia sia un agente scorretto sia un agente corrotto.
 $$ P_m = (0,02 \cdot 0,3) + (0,02 \cdot 0,3) = 0,0012 $$
@@ -198,7 +198,7 @@ La situazione è rappresentata in figura \ref{fig:robustezza-2-2}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\linewidth]{images/chap_analisi_robustezza/robustezza-2-2.pdf}
-	\caption{Albero di distribuzione con ridondanza}
+	\caption{Albero di distribuzione con ridondanza.}
 	\label{fig:robustezza-2-2}
 \end{figure}
 
@@ -211,7 +211,7 @@ $$ P_s = 0,1 \cdot 0,1 = 0,01 $$
 
 
 Per poter ottenere lo share $ x_{11} $ un attaccante esterno deve riuscire ad ottenere
-o $ x_{21} $ o $ x_{22} $. Pertando $ P_c $ è dato dalla somma dei $ P_c $ dei nodi figli.
+o $ x_{21} $ o $ x_{22} $. Pertanto $ P_c $ è dato dalla somma dei $ P_c $ dei nodi figli.
 \begin{tightcenter}
 	$ P_c = 0,3 + 0,3 = 0,6 $
 \end{tightcenter}
